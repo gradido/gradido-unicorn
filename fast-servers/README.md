@@ -1,6 +1,6 @@
 # fast-servers
 
-The C implementation of the gradido2 servers. One binary, three roles.
+The C implementation of the gradido-unicorn servers. One binary, three roles.
 
 Read [AGENTS.md](AGENTS.md) and [Architecture.md](Architecture.md) before changing anything in
 here; this file is only how to build and run it.
@@ -8,7 +8,7 @@ here; this file is only how to build and run it.
 ## Build
 
 ```sh
-zig build                      # the binary, in zig-out/bin/gradido2-fast
+zig build                      # the binary, in zig-out/bin/gradido-unicorn-fast
 zig build run -- --federation  # build and run, roles after --
 ```
 
@@ -27,15 +27,15 @@ the C binary. So a developer needs bun and nothing else — and the version come
 instead of from whatever a machine happens to have. A system `zig` still works and is still the
 shortest way to work in here.
 
-The binary is named after the product rather than after this directory: `gradido2-fast` is the
-C implementation of the same server `gradido2` is, and `--version` says which one answered.
+The binary is named after the product rather than after this directory: `gradido-unicorn-fast` is the
+C implementation of the same server `gradido-unicorn` is, and `--version` says which one answered.
 `BUNDLE_C=1 bun bundle` in the repository root builds it into `build/` beside the other one —
 see the root [README.md](../README.md), including why having both there does not mean running
 both.
 
 `build.zig` is the master build. It fetches and compiles everything it needs, so nothing has to
 be installed for it beyond the Zig toolchain — which is itself downloaded, see above. That holds
-without an exception: the TLS library, zlib and both database drivers included. `ldd zig-out/bin/gradido2-fast` names `libm` and `libc`
+without an exception: the TLS library, zlib and both database drivers included. `ldd zig-out/bin/gradido-unicorn-fast` names `libm` and `libc`
 and nothing else.
 
 **One thing is not compiled here: the pages.** A Gradido server serves the frontend out of its
@@ -66,7 +66,7 @@ Options, all with `-D`:
 
 `-Doptimize` is zig's own and is Debug unless it is given, which is right for developing and
 wrong for shipping: `bun bundle` passes `ReleaseFast` unless `BUNDLE_C_OPTIMIZE` says `safe` or
-`small`. `gradido2-fast --version` reports which mode it was built in, so a binary on a server
+`small`. `gradido-unicorn-fast --version` reports which mode it was built in, so a binary on a server
 can be asked.
 
 AddressSanitizer is not in that list: zig does not ship the asan runtime, so it comes from the

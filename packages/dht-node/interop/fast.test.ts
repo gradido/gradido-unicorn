@@ -9,15 +9,15 @@ import { community, eventually, recordingLogger } from '../src/testNodes'
 import { providerKey, RPC_PROTOCOL } from '../src/wire'
 
 /**
- * The reference node against the fast path's: `gradido2-fast`, the binary as it ships. Both ways
+ * The reference node against the fast path's: `gradido-unicorn-fast`, the binary as it ships. Both ways
  * round -- the fast node joins through a peer.bootstrap the TypeScript node answers, and a
  * TypeScript node joins through the one a set-up fast instance serves beside its node -- and each
  * then finds the other's community by its key. Run by `bun run test:interop` at the root, which
- * builds the binary first; GRADIDO2_FAST names another one.
+ * builds the binary first; GRADIDO_UNICORN_FAST names another one.
  */
 
 const binary = resolve(
-  process.env.GRADIDO2_FAST ?? join(import.meta.dir, '../../../fast-servers/zig-out/bin/gradido2-fast'),
+  process.env.GRADIDO_UNICORN_FAST ?? join(import.meta.dir, '../../../fast-servers/zig-out/bin/gradido-unicorn-fast'),
 )
 const topic = 'interop-test'
 
@@ -77,7 +77,7 @@ beforeAll(async () => {
   const c = await community(0xe2, 0x22)
   cGroup = (await loadIdentity(c.config)).group
   /* An empty directory, so that no .env of a checkout configures the binary behind the test. */
-  workdir = mkdtempSync(join(tmpdir(), 'gradido2-interop-'))
+  workdir = mkdtempSync(join(tmpdir(), 'gradido-unicorn-interop-'))
   fast = Bun.spawn([binary, '--dht-node'], {
     cwd: workdir,
     env: {
@@ -195,7 +195,7 @@ describe('a set-up fast instance', () => {
   }, 20_000)
 
   test('answers peer.bootstrap from the node beside it, and a reference node joins through it', async () => {
-    dir = mkdtempSync(join(tmpdir(), 'gradido2-interop-setup-'))
+    dir = mkdtempSync(join(tmpdir(), 'gradido-unicorn-interop-setup-'))
     const env = { PATH: process.env.PATH ?? '', HOME: process.env.HOME ?? '', TERM: 'xterm' }
     const setup = await drive([binary, 'setup'], {
       cwd: dir,

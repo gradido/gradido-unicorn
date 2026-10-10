@@ -4,7 +4,7 @@
   "name": "role_rights",
   "description": "One row per right a created role grants or takes away, relative to the default role it inherits from. Rights are stored as strings here and used as a uint64 bitset at runtime; the string and its bit are declared in ../rights.json.",
   "source": null,
-  "origin": "gradido2",
+  "origin": "gradido-unicorn",
   "columns": [
     {
       "name": "id",

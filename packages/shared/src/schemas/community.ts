@@ -43,7 +43,7 @@ export const communityDescriptionSchema = v.pipe(
  *
  * It is what other communities reach it at, so it is not a display value: a relative path
  * or a bare hostname is not something a federation partner can call. Legacy appends
- * `/api/` to it when it writes the row; gradido2 stores what was given and lets whoever
+ * `/api/` to it when it writes the row; gradido-unicorn stores what was given and lets whoever
  * calls decide the path, because the api version is part of that path and it changes.
  */
 export const communityUrlSchema = v.pipe(

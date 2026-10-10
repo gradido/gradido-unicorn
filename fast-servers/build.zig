@@ -1112,10 +1112,10 @@ pub fn build(b: *std.Build) void {
 
     const exe = b.addExecutable(.{
         // The product's name, not the directory's: a binary somebody copies onto a server is
-        // called what the thing is. `gradido2` is the TypeScript path's, and the suffix says
+        // called what the thing is. `gradido-unicorn` is the TypeScript path's, and the suffix says
         // which of the two implementations this one is -- ../AGENTS.md, *C is the fast
         // implementation*.
-        .name = "gradido2-fast",
+        .name = "gradido-unicorn-fast",
         .root_module = b.createModule(.{
             .target = target,
             .optimize = optimize,
@@ -1584,7 +1584,7 @@ pub fn build(b: *std.Build) void {
     const run_cmd = b.addRunArtifact(exe);
     run_cmd.step.dependOn(b.getInstallStep());
     if (b.args) |args| run_cmd.addArgs(args);
-    const run_step = b.step("run", "Run gradido2-fast; pass roles after --, e.g. -- --backend --dht-node");
+    const run_step = b.step("run", "Run gradido-unicorn-fast; pass roles after --, e.g. -- --backend --dht-node");
     run_step.dependOn(&run_cmd.step);
 
     const cdb_slice = cdb_targets.toOwnedSlice(b.allocator) catch @panic("OOM");

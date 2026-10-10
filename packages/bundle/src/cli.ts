@@ -37,7 +37,7 @@ const isService = (value: string | undefined): value is Service =>
  * service may be left out, and then it is the backend.
  *
  * Several services may be named, `gradido backend dht-node`, and then they share the process,
- * as `gradido2-fast --backend --dht-node` does on the fast path: the backend answers
+ * as `gradido-unicorn-fast --backend --dht-node` does on the fast path: the backend answers
  * `peer.bootstrap` from the node beside it. Several services only serve -- a command such as
  * `setup` belongs to one service and is refused after two.
  */
@@ -127,10 +127,10 @@ function refuse(message: string): never {
 }
 
 function usage(): string {
-  return `gradido2 — the Gradido server: every service, and the pages, in one file
+  return `gradido-unicorn — the Gradido server: every service, and the pages, in one file
 
-usage:  gradido2 [service...] [command]
-        gradido2 backend dht-node     both, in one process; a command takes one service
+usage:  gradido-unicorn [service...] [command]
+        gradido-unicorn backend dht-node     both, in one process; a command takes one service
 
 services
   backend       the HTTP API, and the frontends this binary carries (the default)

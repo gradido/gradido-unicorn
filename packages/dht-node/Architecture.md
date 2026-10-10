@@ -50,7 +50,7 @@ contracts          const.json         DHT_KAD_PROTOCOL, DHT_ANNOUNCE_TOPIC, DHT_
                                       CIDv1(raw, sha2-256(community key)), the topic name
                                       "/lp2p/topic/1/" + key in lowercase hex
                    still missing: the RPC operation names
-interop test       interop/fast.test.ts against gradido2-fast: bootstrap both ways, discovery by
+interop test       interop/fast.test.ts against gradido-unicorn-fast: bootstrap both ways, discovery by
                    community key, a call dropped at once. Still to come: fail over, relay,
                    announce
 ```
@@ -96,8 +96,8 @@ instead of failing over.
 The node does what the C role does and no more: it joins under the identity `setup` wrote, provides
 under its community key, reports announcements, drops a call naming an operation it does not take
 and refuses the rest, because handing a call to a federation role is built on neither path yet — and
-no operation is taken yet either. `gradido2 dht-node` starts it from the single binary, and
-`gradido2 backend dht-node` starts it beside the backend, which then answers `peer.bootstrap` from it
+no operation is taken yet either. `gradido-unicorn dht-node` starts it from the single binary, and
+`gradido-unicorn backend dht-node` starts it beside the backend, which then answers `peer.bootstrap` from it
 through `registerPeerNetwork` in `@gradido/service-core`. `scripts/bundle.ts` builds with
 `scripts/quicBinding.ts`, without which the QUIC binding would be left out of the executable.
 

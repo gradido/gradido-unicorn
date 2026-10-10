@@ -30,7 +30,7 @@
       "name": "api_version",
       "type": "varchar(255)",
       "nullable": false,
-      "note": "Legacy declares 255 here and 10 on federated_communities.api_version for the same values. gradido2 should use one width; 10 is the one that fits."
+      "note": "Legacy declares 255 here and 10 on federated_communities.api_version for the same values. gradido-unicorn should use one width; 10 is the one that fits."
     },
     {
       "name": "status",

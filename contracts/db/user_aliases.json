@@ -44,7 +44,7 @@
   "notes": [
     "Only origin = 'chosen' counts against ALIAS_QUOTA_PER_WINDOW. Keeping the name the system built is an answer, not a pick, and costs nothing. An implementation that counts rows instead of counting chosen rows charges a member a quarter of their yearly quota for a name nobody chose.",
     "'chosen' and 'adopted' mean the member has answered the question the window at first login asks; 'assigned' and 'migrated' mean they have not. That is the only thing the first-login window may test.",
-    "'migrated' is an 'assigned' that migration 0116 handed out. It exists so that migration's rollback takes back its own work and leaves alone the names that were already there. gradido2 has no such rollback and may fold it into 'assigned' — but only after no database still carries the value.",
+    "'migrated' is an 'assigned' that migration 0116 handed out. It exists so that migration's rollback takes back its own work and leaves alone the names that were already there. gradido-unicorn has no such rollback and may fold it into 'assigned' — but only after no database still carries the value.",
     "A row is never deleted. Leaving a name writes nothing; taking it back only moves users.alias. Deleting here would let somebody else claim a name a member still owns.",
     "Timestamps are UTC milliseconds; see types/Timestamp.json. This table uses datetime(3)."
   ]

@@ -99,7 +99,7 @@
   "notes": [
     "This table mirrors transactions column for column, minus the append-only rule. That is deliberate: settling means moving the row's content into transactions unchanged, so any column that exists on one and not the other is a settle-time conversion waiting to go wrong.",
     "Rows are short-lived. Both communities delete or settle them; a row that stays PENDING past FEDERATION_AUTHENTICATION_TIMEOUT_MS is a stuck transfer, and both implementations must decide it the same way rather than leaving it to whoever notices.",
-    "Unlike transactions, this table has no index at all in legacy — not even on user_id — although the balance calculation reads it per user. Whatever gradido2 reads it by belongs in this file.",
+    "Unlike transactions, this table has no index at all in legacy — not even on user_id — although the balance calculation reads it per user. Whatever gradido-unicorn reads it by belongs in this file.",
     "The denormalized name and uuid columns raise the same footprint question transactions.json records as open. Answer it once, for both.",
     "Timestamps are UTC milliseconds; see types/Timestamp.json. This table uses datetime(3) throughout."
   ]

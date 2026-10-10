@@ -5,7 +5,7 @@
   "representation": "string",
   "description": "The domains rights are grouped into. One domain is one uint64 bitset at runtime, which is why a right is only identified by domain and name together. The rights of each domain are in ../rights.json; this file is the closed set of domain names that db/role_rights.json stores.",
   "source": null,
-  "origin": "gradido2",
+  "origin": "gradido-unicorn",
   "unknownValuePolicy": "ignore_and_warn",
   "values": [
     { "name": "USER", "value": "user" },

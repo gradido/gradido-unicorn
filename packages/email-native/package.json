@@ -4,7 +4,7 @@
   "private": true,
   "license": "Apache-2.0",
   "author": "Gradido Academy - https://www.gradido.net",
-  "repository": "git@github.com:gradido/gradido2.git",
+  "repository": "git@github.com:gradido/gradido-unicorn.git",
   "main": "./index.cjs",
   "types": "./index.d.ts",
   "exports": {

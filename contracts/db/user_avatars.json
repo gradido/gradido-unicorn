@@ -43,7 +43,7 @@
     "avatar_full is own-view only. That is an access rule, so it is contracted rather than left to each caller: a query that serves anyone other than the owner must select avatar_small, and a response builder must never fall back to the full rendition when the small one is missing.",
     "Renditions are produced by the browser. The server never decodes an image — which keeps an image library and its CPU out of the request path, and a decoder out of C. See Architecture.md, Media storage.",
     "The accepted content types are not fixed here. Legacy restricted uploads to JPEG; that restriction is deliberately not carried over and mime_type is therefore an open set until the media decision is settled.",
-    "Storing the bytes in the database is legacy's answer, not necessarily gradido2's. Architecture.md, Media storage, expects the column to become an object key. When it does, this file changes shape and the access rule above stays exactly as it is.",
+    "Storing the bytes in the database is legacy's answer, not necessarily gradido-unicorn's. Architecture.md, Media storage, expects the column to become an object key. When it does, this file changes shape and the access rule above stays exactly as it is.",
     "Timestamps are UTC milliseconds; see types/Timestamp.json."
   ]
 }

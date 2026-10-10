@@ -6,7 +6,7 @@
   "description": "Assigning roles and narrowing how far one assignment reaches. Replaces user.setRole and the two moderator-scope routes, both of which address an account and therefore cannot say which of its assignments they mean.",
   "mount": "/",
   "source": [],
-  "origin": "gradido2",
+  "origin": "gradido-unicorn",
   "models": {
     "RoleAssignment": {
       "description": "One row of user_roles together with its scope rows. The mutations return the account's full list rather than what they changed, so a caller never has to reconstruct the new state.",

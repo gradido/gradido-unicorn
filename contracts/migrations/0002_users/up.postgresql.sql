@@ -4,7 +4,7 @@
 -- logged into later. The rest arrive with the feature that reads them — about_me, gender,
 -- salutation (profile editing), avatar_id (media storage), gms_* and humhub_* (those
 -- integrations), location (open in the contract), password (legacy's shorthash, which
--- gradido2 never writes). user_contacts is the whole contracted table.
+-- gradido-unicorn never writes). user_contacts is the whole contracted table.
 --
 -- community_id is a row id and stays one. Legacy joins communities by uuid; carrying 16
 -- bytes of key in every member row, every index entry and every join names a set with a

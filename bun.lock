@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "gradido2",
+      "name": "gradido-unicorn",
       "devDependencies": {
         "@biomejs/biome": "2.4.16",
         "c-cpp-zig-build": "0.2.0",

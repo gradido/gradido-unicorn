@@ -1,6 +1,6 @@
 /*
  * The environment, read once at startup. Defaults follow legacy's variable names and ports
- * (stage5.env), so an operator moving a community from legacy to gradido2 does not have to
+ * (stage5.env), so an operator moving a community from legacy to gradido-unicorn does not have to
  * relearn them.
  */
 #include "service_core/config.h"

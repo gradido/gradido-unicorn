@@ -1,17 +1,17 @@
 /*
  * One binary, three roles, and one command that is not a role.
  *
- * `gradido2-fast` with no argument is the backend, which is the common case and therefore the
+ * `gradido-unicorn-fast` with no argument is the backend, which is the common case and therefore the
  * default. Each of --backend, --federation and --dht-node selects a role, and several of them
  * select several: they run in one process, on one thread each, sharing one backend-core and one
  * log stream. That is what a community server on a small machine wants, and splitting them
  * across processes on a large one needs no code change -- it is three invocations.
  *
- *   gradido2-fast                          the backend
- *   gradido2-fast --federation             federation only
- *   gradido2-fast --backend --dht-node     both, in one process
- *   gradido2-fast setup                    say who this community is, then stop
- *   gradido2-fast migrate-down             take the database down one migration, then stop
+ *   gradido-unicorn-fast                          the backend
+ *   gradido-unicorn-fast --federation             federation only
+ *   gradido-unicorn-fast --backend --dht-node     both, in one process
+ *   gradido-unicorn-fast setup                    say who this community is, then stop
+ *   gradido-unicorn-fast migrate-down             take the database down one migration, then stop
  *
  * The last two are commands rather than roles and serve nothing, for two different reasons.
  *
@@ -172,9 +172,9 @@ static void print_usage(FILE *out)
 {
     int i;
 
-    fprintf(out, "gradido2-fast %s -- the C implementation of the gradido2 servers\n\n",
+    fprintf(out, "gradido-unicorn-fast %s -- the C implementation of the gradido-unicorn servers\n\n",
             FS_VERSION);
-    fprintf(out, "usage: gradido2-fast [role...]\n\n");
+    fprintf(out, "usage: gradido-unicorn-fast [role...]\n\n");
     fprintf(out, "roles (several may be combined; none means --backend):\n");
     for (i = 0; i < FS_ROLE_COUNT; ++i)
         fprintf(out, "  %-14s %s\n", kRoles[i].flag, kRoles[i].summary);
@@ -209,7 +209,7 @@ static void print_usage(FILE *out)
 
 static void print_version(void)
 {
-    printf("gradido2-fast %s\n", FS_VERSION);
+    printf("gradido-unicorn-fast %s\n", FS_VERSION);
     printf("http backend: %s\n", sc_http_backend_name());
     /* Which of the release modes this is. ReleaseFast is what a bundle ships by default;
      * ReleaseSafe keeps the checks that trap on undefined behaviour, and a Debug binary on a
@@ -255,7 +255,7 @@ int main(int argc, char **argv)
             if (strcmp(arg, kCommands[r].name) == 0) {
                 if (command != NULL && command != &kCommands[r]) {
                     fprintf(stderr,
-                            "gradido2-fast: %s and %s are both commands; the process "
+                            "gradido-unicorn-fast: %s and %s are both commands; the process "
                             "does one thing or the other\n\n",
                             command->name, kCommands[r].name);
                     print_usage(stderr);
@@ -277,14 +277,14 @@ int main(int argc, char **argv)
             }
         }
         if (!matched) {
-            fprintf(stderr, "gradido2-fast: unknown argument '%s'\n\n", arg);
+            fprintf(stderr, "gradido-unicorn-fast: unknown argument '%s'\n\n", arg);
             print_usage(stderr);
             return 2;
         }
     }
     if (command != NULL && any_selected) {
         fprintf(stderr,
-                "gradido2-fast: %s is a command, not a role; it serves nothing and "
+                "gradido-unicorn-fast: %s is a command, not a role; it serves nothing and "
                 "cannot be combined with one\n\n",
                 command->name);
         print_usage(stderr);
@@ -363,7 +363,7 @@ int main(int argc, char **argv)
      */
     if (command == NULL) {
         sc_config_log(&cfg);
-        sc_log_info(SC_CAT_STARTUP, "process.start", "gradido2-fast %s, http backend %s",
+        sc_log_info(SC_CAT_STARTUP, "process.start", "gradido-unicorn-fast %s, http backend %s",
                     FS_VERSION, sc_http_backend_name());
     }
 

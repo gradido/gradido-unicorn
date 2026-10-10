@@ -206,13 +206,13 @@ Code ranges, so two domains never collide:
 5000–5999  federation
 ```
 
-Legacy had no numeric codes — it threw classes. The codes here are assigned by gradido2 and
+Legacy had no numeric codes — it threw classes. The codes here are assigned by gradido-unicorn and
 are new. That is exactly why they must never be renumbered afterwards.
 
 ### db/&lt;table&gt;.json — one file per table
 
-Describes the **target** schema for gradido2 (PostgreSQL/SQLite), informed by legacy
-(MariaDB). It is not a copy of the legacy DDL: legacy types that gradido2 will not keep are
+Describes the **target** schema for gradido-unicorn (PostgreSQL/SQLite), informed by legacy
+(MariaDB). It is not a copy of the legacy DDL: legacy types that gradido-unicorn will not keep are
 marked `"open": "..."` rather than transcribed.
 
 Indexes are part of the contract, not an optimization detail. The legacy entities did not
@@ -240,7 +240,7 @@ prefix removes the whole question instead of answering it once per collision.
 
 Legacy's own spelling is not preserved here: it uses `idx_`, `uniq_`, `_unique`, `_key`,
 `_idx` and bare column names (`role_id`, `name`, `alias`) across different tables, and no
-subset of that survives the rule. These names have never existed in a gradido2 database, so
+subset of that survives the rule. These names have never existed in a gradido-unicorn database, so
 renaming them costs nothing; once one has, *Names are stable forever* applies to them like
 everything else here.
 
@@ -301,8 +301,8 @@ the full route set of the reference implementation, not of whichever path is dep
 
 `legacy` on each route points back at the resolver, the operation and the field it was
 collected from. That block is provenance and follows working rule 6 — a lead, not an
-authority. A route gradido2 invents rather than inherits carries `"legacy": null` and the file
-carries `"origin": "gradido2"` — `peer.bootstrap` is the first. Such a route has no legacy
+authority. A route gradido-unicorn invents rather than inherits carries `"legacy": null` and the file
+carries `"origin": "gradido-unicorn"` — `peer.bootstrap` is the first. Such a route has no legacy
 behavior to be faithful to, so its request and response are contracted in full instead of
 being left open.
 
@@ -456,10 +456,10 @@ regenerating is caught rather than believed.
 | Area | State |
 |---|---|
 | `const.json` | from legacy `shared/src/const`. Values exported by `shared-native` are deliberately absent, see working rule 5 |
-| `types/` | 20 enums — 18 from legacy `shared`, `database` and the backend, plus `RightDomain` and `ScopeDimension`, which gradido2 invents — and the `Timestamp` and `PasswordHash` conventions |
+| `types/` | 20 enums — 18 from legacy `shared`, `database` and the backend, plus `RightDomain` and `ScopeDimension`, which gradido-unicorn invents — and the `Timestamp` and `PasswordHash` conventions |
 | `errors/` | database, domain and mutation errors; codes newly assigned |
-| `db/` | **28 tables — every one legacy has except `user_creation_groups`**, which could never hold more than one row and becomes the member setting `main_creation_group` — plus `settings`, `user_settings`, `roles`, `role_rights` and `user_role_scopes`, which gradido2 invents and legacy has no counterpart for. Column types, defaults, keys and indexes are decided; what is not is collected as `open` on the column or on the table |
-| `settings.json` | **28 runtime keys** — 21 instance settings from legacy's config, 4 that gradido2 invents for mirroring (`dht.mirror_*`), and in `user_settings.json` 3 member settings: 2 leaving `db/users.json` and `main_creation_group`, which replaces a table. Types, defaults and bounds are decided; the three publish-name enums are not |
+| `db/` | **28 tables — every one legacy has except `user_creation_groups`**, which could never hold more than one row and becomes the member setting `main_creation_group` — plus `settings`, `user_settings`, `roles`, `role_rights` and `user_role_scopes`, which gradido-unicorn invents and legacy has no counterpart for. Column types, defaults, keys and indexes are decided; what is not is collected as `open` on the column or on the table |
+| `settings.json` | **28 runtime keys** — 21 instance settings from legacy's config, 4 that gradido-unicorn invents for mirroring (`dht.mirror_*`), and in `user_settings.json` 3 member settings: 2 leaving `db/users.json` and `main_creation_group`, which replaces a table. Types, defaults and bounds are decided; the three publish-name enums are not |
 | `rights.json` | **79 rights in 10 domains**, each with its bit, plus the 6 default roles and their sets, the dimensions each domain exposes and the one evaluation rule both implementations share. Read off the `rights` and `roles` arrays of the routes; one grant and the role-name spelling are `open` |
 | `logging.json` | envelope, levels, 11 categories, 13 seed events, redaction |
 | `server/` | **139 routes** — 134 collected from legacy (121 backend, 13 federation), plus `peer.bootstrap` and the four in `backend/role.json`, which legacy has no counterpart for. Three legacy routes are marked `deprecated`, superseded by those four. Names, paths, methods, rights and roles are decided; request fields are filled in from the legacy arg classes, response shapes are not, except on `peer.bootstrap` which is new and therefore fully contracted |

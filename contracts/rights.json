@@ -3,7 +3,7 @@
   "kind": "rights",
   "name": "rights",
   "description": "Every right both implementations know, grouped into domains, each with the bit it occupies in its domain's uint64 mask, and the default roles that hold it. This is the registry db/role_rights.json stores strings out of and the rights arrays in server/** name.",
-  "origin": "gradido2",
+  "origin": "gradido-unicorn",
   "maxRightsPerDomain": "64",
   "unknownValuePolicy": "ignore_and_warn",
   "defaultRoles": [

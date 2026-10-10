@@ -3,7 +3,7 @@
  * packages/backend/src/setup/askForSetup.ts is the reference this is held to.
  *
  * Legacy reads COMMUNITY_NAME and COMMUNITY_DESCRIPTION out of the environment at every start.
- * gradido2 asks once and writes a row, because these are not settings -- they are the identity
+ * gradido-unicorn asks once and writes a row, because these are not settings -- they are the identity
  * of a community, written once and then referred to. An environment variable that has silently
  * drifted from the row it created is a confusion that does not need to exist, and the key pair
  * that goes with the row could never have come from an env file anyway.

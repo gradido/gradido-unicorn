@@ -13,7 +13,7 @@ import { drive } from '../../../scripts/pty'
  */
 
 const ROOT = resolve(import.meta.dir, '../../..')
-const FAST = resolve(process.env.GRADIDO2_FAST ?? join(ROOT, 'fast-servers/zig-out/bin/gradido2-fast'))
+const FAST = resolve(process.env.GRADIDO_UNICORN_FAST ?? join(ROOT, 'fast-servers/zig-out/bin/gradido-unicorn-fast'))
 const workdirs: string[] = []
 
 afterAll(() => {
@@ -46,7 +46,7 @@ function readEnv(path: string): Record<string, string> {
 }
 
 async function setUp(command: readonly string[]): Promise<{ dir: string; env: Record<string, string> }> {
-  const dir = mkdtempSync(join(tmpdir(), 'gradido2-setup-'))
+  const dir = mkdtempSync(join(tmpdir(), 'gradido-unicorn-setup-'))
   workdirs.push(dir)
   const result = await drive(command, {
     cwd: dir,

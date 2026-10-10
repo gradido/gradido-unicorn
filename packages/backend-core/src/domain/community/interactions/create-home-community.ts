@@ -11,7 +11,7 @@ import { newCommunityKeys } from '../communityKeyPair.logic'
  * does, and the backend refuses to serve without it.
  *
  * Legacy has the dht-node do this, out of `COMMUNITY_NAME` and `COMMUNITY_DESCRIPTION` in
- * the environment. gradido2 asks instead — see `@gradido/backend`'s `setup/` — and the
+ * the environment. gradido-unicorn asks instead — see `@gradido/backend`'s `setup/` — and the
  * difference is not cosmetic: an environment variable is read at every start, so it is a
  * *setting*, and a community's name and key pair are not settings. They are written once and
  * then referred to. An env var that silently disagrees with the row it created is a class of

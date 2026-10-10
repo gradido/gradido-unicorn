@@ -53,7 +53,7 @@ pub fn build(b: *std.Build) !void {
     const fast_servers = b.option(
         []const u8,
         "fast-servers",
-        "path to gradido2's fast-servers (default: ../../fast-servers)",
+        "path to gradido-unicorn's fast-servers (default: ../../fast-servers)",
     ) orelse "../../fast-servers";
 
     // The addon needs Node headers; the executables do not. Turning it off is what

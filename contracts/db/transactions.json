@@ -132,7 +132,7 @@
   ],
   "open": [
     {
-      "question": "Do the denormalized name and uuid columns survive into gradido2, and at what width?",
+      "question": "Do the denormalized name and uuid columns survive into gradido-unicorn, and at what width?",
       "detail": "Two varchar(512) names plus four uuids is roughly 100 bytes of struct and up to 1 KiB of payload per row, in the one table the session holds most of. A working set of 200 transactions is dominated by these six columns. Narrowing user_name to the display length actually used, or holding only the ids in the session and resolving names at render time, changes the session budget by an order of magnitude.",
       "why_it_matters": "This is the single largest term in the fast path's memory footprint. See Architecture.md, Session cache on the fast path.",
       "status": "unanswered — decide before the transaction domain is rebuilt"

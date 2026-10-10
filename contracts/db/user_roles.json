@@ -58,7 +58,7 @@
     "No JSON in a text column any more. visible_creation_groups, with its '*all' and '*untagged' sentinels, becomes rows in user_role_scopes under the creation_group dimension — '*untagged' as the reserved target_id 0, '*all' as the absence of rows.",
     "The rights an account actually holds are not in this table. They come from the role: from code for a default role, from role_rights for a created one — see Architecture.md, Auth, and ../rights.json.",
     "created_at and updated_at are UTC milliseconds; see types/Timestamp.json.",
-    "Identifiers are uint64 throughout. Legacy is inconsistent here — users.id is int unsigned while referrer_id, contribution_link_id and publisher_id, which point at it, are bigint unsigned. A foreign key narrower than its target truncates silently in C, so gradido2 uses one width everywhere.",
+    "Identifiers are uint64 throughout. Legacy is inconsistent here — users.id is int unsigned while referrer_id, contribution_link_id and publisher_id, which point at it, are bigint unsigned. A foreign key narrower than its target truncates silently in C, so gradido-unicorn uses one width everywhere.",
     "Written through role.assign, role.unassign and role.setScope, which address the assignment by id. The account-addressing routes they replace — user.setRole, creationGroup.get/setModeratorScope — are deprecated and must not be used to write this table once a second assignment can exist."
   ],
   "open": []

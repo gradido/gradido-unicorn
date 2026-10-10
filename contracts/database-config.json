@@ -3,7 +3,7 @@
   "kind": "config",
   "description": "How both implementations reach the database: the environment variables, their defaults, and the rules that are decided here rather than twice. The backend and the federation server talk to the same database and must name it the same way, so the variables live in one place and not in each service.",
   "principle": "A variable means the same thing on both paths or it is not in this file. Where the two drivers spell one idea differently -- libpq takes a socket directory as `host`, bun's client takes it as `path` -- the difference belongs under the variable, never in it.",
-  "origin": "gradido2",
+  "origin": "gradido-unicorn",
   "readBy": ["packages/backend-core/src/database/schema.ts", "fast-servers/service-core/src/db.c"],
   "variables": [
     {

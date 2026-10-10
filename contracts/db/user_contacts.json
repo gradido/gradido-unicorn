@@ -120,6 +120,6 @@
     "email is globally unique, unlike users.gradido_id which is unique per community. Two communities cannot share an email address.",
     "updated_at is maintained by the database in legacy (ON UPDATE CURRENT_TIMESTAMP). PostgreSQL needs a trigger and SQLite needs the application to set it — so the fast path and the reference path must both write it explicitly rather than rely on the dialect.",
     "created_at, updated_at and deleted_at are UTC milliseconds; see types/Timestamp.json.",
-    "Identifiers are uint64 throughout. Legacy is inconsistent here — users.id is int unsigned while referrer_id, contribution_link_id and publisher_id, which point at it, are bigint unsigned. A foreign key narrower than its target truncates silently in C, so gradido2 uses one width everywhere."
+    "Identifiers are uint64 throughout. Legacy is inconsistent here — users.id is int unsigned while referrer_id, contribution_link_id and publisher_id, which point at it, are bigint unsigned. A foreign key narrower than its target truncates silently in C, so gradido-unicorn uses one width everywhere."
   ]
 }

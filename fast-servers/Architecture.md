@@ -1,6 +1,6 @@
 # fast-servers Architecture
 
-The C implementation of Gradido2 — h2o, the request path, the session cache, the database
+The C implementation of Gradido Unicorn — h2o, the request path, the session cache, the database
 drivers. It mirrors the domain structure of `packages/` and is allowed to lag behind it.
 
 **Read `../Architecture.md` first.** It holds the system design that both implementations

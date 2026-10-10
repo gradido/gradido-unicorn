@@ -57,7 +57,7 @@ export const poString = (s) => {
   return `""\n${lines.join('\n')}`
 }
 
-export const header = (locale, project = 'gradido2-email') =>
+export const header = (locale, project = 'gradido-unicorn-email') =>
   [
     'msgid ""',
     'msgstr ""',
