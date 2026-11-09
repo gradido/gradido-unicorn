@@ -44,7 +44,13 @@ static const char CLAIM_VALUE[] = "8b9a1e2c-0000-4000-8000-000000000001";
 
 int main(void)
 {
-    sc_jwt_config cfg = {SECRET, sizeof(SECRET) - 1, "gradido", "gradido-backend"};
+    sc_jwt_config cfg = {.secret = SECRET,
+                         .secret_len = sizeof(SECRET) - 1,
+                         .issuer = "gradido",
+                         .audience = "gradido-backend"};
+    /* The same config once more, prepared: the rows below show both, so the difference is read
+     * off one run on one machine instead of two. */
+    sc_jwt_config prepared = cfg;
     char token[SC_JWT_MAX_TOKEN];
     char claim[SC_JWT_MAX_CLAIM];
     const int64_t now = 1787572000;
@@ -56,6 +62,8 @@ int main(void)
     if (sodium_init() < 0)
         return 1;
     sc_jwt_init();
+    if (sc_jwt_config_prepare(&prepared) != 0)
+        return 1;
 
     token_len = sc_jwt_sign_hs256(&cfg, "gradidoID", CLAIM_VALUE, now, 600, token, sizeof(token));
     if (token_len <= 0)
@@ -86,6 +94,21 @@ int main(void)
             (uint64_t)sc_jwt_verify_hs256(&cfg, token, (size_t)token_len, "gradidoID", claim, now);
     }
     report("sc_jwt_verify_hs256", now_ns() - t0, ROUNDS);
+
+    t0 = now_ns();
+    for (i = 0; i < ROUNDS; ++i) {
+        char scratch[SC_JWT_MAX_TOKEN];
+        sink += (uint64_t)sc_jwt_sign_hs256(&prepared, "gradidoID", CLAIM_VALUE, now, 600, scratch,
+                                            sizeof(scratch));
+    }
+    report("sc_jwt_sign_hs256, key prepared", now_ns() - t0, ROUNDS);
+
+    t0 = now_ns();
+    for (i = 0; i < ROUNDS; ++i) {
+        sink += (uint64_t)sc_jwt_verify_hs256(&prepared, token, (size_t)token_len, "gradidoID",
+                                              claim, now);
+    }
+    report("sc_jwt_verify_hs256, key prepared", now_ns() - t0, ROUNDS);
 
     /* ---- where the time goes ---------------------------------------------------------- */
     {

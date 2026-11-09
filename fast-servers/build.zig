@@ -93,6 +93,21 @@ fn applySanitize(module: *std.Build.Module, mode: SanitizeMode) void {
     }
 }
 
+/// Turns on link-time optimization for @p compile and for every library it links, however deep.
+///
+/// It has to be the whole graph: LTO inlines across the line between two objects only when both
+/// sides were compiled to bitcode, so a binary built with it alone would optimise nothing it calls
+/// into -- not sqlite3_step, not h2o, not arnm. Walking the links instead of naming the libraries
+/// means a dependency added later is covered without anyone remembering this function.
+fn applyLto(compile: *std.Build.Step.Compile) void {
+    if (compile.lto == .full) return;
+    compile.lto = .full;
+    for (compile.root_module.link_objects.items) |object| switch (object) {
+        .other_step => |library| applyLto(library),
+        else => {},
+    };
+}
+
 /// True when @p target names the machine this build runs on.
 ///
 /// Either by being native, or by spelling the host's own triple out --
@@ -988,6 +1003,9 @@ pub fn build(b: *std.Build) void {
     const enable_benchmarks = b.option(bool, "benchmarks", "Build the bench_* binaries") orelse false;
     const libp2p_ffi_choice = b.option([]const u8, "libp2p-ffi", "The dht-node network module: `prebuilt` (the pinned libp2p-ffi release where one is published for the target, else the stub), `stub` (reaches nobody), or a directory holding a local build of it") orelse "prebuilt";
     const sanitize = b.option(SanitizeMode, "sanitize", "Instrument C sources: undefined_behavior (UBSan) or thread (TSan). AddressSanitizer needs the CMake build with -DFS_ENABLE_SANITIZERS=ON") orelse .off;
+    // On wherever the build optimises, because it costs no code and no runtime, only a longer
+    // link; off in Debug, where it would merge the functions a debugger wants to step through.
+    const enable_lto = b.option(bool, "lto", "Link-time optimization across the binaries and every library they link (default: on unless -Doptimize=Debug)") orelse (optimize != .Debug);
 
     if (enable_postgres and is_windows) {
         std.debug.panic("-Dpostgres=true does not build for Windows: allyourcodebase/libpq " ++
@@ -1374,8 +1392,22 @@ pub fn build(b: *std.Build) void {
         //
         // Built at whatever -Doptimize says, and a Debug build measures Debug. Use
         // `--release=fast` for a number worth quoting.
-        const benchmarks = [_][]const u8{"bench_jwt"};
-        for (benchmarks) |name| {
+        //
+        // bench_gzip measures h2o's own compress filter, so it exists only in an h2o build and
+        // links libh2o-evloop and the zlib underneath it the way the server does.
+        const Bench = struct { name: []const u8, h2o: bool = false };
+        const benchmarks = [_]Bench{
+            .{ .name = "bench_jwt" },
+            .{ .name = "bench_gzip", .h2o = true },
+        };
+        for (benchmarks) |spec| {
+            const name = spec.name;
+            const bench_h2o_dep: ?*std.Build.Dependency = if (spec.h2o and enable_h2o)
+                b.lazyDependency("h2o", .{})
+            else
+                null;
+            if (spec.h2o and (bench_h2o_dep == null or http_backend_lib == null))
+                continue;
             const bench = b.addExecutable(.{
                 .name = name,
                 .root_module = b.createModule(.{
@@ -1396,6 +1428,11 @@ pub fn build(b: *std.Build) void {
             bench.linkLibrary(service_core);
             bench.linkLibrary(gbc);
             bench.linkLibrary(sodium);
+            if (bench_h2o_dep) |h2o_dep| {
+                for (h2o_include_dirs) |dir| bench.addIncludePath(h2o_dep.path(dir));
+                bench.root_module.addCMacro("H2O_USE_LIBUV", "0");
+                linkHttpBackend(bench, http_backend_lib, http_system_libs);
+            }
             cdb_targets.append(b.allocator, bench) catch @panic("OOM");
             b.installArtifact(bench);
         }
@@ -1586,6 +1623,9 @@ pub fn build(b: *std.Build) void {
     if (b.args) |args| run_cmd.addArgs(args);
     const run_step = b.step("run", "Run gradido-unicorn-fast; pass roles after --, e.g. -- --backend --dht-node");
     run_step.dependOn(&run_cmd.step);
+
+    // Last, once every binary has linked everything it will: applyLto follows those links.
+    if (enable_lto) for (cdb_targets.items) |compile| applyLto(compile);
 
     const cdb_slice = cdb_targets.toOwnedSlice(b.allocator) catch @panic("OOM");
     const cdb_step = zcc.createStep(b, "cdb", cdb_slice);

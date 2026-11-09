@@ -30,7 +30,7 @@ typedef struct sc_config {
     char listen_host[SC_CONFIG_HOST_MAX];
     uint16_t backend_port;    /* BACKEND_PORT, legacy default 4000 */
     uint16_t federation_port; /* FEDERATION_PORT, legacy FEDERATION_MODULE_PORT 5010 */
-    uint16_t dht_port;        /* DHT_PORT, legacy DHT_MODULE_PORT 5000 */
+    uint16_t dht_port;        /* DHT_PORT */
 
     /*
      * SERVER_THREADS: loops per HTTP role, one per core when unset.

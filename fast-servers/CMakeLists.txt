@@ -58,6 +58,7 @@ option(FS_ENABLE_TESTS "Build the googletest unit tests and the integration prob
 option(FS_ENABLE_BENCHMARKS "Build the bench_* binaries" OFF)
 option(FS_ENABLE_SANITIZERS "Build with AddressSanitizer, plus UndefinedBehaviorSanitizer on non-MSVC toolchains (MSVC ships no UBSan)" OFF)
 option(FS_ENABLE_THREAD_SANITIZER "Build with ThreadSanitizer (mutually exclusive with FS_ENABLE_SANITIZERS)" OFF)
+option(FS_ENABLE_LTO "Link-time optimization in the optimising configurations (Release, RelWithDebInfo, MinSizeRel); Debug never gets it" ON)
 
 if(WIN32 AND FS_ENABLE_H2O)
   message(FATAL_ERROR "FS_ENABLE_H2O does not build for Windows: h2o is a posix event loop. Leave it off and the binary serves over libuv and picohttpparser instead.")
@@ -90,6 +91,23 @@ if(FS_ENABLE_THREAD_SANITIZER)
   message(STATUS "Sanitizers enabled: thread")
   add_compile_options(-fsanitize=thread -fno-omit-frame-pointer -g)
   add_link_options(-fsanitize=thread)
+endif()
+
+# The mirror of build.zig's -Dlto, and set here for the same reason as the sanitizers: before any
+# target exists, so the fetched libraries get it too. Per configuration rather than on
+# CMAKE_BUILD_TYPE, because the MSVC build this file exists for is multi-config. It reaches what
+# this file compiles and nothing else: a library found through pkg-config arrives as finished
+# machine code.
+if(FS_ENABLE_LTO)
+  include(CheckIPOSupported)
+  check_ipo_supported(RESULT FS_LTO_SUPPORTED OUTPUT FS_LTO_ERROR LANGUAGES C)
+  if(FS_LTO_SUPPORTED)
+    foreach(config RELEASE RELWITHDEBINFO MINSIZEREL)
+      set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_${config} ON)
+    endforeach()
+  else()
+    message(STATUS "Link-time optimization is not available with this toolchain, building without: ${FS_LTO_ERROR}")
+  endif()
 endif()
 
 if(MSVC)

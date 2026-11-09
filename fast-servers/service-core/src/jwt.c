@@ -52,16 +52,48 @@ void sc_jwt_init(void)
         abort();
 }
 
+/* The prepared state travels in sc_jwt_config as plain words, so that jwt.h stays free of
+ * sodium.h. These two hold the words and libsodium's struct in step. */
+_Static_assert(sizeof(crypto_auth_hmacsha256_state) <= sizeof(((sc_jwt_config *)0)->prepared_key),
+               "sc_jwt_config.prepared_key is too small for libsodium's HMAC state");
+_Static_assert(_Alignof(crypto_auth_hmacsha256_state) <= _Alignof(uint64_t),
+               "sc_jwt_config.prepared_key is not aligned enough for libsodium's HMAC state");
+
+int sc_jwt_config_prepare(sc_jwt_config *config)
+{
+    crypto_auth_hmacsha256_state state;
+
+    if (config == NULL)
+        return -1;
+    /* Unprepared until the end, so a refused key leaves a config that still works the slow way
+     * rather than one carrying the state of an earlier secret. */
+    config->prepared_for = NULL;
+    config->prepared_len = 0;
+    if (crypto_auth_hmacsha256_init(&state, config->secret, config->secret_len) != 0)
+        return -1;
+    memcpy(config->prepared_key, &state, sizeof(state));
+    sodium_memzero(&state, sizeof(state));
+    config->prepared_for = config->secret;
+    config->prepared_len = config->secret_len;
+    return 0;
+}
+
 /** @return 0 on success */
 static int hmac_sha256(const sc_jwt_config *config, const uint8_t *msg, size_t msg_len,
                        uint8_t out[JWT_HMAC_LEN])
 {
     crypto_auth_hmacsha256_state state;
 
+    /* A prepared config already holds the state after the key, which is two SHA-256 blocks this
+     * call does not have to hash again. It counts only while it still describes the secret the
+     * config names: one pointed elsewhere since takes the long way below. */
+    if (config->prepared_for != NULL && config->prepared_for == config->secret &&
+        config->prepared_len == config->secret_len)
+        memcpy(&state, config->prepared_key, sizeof(state));
     /* The init/update/final form takes a key of any length; the one-shot
      * crypto_auth_hmacsha256() insists on exactly 32 bytes, and a JWT secret is whatever the
      * operator typed into the environment. */
-    if (crypto_auth_hmacsha256_init(&state, config->secret, config->secret_len) != 0)
+    else if (crypto_auth_hmacsha256_init(&state, config->secret, config->secret_len) != 0)
         return -1;
     crypto_auth_hmacsha256_update(&state, msg, msg_len);
     crypto_auth_hmacsha256_final(&state, out);

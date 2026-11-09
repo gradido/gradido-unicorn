@@ -49,6 +49,13 @@ typedef struct sc_jwt_config {
     /* Optional. NULL skips the check rather than accepting an absent claim. */
     const char *issuer;
     const char *audience;
+    /* Written by sc_jwt_config_prepare() and by nothing else. A config left as `{}` -- or one
+     * whose `secret` or `secret_len` has changed since -- counts as unprepared and hashes its
+     * secret on every call, as it always did. The words are libsodium's HMAC state, kept opaque
+     * so this header does not have to include sodium.h; they are as secret as the secret. */
+    const uint8_t *prepared_for;
+    size_t prepared_len;
+    uint64_t prepared_key[32];
 } sc_jwt_config;
 
 /**
@@ -58,6 +65,19 @@ typedef struct sc_jwt_config {
  * business accepting the request that follows.
  */
 void sc_jwt_init(void);
+
+/**
+ * Hashes the secret into HMAC's inner and outer pads once, so that every sign and verify after
+ * it hashes the token and nothing more: two SHA-256 blocks fewer per call.
+ *
+ * Optional -- an unprepared config works, and costs those two blocks each time. Call it after
+ * `secret` is set and again whenever it changes. Each call checks only that `secret` and
+ * `secret_len` are still the ones prepared for, not the bytes behind them, so a secret
+ * rewritten in place needs this called again.
+ *
+ * @return 0, or -1 if @p config is NULL or libsodium refused the key
+ */
+int sc_jwt_config_prepare(sc_jwt_config *config);
 
 /**
  * Verifies the signature, the expiry, the issuer and the audience -- in that order -- and then
