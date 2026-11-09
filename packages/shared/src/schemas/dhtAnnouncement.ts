@@ -30,7 +30,10 @@ const HOST_MAX_BYTES = 253
 const PORT_MAX = 65535
 
 const LABEL = '[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?'
-const SEGMENT = '(?:[A-Za-z0-9._~-]|%[0-9A-Fa-f]{2})*'
+const UNESCAPED = '[A-Za-z0-9._~-]'
+const SEGMENT = `(?:${UNESCAPED}|%[0-9A-Fa-f]{2})*`
+const UNESCAPED_CHAR = new RegExp(`^${UNESCAPED}$`, 'u')
+const ESCAPE = /%([0-9A-Fa-f]{2})/gu
 const URL = new RegExp(
   `^https?://(?<host>${LABEL}(?:\\.${LABEL})*)(?::(?<port>[1-9][0-9]{0,4}))?(?<path>(?:/${SEGMENT})*)$`,
   'u',
@@ -44,7 +47,8 @@ const URL = new RegExp(
  * host     a name or a dotted IPv4 address: lowercase labels of letters, digits and inner
  *          hyphens. No IPv6 literal, no trailing dot
  * port     1 to 65535, without leading zeros
- * path     segments of unreserved characters and %XX; none of them `.` or `..`
+ * path     segments of unreserved characters and %XX; none of them `.` or `..`, and no
+ *          %XX of an unreserved character -- `%2e%2e` is `..` to a URL parser
  * never    user and password, a query, a fragment
  * ```
  */
@@ -63,7 +67,10 @@ export const dhtAnnouncementUrlSchema = v.pipe(
     return (
       host.length <= HOST_MAX_BYTES &&
       (port === undefined || Number(port) <= PORT_MAX) &&
-      !path.split('/').some((segment) => segment === '.' || segment === '..')
+      !path.split('/').some((segment) => segment === '.' || segment === '..') &&
+      ![...path.matchAll(ESCAPE)].some(([, hex]) =>
+        UNESCAPED_CHAR.test(String.fromCharCode(Number.parseInt(hex ?? '', 16))),
+      )
     )
   }, 'not a URL an announcement may carry'),
 )
