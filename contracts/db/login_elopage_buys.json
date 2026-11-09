@@ -81,7 +81,7 @@
   ],
   "open": [
     {
-      "question": "Does this table survive into gradido2 at all?",
+      "question": "Does this table survive into gradido-unicorn at all?",
       "detail": "It exists for one boolean on one route. If the Elopage integration is not carried over, the table and user.hasElopage go together; if it is, the column widths and the missing index on payer_email are worth fixing rather than transcribing.",
       "status": "unanswered — decide with the Elopage webhook, not separately"
     }

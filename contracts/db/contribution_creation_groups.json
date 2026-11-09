@@ -48,7 +48,7 @@
     {
       "name": "contribution_creation_groups_contribution_id_idx",
       "columns": ["contribution_id"],
-      "note": "Redundant with the leading column of uniq_contribution_creation_group. Do not recreate it in gradido2."
+      "note": "Redundant with the leading column of uniq_contribution_creation_group. Do not recreate it in gradido-unicorn."
     },
     {
       "name": "contribution_creation_groups_creation_group_id_idx",
@@ -56,13 +56,13 @@
     }
   ],
   "notes": [
-    "Legacy declares no foreign key constraints on this table, only indexes — the convention it inherited from crea_records. Referential integrity is the application's job in legacy; whether gradido2 keeps that is an open decision, see below.",
-    "The surrogate id is not used by anything: every access is by (contribution_id, creation_group_id) or by one of them. gradido2 could make the pair the primary key and drop the column.",
+    "Legacy declares no foreign key constraints on this table, only indexes — the convention it inherited from crea_records. Referential integrity is the application's job in legacy; whether gradido-unicorn keeps that is an open decision, see below.",
+    "The surrogate id is not used by anything: every access is by (contribution_id, creation_group_id) or by one of them. gradido-unicorn could make the pair the primary key and drop the column.",
     "contributions.creation_groups_set_at is the companion column: while it is NULL an inline '#tag' in the memo still counts, and once it carries a timestamp this table is the only truth."
   ],
   "open": [
     {
-      "question": "Do the join tables get real foreign keys in gradido2?",
+      "question": "Do the join tables get real foreign keys in gradido-unicorn?",
       "detail": "Legacy has none here or in crea_records. A deleted creation group therefore leaves rows pointing at nothing, and both implementations then have to agree on what a dangling row means. A foreign key with ON DELETE CASCADE answers it once in the schema.",
       "why_it_matters": "Two implementations tidying up dangling rows differently is exactly the class of bug contracts/ exists to prevent.",
       "status": "unanswered — applies to contribution_creation_groups and crea_records together"

@@ -68,11 +68,11 @@
     {
       "name": "transaction_links_user_id_idx",
       "columns": ["user_id"],
-      "note": "Redundant with the leading column of idx_user_id_valid_until. Do not recreate it in gradido2."
+      "note": "Redundant with the leading column of idx_user_id_valid_until. Do not recreate it in gradido-unicorn."
     }
   ],
   "notes": [
-    "Legacy names these columns in camelCase — userId, validUntil, redeemedBy — unlike every other table, and the migrations confirm it (idx_user_id_valid_until ON transaction_links(userId, validUntil, id)). gradido2 uses snake_case as its own rule requires; legacyName records what to read from a legacy database during migration.",
+    "Legacy names these columns in camelCase — userId, validUntil, redeemedBy — unlike every other table, and the migrations confirm it (idx_user_id_valid_until ON transaction_links(userId, validUntil, id)). gradido-unicorn uses snake_case as its own rule requires; legacyName records what to read from a legacy database during migration.",
     "The three states are distinguished by columns, not by a status enum: outstanding (redeemed_at and deleted_at null, valid_until in the future), redeemed (redeemed_at set), expired (valid_until passed), withdrawn (deleted_at set). Both implementations must derive the state the same way — an expired link that was also withdrawn is withdrawn.",
     "code is a bearer secret: never logged, never returned for a link the caller does not own. See logging.json.",
     "Timestamps are UTC milliseconds; see types/Timestamp.json. Legacy declares these as datetime without the precision(3) the other tables use — second precision. Verify before relying on sub-second ordering."

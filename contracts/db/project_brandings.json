@@ -35,7 +35,7 @@
   "unique": [{ "name": "project_brandings_alias_key", "columns": ["alias"] }],
   "indexes": [],
   "notes": [
-    "No created_at, no updated_at. Legacy never added them and nothing reads them; gradido2 adding them is a schema decision, not a repair.",
+    "No created_at, no updated_at. Legacy never added them and nothing reads them; gradido-unicorn adding them is a schema decision, not a repair.",
     "The banner route is public — projectBranding.getBanner needs no session, because a logo is shown before anybody has logged in. See server/backend/project-branding.json.",
     "space_id and space_url point at HumHub, which is a foreign system. A row whose space no longer exists is a normal state and must not fail the read."
   ]
