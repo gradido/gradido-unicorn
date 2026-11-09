@@ -1,4 +1,5 @@
 export * from './auth'
 export * from './community'
+export * from './dhtAnnouncement'
 export * from './language'
 export * from './user'

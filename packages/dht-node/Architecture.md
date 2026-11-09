@@ -42,6 +42,9 @@ contracts          const.json         DHT_KAD_PROTOCOL, DHT_ANNOUNCE_TOPIC, DHT_
                                       DHT_ANNOUNCE_MAX_PAYLOAD_BYTES, DHT_CLASS_*, DHT_LIMIT_*
                                       (requests per class and scope), DHT_RPC_MAX_*_BYTES,
                                       DHT_RELAY_*, DHT_BOOTSTRAP_*
+                   types/DhtAnnouncement.json   what an announcement carries and who signs
+                                      what, held to test-vectors/announcement.json on this
+                                      path; the C runner is still missing
                    server/backend/peer.json   peer.bootstrap: what a node answers and a
                                       joining node checks
                    logging.json       the dht events, the same on both nodes

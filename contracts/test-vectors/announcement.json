@@ -1,0 +1,1178 @@
+{
+  "contractVersion": 1,
+  "kind": "test-vectors",
+  "subject": "announcement",
+  "notes": [
+    "The payload of an announcement, types/DhtAnnouncement.json: which bytes are an announcement and what they say, whether one is current enough to store, and the delegation a legacy node -- whose node key is its community key -- signs for itself.",
+    "A payload vector is wrong in at most one way, and what is contracted is what a caller can observe: whether the payload is taken, and the values that come out. Why one was refused is not.",
+    "`payload` is the authority. `text` is the same bytes for a reader, where they are text at all; a runner that uses it checks that it encodes to `payload`.",
+    "Every self-delegation was signed by libp2p-ffi itself (lp2p_delegation_sign, v0.1.2), its communityKey computed by lp2p_key_from_seed, and the result accepted by lp2p_delegation_verify: the vectors say what the network accepts. ed25519 signatures are deterministic, so a delegation is an exact value.",
+    "The frame around a payload -- version byte, delegation, payload -- is libp2p-ffi's and has no vector here.",
+    "The TypeScript runner is packages/contract-tests/src/announcement.test.ts. The C runner, fast-servers/tests/contract/test_announcement_contract.cpp, does not exist yet: the fast path parses no payload so far, and may lag behind the reference path. No regenerator: the values came from the oracle named above or are written out by hand."
+  ],
+  "rules": {
+    "maxPayloadBytes": {
+      "type": "uint32",
+      "value": "1024",
+      "note": "DHT_ANNOUNCE_MAX_PAYLOAD_BYTES in const.json."
+    },
+    "maxApis": {
+      "type": "uint32",
+      "value": "4",
+      "note": "DHT_ANNOUNCE_MAX_APIS in const.json."
+    },
+    "apiMaxBytes": {
+      "type": "uint32",
+      "value": "10",
+      "note": "DHT_ANNOUNCE_API_MAX_BYTES in const.json."
+    },
+    "urlMaxBytes": {
+      "type": "uint32",
+      "value": "255",
+      "note": "DHT_ANNOUNCE_URL_MAX_BYTES in const.json."
+    },
+    "maxClockDifferenceSeconds": {
+      "type": "uint32",
+      "value": "300",
+      "note": "DHT_ANNOUNCE_MAX_CLOCK_DIFFERENCE_SECONDS in const.json."
+    }
+  },
+  "fields": {
+    "id": {
+      "type": "text",
+      "note": "Stable forever. A failure names this."
+    },
+    "why": {
+      "type": "text",
+      "note": "What this vector is load bearing for."
+    },
+    "kind": {
+      "type": "text",
+      "note": "payload, current or self-delegation: which of the three a vector tests, and so which of the fields below it carries."
+    },
+    "text": {
+      "type": "text",
+      "nullable": true,
+      "note": "payload: the bytes as text, for a reader. Null where they are not valid UTF-8 worth showing."
+    },
+    "payload": {
+      "type": "bytes",
+      "nullable": true,
+      "note": "payload: what arrived after the frame's version byte and delegation."
+    },
+    "announcedAt": {
+      "type": "int64",
+      "unit": "unix_milliseconds",
+      "nullable": true,
+      "note": "current: the announcement's own announcedAt."
+    },
+    "nowMs": {
+      "type": "int64",
+      "unit": "unix_milliseconds",
+      "nullable": true,
+      "note": "current: the receiver's clock."
+    },
+    "lastTaken": {
+      "type": "int64",
+      "unit": "unix_milliseconds",
+      "nullable": true,
+      "note": "current: the announcedAt last stored for that community, null for none since the node started."
+    },
+    "communitySeed": {
+      "type": "bytes",
+      "nullable": true,
+      "note": "self-delegation: the community's 32-byte ed25519 seed, which is the node's too."
+    },
+    "expiresMs": {
+      "type": "uint64",
+      "unit": "unix_milliseconds",
+      "nullable": true,
+      "note": "self-delegation: 0 is never."
+    },
+    "expect.accepted": {
+      "type": "bool",
+      "nullable": true,
+      "note": "payload: whether anything of it may be stored. The contract."
+    },
+    "expect.url": {
+      "type": "text",
+      "nullable": true,
+      "note": "payload: null when refused."
+    },
+    "expect.api": {
+      "type": "text[]",
+      "nullable": true,
+      "note": "payload: in the order sent; null when refused."
+    },
+    "expect.announcedAt": {
+      "type": "int64",
+      "unit": "unix_milliseconds",
+      "nullable": true,
+      "note": "payload: null when refused."
+    },
+    "expect.stored": {
+      "type": "bool",
+      "nullable": true,
+      "note": "current: whether the announcement is stored."
+    },
+    "expect.communityKey": {
+      "type": "bytes",
+      "nullable": true,
+      "note": "self-delegation: the public key, node key and community key at once."
+    },
+    "expect.delegation": {
+      "type": "bytes",
+      "nullable": true,
+      "note": "self-delegation: 136 bytes."
+    }
+  },
+  "count": 82,
+  "vectors": [
+    {
+      "id": "announcement.payload.two-apis",
+      "why": "The ordinary case: a community with a URL that serves two API versions.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"1_0\",\"1_1\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30222c22315f31225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": true,
+        "url": "https://gdd.gradido.net/api/",
+        "api": ["1_0", "1_1"],
+        "announcedAt": "1760000000000"
+      }
+    },
+    {
+      "id": "announcement.payload.one-api",
+      "why": "A single version is a list of one.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": true,
+        "url": "https://gdd.gradido.net/api/",
+        "api": ["1_0"],
+        "announcedAt": "1760000000000"
+      }
+    },
+    {
+      "id": "announcement.payload.no-url",
+      "why": "A community without a URL: it exists, and offers no federation API over HTTP.",
+      "kind": "payload",
+      "text": "{\"url\":\"\",\"api\":[],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a22222c22617069223a5b5d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": true,
+        "url": "",
+        "api": [],
+        "announcedAt": "1760000000000"
+      }
+    },
+    {
+      "id": "announcement.payload.unknown-member",
+      "why": "How the format grows: a member this version does not know is ignored, not refused.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\",\"name\":\"Gradido Akademie\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030222c226e616d65223a224772616469646f20416b6164656d6965227d",
+      "expect": {
+        "accepted": true,
+        "url": "https://gdd.gradido.net/api/",
+        "api": ["1_0"],
+        "announcedAt": "1760000000000"
+      }
+    },
+    {
+      "id": "announcement.payload.order-and-whitespace",
+      "why": "No member order and no whitespace rule: the payload is parsed, never compared.",
+      "kind": "payload",
+      "text": "{ \"announcedAt\" : \"1760000000000\",\n  \"api\" : [ \"1_0\" ],\n  \"url\" : \"https://gdd.gradido.net/api/\" }\n",
+      "payload": "7b2022616e6e6f756e636564417422203a202231373630303030303030303030222c0a20202261706922203a205b2022315f3022205d2c0a20202275726c22203a202268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f22207d0a",
+      "expect": {
+        "accepted": true,
+        "url": "https://gdd.gradido.net/api/",
+        "api": ["1_0"],
+        "announcedAt": "1760000000000"
+      }
+    },
+    {
+      "id": "announcement.payload.four-apis",
+      "why": "DHT_ANNOUNCE_MAX_APIS entries are allowed.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"1_0\",\"1_1\",\"2_0\",\"2_1\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30222c22315f31222c22325f30222c22325f31225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": true,
+        "url": "https://gdd.gradido.net/api/",
+        "api": ["1_0", "1_1", "2_0", "2_1"],
+        "announcedAt": "1760000000000"
+      }
+    },
+    {
+      "id": "announcement.payload.url-at-limit",
+      "why": "A url of DHT_ANNOUNCE_URL_MAX_BYTES bytes fills the column and is allowed.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161612f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": true,
+        "url": "https://gdd.gradido.net/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/api/",
+        "api": ["1_0"],
+        "announcedAt": "1760000000000"
+      }
+    },
+    {
+      "id": "announcement.payload.api-at-limit",
+      "why": "An api of DHT_ANNOUNCE_API_MAX_BYTES bytes fills the column and is allowed: letters, digits and underscores.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"v1_0_Beta9\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b2276315f305f4265746139225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": true,
+        "url": "https://gdd.gradido.net/api/",
+        "api": ["v1_0_Beta9"],
+        "announcedAt": "1760000000000"
+      }
+    },
+    {
+      "id": "announcement.payload.url-http",
+      "why": "http is allowed beside https: a community may sit behind a proxy that ends TLS elsewhere, and development has no certificate.",
+      "kind": "payload",
+      "text": "{\"url\":\"http://gdd.gradido.net/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a22687474703a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": true,
+        "url": "http://gdd.gradido.net/api/",
+        "api": ["1_0"],
+        "announcedAt": "1760000000000"
+      }
+    },
+    {
+      "id": "announcement.payload.url-with-port",
+      "why": "A port between 1 and 65535.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net:8443/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65743a383434332f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": true,
+        "url": "https://gdd.gradido.net:8443/api/",
+        "api": ["1_0"],
+        "announcedAt": "1760000000000"
+      }
+    },
+    {
+      "id": "announcement.payload.url-without-path",
+      "why": "A host alone. The federation client makes the URL end in a slash.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e6574222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": true,
+        "url": "https://gdd.gradido.net",
+        "api": ["1_0"],
+        "announcedAt": "1760000000000"
+      }
+    },
+    {
+      "id": "announcement.payload.url-ipv4-host",
+      "why": "A dotted IPv4 address is a host of numeric labels.",
+      "kind": "payload",
+      "text": "{\"url\":\"http://192.0.2.7:5010/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a22687474703a2f2f3139322e302e322e373a353031302f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": true,
+        "url": "http://192.0.2.7:5010/api/",
+        "api": ["1_0"],
+        "announcedAt": "1760000000000"
+      }
+    },
+    {
+      "id": "announcement.payload.url-single-label-host",
+      "why": "A name without a dot. Whether a host is one this server should call is not the format's question.",
+      "kind": "payload",
+      "text": "{\"url\":\"http://localhost/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a22687474703a2f2f6c6f63616c686f73742f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": true,
+        "url": "http://localhost/api/",
+        "api": ["1_0"],
+        "announcedAt": "1760000000000"
+      }
+    },
+    {
+      "id": "announcement.payload.url-percent-encoded-path",
+      "why": "%XX in a path segment, with hex digits of either case.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/gr%C3%bcn/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f67722543332562636e2f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": true,
+        "url": "https://gdd.gradido.net/gr%C3%bcn/api/",
+        "api": ["1_0"],
+        "announcedAt": "1760000000000"
+      }
+    },
+    {
+      "id": "announcement.payload.member-twice",
+      "why": "A member named twice. JSON.parse would keep the last and the C path's reader the first, so they would store two different URLs; neither wins, and the announcement is refused.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://first.example/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\",\"url\":\"https://gdd.gradido.net/api/\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f66697273742e6578616d706c652f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030222c2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.announced-at-zero",
+      "why": "Zero is a number written without leading zeros. Whether it is current is the other kind of vector.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"0\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2230227d",
+      "expect": {
+        "accepted": true,
+        "url": "https://gdd.gradido.net/api/",
+        "api": ["1_0"],
+        "announcedAt": "0"
+      }
+    },
+    {
+      "id": "announcement.payload.announced-at-int64-max",
+      "why": "The largest instant the type holds.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"9223372036854775807\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2239323233333732303336383534373735383037227d",
+      "expect": {
+        "accepted": true,
+        "url": "https://gdd.gradido.net/api/",
+        "api": ["1_0"],
+        "announcedAt": "9223372036854775807"
+      }
+    },
+    {
+      "id": "announcement.payload.payload-at-limit",
+      "why": "DHT_ANNOUNCE_MAX_PAYLOAD_BYTES bytes exactly, padded with whitespace, are allowed.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020",
+      "expect": {
+        "accepted": true,
+        "url": "https://gdd.gradido.net/api/",
+        "api": ["1_0"],
+        "announcedAt": "1760000000000"
+      }
+    },
+    {
+      "id": "announcement.payload.payload-over-limit",
+      "why": "One byte more than DHT_ANNOUNCE_MAX_PAYLOAD_BYTES, and otherwise valid.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d20202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.empty",
+      "why": "No bytes are not JSON.",
+      "kind": "payload",
+      "text": "",
+      "payload": "",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.not-json",
+      "why": "Bytes that are not JSON.",
+      "kind": "payload",
+      "text": "no-json string",
+      "payload": "6e6f2d6a736f6e20737472696e67",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.array",
+      "why": "Legacy's hyperswarm shape, an array of { api, url } pairs, is not this format.",
+      "kind": "payload",
+      "text": "[{\"api\":\"1_0\",\"url\":\"https://gdd.gradido.net/api/\"}]",
+      "payload": "5b7b22617069223a22315f30222c2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f227d5d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-missing",
+      "why": "url is required, also for a community without one: it is then empty.",
+      "kind": "payload",
+      "text": "{\"api\":[],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b22617069223a5b5d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.api-missing",
+      "why": "api is required.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.announced-at-missing",
+      "why": "announcedAt is required: without it an old announcement could be played back.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"1_0\"]}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30225d7d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-not-a-string",
+      "why": "A member of another type refuses the announcement.",
+      "kind": "payload",
+      "text": "{\"url\":7,\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a372c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.api-not-an-array",
+      "why": "A single version is still a list.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":\"1_0\",\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a22315f30222c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.api-entry-not-a-string",
+      "why": "Every entry of api is a string.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[1],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b315d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.five-apis",
+      "why": "One entry more than DHT_ANNOUNCE_MAX_APIS, as legacy refuses it.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"1_0\",\"1_1\",\"2_0\",\"2_1\",\"3_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30222c22315f31222c22325f30222c22325f31222c22335f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.api-entry-empty",
+      "why": "An api version has at least one byte.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.api-entry-over-limit",
+      "why": "One byte more than the column holds.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"12345678901\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b223132333435363738393031225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.api-entry-twice",
+      "why": "A version listed twice would be two rows under one unique key.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"1_0\",\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30222c22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-over-limit",
+      "why": "One byte more than the column holds.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f61616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161612f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.api-without-url",
+      "why": "Versions with nowhere to call them.",
+      "kind": "payload",
+      "text": "{\"url\":\"\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a22222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-without-api",
+      "why": "A URL that serves no version.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b5d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.announced-at-a-number",
+      "why": "A JSON number loses precision in one parser and not in the other; an instant is a decimal string.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"1_0\"],\"announcedAt\":1760000000000}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a313736303030303030303030307d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.announced-at-leading-zero",
+      "why": "One instant has one spelling.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"01760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a223031373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.announced-at-negative",
+      "why": "Digits only: no sign.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"-1\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a222d31227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.announced-at-over-int64",
+      "why": "One more than the type holds.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"9223372036854775808\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2239323233333732303336383534373735383038227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.announced-at-empty",
+      "why": "No digits are not a number.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a22227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.byte-over-ascii",
+      "why": "A byte of 0x80 or above anywhere refuses the announcement, as legacy refuses it: here the two bytes of a u-umlaut in the host.",
+      "kind": "payload",
+      "text": null,
+      "payload": "7b2275726c223a2268747470733a2f2f6dc3bc6e6368656e2e6578616d706c652f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.escaped-non-ascii",
+      "why": "The same character behind a JSON escape: every byte is ASCII and the string that comes out is not. Its length would be one in JavaScript and two in C.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://m\\u00fcnchen.example/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6d5c75303066636e6368656e2e6578616d706c652f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.space-in-url",
+      "why": "A space is not in the alphabet of a path.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/a pi/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f612070692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.unknown-member-twice",
+      "why": "The rule holds for every member, not only for the ones this version reads: a reader must not have to know a member to notice it twice.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\",\"name\":\"a\",\"name\":\"b\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030222c226e616d65223a2261222c226e616d65223a2262227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.member-name-escaped",
+      "why": "A member name spelled with an escape. Decoded it could be a second `url` that only one of the two readers recognises, so no name carries one.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\",\"n\\u0061me\":\"a\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030222c226e5c75303036316d65223a2261227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-other-scheme",
+      "why": "Only http and https are called.",
+      "kind": "payload",
+      "text": "{\"url\":\"ftp://gdd.gradido.net/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a226674703a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-file-scheme",
+      "why": "A scheme that names something on the receiving server itself.",
+      "kind": "payload",
+      "text": "{\"url\":\"file:///etc/passwd\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2266696c653a2f2f2f6574632f706173737764222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-scheme-uppercase",
+      "why": "One URL has one spelling: the scheme is lowercase.",
+      "kind": "payload",
+      "text": "{\"url\":\"HTTPS://gdd.gradido.net/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2248545450533a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-host-uppercase",
+      "why": "One URL has one spelling: the host is lowercase.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://GDD.gradido.net/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f4744442e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-userinfo",
+      "why": "A user and password before the host: what is shown and what is called then differ, the oldest trick there is.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net@evil.example/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e6574406576696c2e6578616d706c652f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-query",
+      "why": "No query: the client appends a path to the URL, and after a `?` that path would be an argument.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/?next=\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f3f6e6578743d222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-fragment",
+      "why": "No fragment: everything the client appends after a `#` would never be sent.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/#\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f23222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-port-zero",
+      "why": "Port 0 is not a port.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net:0/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65743a302f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-port-over-range",
+      "why": "One more than the largest port.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net:65536/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65743a36353533362f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-port-leading-zero",
+      "why": "One port has one spelling.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net:0443/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65743a303434332f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-port-empty",
+      "why": "A colon with nothing after it.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net:/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65743a2f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-host-missing",
+      "why": "A scheme and a path with nothing between them.",
+      "kind": "payload",
+      "text": "{\"url\":\"https:///api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f2f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-host-label-hyphen",
+      "why": "A label neither starts nor ends with a hyphen.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://-gdd.gradido.net/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f2d6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-host-trailing-dot",
+      "why": "The root label written out is another spelling of the same name; there is one.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net./api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742e2f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-host-underscore",
+      "why": "An underscore is not in the alphabet of a host name.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd_test.gradido.net/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764645f746573742e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-ipv6-literal",
+      "why": "No IPv6 literal for now: a bracketed address is a second grammar to hold two parsers to, and no community is announced by one.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://[2001:db8::1]/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f5b323030313a6462383a3a315d2f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-dot-segment",
+      "why": "No `..` segment: what the URL says and what the server resolves it to then differ.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/../admin/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f2e2e2f61646d696e2f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-single-dot-segment",
+      "why": "No `.` segment, for the same reason.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/./api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f2e2f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-percent-encoded-space",
+      "why": "%XX of a character the segment alphabet does not have.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/my%20community/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6d79253230636f6d6d756e6974792f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": true,
+        "url": "https://gdd.gradido.net/my%20community/api/",
+        "api": ["1_0"],
+        "announcedAt": "1760000000000"
+      }
+    },
+    {
+      "id": "announcement.payload.url-encoded-dot-segment",
+      "why": "A `..` segment spelled `%2e%2e`: a URL parser resolves it like `..`.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/%2e%2e/admin/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f2532652532652f61646d696e2f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-half-encoded-dot-segment",
+      "why": "A `..` segment spelled `.%2E`, with an uppercase escape.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/.%2E/admin/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f2e2532452f61646d696e2f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-encoded-single-dot-segment",
+      "why": "A `.` segment spelled `%2E`.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/%2E/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f2532452f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-encoded-unreserved",
+      "why": "%XX of a letter: `%41pi` is another spelling of `Api`, and no character is to have two.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/%41pi/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f25343170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-backslash",
+      "why": "A backslash is read as a slash by some clients and not by others.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net\\\\\\\\@evil.example/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65745c5c5c5c406576696c2e6578616d706c652f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-percent-incomplete",
+      "why": "A percent sign is followed by two hex digits.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api%2/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f61706925322f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-no-scheme",
+      "why": "A host and a path alone are not a URL.",
+      "kind": "payload",
+      "text": "{\"url\":\"gdd.gradido.net/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a226764642e6772616469646f2e6e65742f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.api-entry-not-a-name",
+      "why": "An api version is appended to the URL by the client, so it is letters, digits and underscores: nothing that is a path of its own.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"../admin\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f222c22617069223a5b222e2e2f61646d696e225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.current.first",
+      "why": "The first announcement of a community since this node started, made just now.",
+      "kind": "current",
+      "announcedAt": "1760000000000",
+      "nowMs": "1760000000000",
+      "lastTaken": null,
+      "expect": {
+        "stored": true
+      }
+    },
+    {
+      "id": "announcement.current.clock-behind-at-limit",
+      "why": "Made DHT_ANNOUNCE_MAX_CLOCK_DIFFERENCE_SECONDS before the receiver's clock: still stored.",
+      "kind": "current",
+      "announcedAt": "1759999700000",
+      "nowMs": "1760000000000",
+      "lastTaken": null,
+      "expect": {
+        "stored": true
+      }
+    },
+    {
+      "id": "announcement.current.clock-behind-over-limit",
+      "why": "One millisecond older than that. This is the bound on playing an announcement back to a node that has just started.",
+      "kind": "current",
+      "announcedAt": "1759999699999",
+      "nowMs": "1760000000000",
+      "lastTaken": null,
+      "expect": {
+        "stored": false
+      }
+    },
+    {
+      "id": "announcement.current.clock-ahead-at-limit",
+      "why": "A sender whose clock runs ahead by the limit: still stored.",
+      "kind": "current",
+      "announcedAt": "1760000300000",
+      "nowMs": "1760000000000",
+      "lastTaken": null,
+      "expect": {
+        "stored": true
+      }
+    },
+    {
+      "id": "announcement.current.clock-ahead-over-limit",
+      "why": "One millisecond further ahead. Taken, it would shut out every honest announcement until the receiver's clock caught up.",
+      "kind": "current",
+      "announcedAt": "1760000300001",
+      "nowMs": "1760000000000",
+      "lastTaken": null,
+      "expect": {
+        "stored": false
+      }
+    },
+    {
+      "id": "announcement.current.later-than-last",
+      "why": "The ordinary repeat: thirty seconds after the last one taken.",
+      "kind": "current",
+      "announcedAt": "1760000030000",
+      "nowMs": "1760000030000",
+      "lastTaken": "1760000000000",
+      "expect": {
+        "stored": true
+      }
+    },
+    {
+      "id": "announcement.current.same-as-last",
+      "why": "The same announcement again: not later, so not stored.",
+      "kind": "current",
+      "announcedAt": "1760000000000",
+      "nowMs": "1760000001000",
+      "lastTaken": "1760000000000",
+      "expect": {
+        "stored": false
+      }
+    },
+    {
+      "id": "announcement.current.earlier-than-last",
+      "why": "An older announcement played back within the clock limit, after a newer one was taken.",
+      "kind": "current",
+      "announcedAt": "1759999970000",
+      "nowMs": "1760000000000",
+      "lastTaken": "1759999990000",
+      "expect": {
+        "stored": false
+      }
+    },
+    {
+      "id": "announcement.self-delegation.never-expires",
+      "why": "What a legacy node carries in every frame: its node key is its community key, so the delegation names one key twice and is signed by it.",
+      "kind": "self-delegation",
+      "communitySeed": "a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0",
+      "expiresMs": "0",
+      "expect": {
+        "communityKey": "b533d8ad9fcfbdde0b481c1b334ddc3c53412fd614564e7e5afd020368d382c3",
+        "delegation": "b533d8ad9fcfbdde0b481c1b334ddc3c53412fd614564e7e5afd020368d382c3b533d8ad9fcfbdde0b481c1b334ddc3c53412fd614564e7e5afd020368d382c3000000000000000023d854b423718e0c713eeadfe49182694358a395448bcabc25197f130a05c34c4718724e4bb9b859d34114133621c9feea557e9319b7781f316c4a7b7a258f06"
+      }
+    },
+    {
+      "id": "announcement.self-delegation.expires",
+      "why": "The same with an expiry, which is part of what is signed.",
+      "kind": "self-delegation",
+      "communitySeed": "a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0",
+      "expiresMs": "1900000000000",
+      "expect": {
+        "communityKey": "b533d8ad9fcfbdde0b481c1b334ddc3c53412fd614564e7e5afd020368d382c3",
+        "delegation": "b533d8ad9fcfbdde0b481c1b334ddc3c53412fd614564e7e5afd020368d382c3b533d8ad9fcfbdde0b481c1b334ddc3c53412fd614564e7e5afd020368d382c3000001ba60d3380047b8966d8da7b752953475a9b54d50dbee991a9b3123f6242e7d41a1314db87862fda7efb3b31501679f96d92b8e2a97df9cf6d7d426478600b5aea52f62a20b"
+      }
+    }
+  ]
+}

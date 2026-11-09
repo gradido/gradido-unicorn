@@ -11,7 +11,7 @@ import * as v from 'valibot'
  */
 export const configSchema = v.object({
   ...runtimeConfigSchema.entries,
-  DHT_PORT: v.optional(portSchema, '5000'),
+  DHT_PORT: v.optional(portSchema, '4001'),
   DHT_TOPIC: v.optional(v.string(), ''),
   MASTER_SEED: v.optional(v.string(), ''),
   DHT_DELEGATION: v.optional(v.string(), ''),

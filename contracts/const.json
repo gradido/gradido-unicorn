@@ -264,6 +264,46 @@
       "description": "The largest announcement payload a node publishes or accepts. The frame around it -- version byte and the 136-byte delegation -- is not counted.",
       "source": "gradido-unicorn Architecture.md — Peer network"
     },
+    "DHT_ANNOUNCE_MAX_APIS": {
+      "group": "dht",
+      "type": "uint32",
+      "unit": "entries",
+      "value": "4",
+      "description": "How many API versions the `api` member of an announcement may list -- types/DhtAnnouncement.json. Legacy refuses a list of five or more.",
+      "source": "dht-node/src/dht_node/index.ts"
+    },
+    "DHT_ANNOUNCE_API_MAX_BYTES": {
+      "group": "dht",
+      "type": "uint32",
+      "unit": "bytes",
+      "value": "10",
+      "description": "The longest entry of an announcement's `api` member, the width of federated_communities.api_version.",
+      "source": "dht-node/src/dht_node/index.ts"
+    },
+    "DHT_ANNOUNCE_URL_MAX_BYTES": {
+      "group": "dht",
+      "type": "uint32",
+      "unit": "bytes",
+      "value": "255",
+      "description": "The longest `url` of an announcement, the width of federated_communities.end_point.",
+      "source": "dht-node/src/dht_node/index.ts"
+    },
+    "DHT_ANNOUNCE_MAX_CLOCK_DIFFERENCE_SECONDS": {
+      "group": "dht",
+      "type": "uint32",
+      "unit": "seconds",
+      "value": "300",
+      "description": "How far an announcement's `announcedAt` may lie from the receiver's clock, before or after, and still be stored -- types/DhtAnnouncement.json. It is what bounds playing an old announcement back to a node that has just started; wide enough for servers whose clocks are set by hand, and ten times DHT_ANNOUNCE_REPEAT_SECONDS. A starting value.",
+      "source": "gradido2 -- legacy's exchange carried no time"
+    },
+    "DHT_ANNOUNCE_REPEAT_SECONDS": {
+      "group": "dht",
+      "type": "uint32",
+      "unit": "seconds",
+      "value": "30",
+      "description": "How often a legacy node publishes its unchanged announcement again -- legacy's ANNOUNCETIME. Not a rule for gradido2 nodes, which publish at start and on change; see types/DhtAnnouncement.json, publishing and open.",
+      "source": "dht-node/src/dht_node/index.ts"
+    },
     "DHT_RPC_PROTOCOL": {
       "group": "dht",
       "type": "text",
