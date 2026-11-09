@@ -7,6 +7,8 @@ node_modules
 dist
 build
 .turbo
+*.sqlite-shm
+*.sqlite-wal
 
 # what `bun run publish` assembles for both servers to embed; see scripts/publish.ts
 /publish

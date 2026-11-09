@@ -7,6 +7,8 @@ export interface ValidatedCheckboxAttrs {
   name: string
   /** Children rather than a string: a consent label usually carries a link. */
   label: m.Children
+  /** What a validation message calls the field: a name, where `label` is a sentence. */
+  fieldName: string
   disabled?: boolean
   onchange?: (checked: boolean) => void
 }
@@ -19,7 +21,7 @@ export interface ValidatedCheckboxAttrs {
  */
 export const ValidatedCheckbox: m.Component<ValidatedCheckboxAttrs> = {
   view: ({ attrs }) => {
-    const { field, name, label, disabled } = attrs
+    const { field, name, label, fieldName, disabled } = attrs
     const id = `${name}-checkbox`
     const feedbackId = `${name}-feedback`
     const invalid = field.state === false
@@ -42,7 +44,11 @@ export const ValidatedCheckbox: m.Component<ValidatedCheckboxAttrs> = {
         onblur: () => field.touch(),
       }),
       m('label.form-check-label', { for: id }, label),
-      m('.invalid-feedback', { id: feedbackId }, invalid ? translateIssue(field.issue ?? '') : ''),
+      m(
+        '.invalid-feedback',
+        { id: feedbackId },
+        invalid ? translateIssue(field.issue ?? '', fieldName) : '',
+      ),
     ])
   },
 }
