@@ -59,14 +59,13 @@ export class Login implements m.ClassComponent {
           t.__('Unfortunately we could not find an (activated) account to the given data.'),
         )
         break
+      // No toast, unlike legacy: this account exists and is activated, so the "no
+      // (activated) account" toast legacy shows here would contradict the page message.
       case LoginErrorCode.NoPasswordSet:
         this.pageMessage = {
           subtitle: t.__('Your password has not been set yet. Please set it again.'),
           linkTo: ROUTES.forgotPassword,
         }
-        toaster.error(
-          t.__('Unfortunately we could not find an (activated) account to the given data.'),
-        )
         break
       case LoginErrorCode.InvalidCredentials:
         toaster.error(t.__('No user with these credentials.'))
