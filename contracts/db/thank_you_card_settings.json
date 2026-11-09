@@ -19,7 +19,7 @@
       "nullable": false,
       "description": "Same derivation as users.password — argon2id, then a 64 bit shorthash — but with its own salt, so a leak of one secret says nothing about the other.",
       "secret": true,
-      "note": "Unsigned and full width, both load-bearing. The derivation returns a whole 64 bit word: only one value in 2048 is small enough to survive as a JavaScript number, and everything above 2^63 would additionally overflow a signed column. Either one turns a correct PIN into a wrong one — and did. In gradido2 this is a bigint, never a number."
+      "note": "Unsigned and full width, both load-bearing. The derivation returns a whole 64 bit word: only one value in 2048 is small enough to survive as a JavaScript number, and everything above 2^63 would additionally overflow a signed column. Either one turns a correct PIN into a wrong one — and did. In gradido-unicorn this is a bigint, never a number."
     },
     { "name": "pin_salt", "type": "varchar(64)", "nullable": false, "secret": true },
     { "name": "max_per_payment_gdd4", "type": "gradido_cent", "nullable": false },

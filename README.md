@@ -1,4 +1,4 @@
-# Gradido2
+# Gradido Unicorn
 
 A rebuild of gradido legacy on a new stack, with the complete legacy feature set as the
 target scope.
@@ -33,10 +33,10 @@ required — `bun run zig build` does the same with the pinned one.
 ## One binary
 
 ```sh
-bun bundle                     # build/gradido2 — the TypeScript server
-BUNDLE_C=1 bun bundle          # and build/gradido2-fast, the C one, beside it
-./build/gradido2               # start it: the backend, and the frontend it serves
-./build/gradido2 --help        # the services and commands it has
+bun bundle                     # build/gradido-unicorn — the TypeScript server
+BUNDLE_C=1 bun bundle          # and build/gradido-unicorn-fast, the C one, beside it
+./build/gradido-unicorn        # start it: the backend, and the frontend it serves
+./build/gradido-unicorn --help # the services and commands it has
 
 turbo publish                  # only the pages, for looking at what a binary would carry
 ```
@@ -49,15 +49,15 @@ download-and-start promise [Architecture.md](Architecture.md) makes; `scripts/bu
 
 | variable | default | what it does |
 |---|---|---|
-| `BUNDLE_TS` | `1` | build `build/gradido2` — the TypeScript path, the reference implementation |
-| `BUNDLE_C` | `0` | build `build/gradido2-fast` — the C path. Downloads its own Zig toolchain; a first build fetches and compiles h2o, LibreSSL and libpq, so it takes minutes |
+| `BUNDLE_TS` | `1` | build `build/gradido-unicorn` — the TypeScript path, the reference implementation |
+| `BUNDLE_C` | `0` | build `build/gradido-unicorn-fast` — the C path. Downloads its own Zig toolchain; a first build fetches and compiles h2o, LibreSSL and libpq, so it takes minutes |
 | `BUNDLE_C_OPTIMIZE` | `fast` | how the C binary is optimised: `fast`, `safe` or `small` |
 
 `fast` is ReleaseFast, which is what the fast path is for. `safe` is the same optimiser plus the
 checks that **trap on undefined behaviour** instead of continuing into it — the one to ship when
 an installation matters more than a microsecond. `small` optimises for size. A plain `zig build`
 still gives a developer a Debug binary; a bundle is a release and never does. Which mode a file
-carries is `./gradido2-fast --version`.
+carries is `./gradido-unicorn-fast --version`.
 
 > [!IMPORTANT]
 > The two are **implementations of the same server, not components of one**. A deployment runs
@@ -66,7 +66,7 @@ carries is `./gradido2-fast --version`.
 > `AGENTS.md`, *C is the fast implementation*, has the whole rule. Sitting next to each other in
 > `build/` makes them easy to compare and easy to confuse; deploy one file.
 
-A plain `zig build` in `fast-servers/` still writes `zig-out/bin/gradido2-fast`, which is where
+A plain `zig build` in `fast-servers/` still writes `zig-out/bin/gradido-unicorn-fast`, which is where
 the C build keeps its own artifact. `build/` is what a release goes into.
 
 **The pages belong to neither and are built once.** `turbo publish` assembles `publish/` — the
@@ -93,14 +93,14 @@ code, so there is no cross-compilation flag that would help: build it on the sys
 on, or on one like it. The C one cross-compiles freely — `fast-servers/README.md` has the
 targets — because everything in it is compiled from source by the same toolchain.
 
-Both are named after the product rather than after their directory: `gradido2` is the server,
+Both are named after the product rather than after their directory: `gradido-unicorn` is the server,
 and `-fast` says which of the two implementations answered when somebody reads `--version` off
 a machine six months from now.
 
 ## First run
 
 ```sh
-./build/gradido2 setup            # or: turbo @gradido/backend#start -- setup
+./build/gradido-unicorn setup   # or: turbo @gradido/backend#start -- setup
 ```
 
 `setup` is the one command that asks questions, and it asks them once. The first is the
@@ -190,7 +190,7 @@ docker compose down -v            # stop and delete the database
 someone working on both repositories should have one web UI to learn rather than two. Adminer
 is that UI for real rather than by resemblance: one tool that speaks PostgreSQL, MySQL/MariaDB
 *and* SQLite — so it covers legacy's MariaDB and this project's PostgreSQL, and SQLite as
-well, which is what a gradido2 server uses when nothing is configured. It is also an official
+well, which is what a gradido-unicorn server uses when nothing is configured. It is also an official
 Docker image, which no phpPgAdmin is.
 
 It logs in *as* the database user — no second account the way pgAdmin has one. `gradido` /
@@ -240,9 +240,9 @@ pointed at a relay through their own variable, `SC_MAIL_TEST_URL=smtp://127.0.0.
 `fast-servers`' `test_mail`, and skip without it.
 
 **No default here collides with `../gradido`.** That repository publishes phpMyAdmin on 8074
-and the same maildev image on 1080/1025, so a checkout of legacy and a checkout of gradido2
+and the same maildev image on 1080/1025, so a checkout of legacy and a checkout of gradido-unicorn
 can be up at the same time without either being reconfigured — which is what the rebuild
-needs, since legacy is the behavioral reference and gets looked at while gradido2 is being
+needs, since legacy is the behavioral reference and gets looked at while gradido-unicorn is being
 written. Everything here therefore sits one above what legacy took: 8073 for Adminer, 1081
 and 1026 for maildev. The database has no conflict to avoid — legacy runs MariaDB on 3306 —
 but keeps 15432 for the reason above.
@@ -265,5 +265,5 @@ but keeps 15432 for the reason above.
 > Use the containers for feature work, where correctness against PostgreSQL is the point. For
 > anything with a number in it — the `bench_*` binaries, a latency claim, a comparison between
 > the two implementations — run PostgreSQL natively on the host and reach it through
-> `DB_HOST=/var/run/postgresql`. For a deployment, see `Architecture.md`; a gradido2 server is
+> `DB_HOST=/var/run/postgresql`. For a deployment, see `Architecture.md`; a gradido-unicorn server is
 > a binary next to a database, and none of it is built here.

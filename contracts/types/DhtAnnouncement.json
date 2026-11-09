@@ -78,7 +78,7 @@
       { "name": "port", "rule": "Optional. 1 to 65535, digits only, without leading zeros." },
       {
         "name": "path",
-        "rule": "Empty, or segments each led by a slash. A segment is any number of A-Z, a-z, 0-9, `.`, `_`, `~`, `-` and `%` followed by two hex digits. No segment is `.` or `..`."
+        "rule": "Empty, or segments each led by a slash. A segment is any number of A-Z, a-z, 0-9, `.`, `_`, `~`, `-` and `%` followed by two hex digits. No segment is `.` or `..`, and no `%` escapes a character of that alphabet: `%2e%2e` is `..` to a URL parser, and `%41` is another spelling of `A`."
       }
     ],
     "rules": [

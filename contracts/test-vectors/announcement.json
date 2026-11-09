@@ -126,7 +126,7 @@
       "note": "self-delegation: 136 bytes."
     }
   },
-  "count": 77,
+  "count": 82,
   "vectors": [
     {
       "id": "announcement.payload.two-apis",
@@ -940,6 +940,71 @@
       "kind": "payload",
       "text": "{\"url\":\"https://gdd.gradido.net/./api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
       "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f2e2f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-percent-encoded-space",
+      "why": "%XX of a character the segment alphabet does not have.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/my%20community/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6d79253230636f6d6d756e6974792f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": true,
+        "url": "https://gdd.gradido.net/my%20community/api/",
+        "api": ["1_0"],
+        "announcedAt": "1760000000000"
+      }
+    },
+    {
+      "id": "announcement.payload.url-encoded-dot-segment",
+      "why": "A `..` segment spelled `%2e%2e`: a URL parser resolves it like `..`.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/%2e%2e/admin/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f2532652532652f61646d696e2f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-half-encoded-dot-segment",
+      "why": "A `..` segment spelled `.%2E`, with an uppercase escape.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/api/.%2E/admin/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f6170692f2e2532452f61646d696e2f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-encoded-single-dot-segment",
+      "why": "A `.` segment spelled `%2E`.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/%2E/api/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f2532452f6170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
+      "expect": {
+        "accepted": false,
+        "url": null,
+        "api": null,
+        "announcedAt": null
+      }
+    },
+    {
+      "id": "announcement.payload.url-encoded-unreserved",
+      "why": "%XX of a letter: `%41pi` is another spelling of `Api`, and no character is to have two.",
+      "kind": "payload",
+      "text": "{\"url\":\"https://gdd.gradido.net/%41pi/\",\"api\":[\"1_0\"],\"announcedAt\":\"1760000000000\"}",
+      "payload": "7b2275726c223a2268747470733a2f2f6764642e6772616469646f2e6e65742f25343170692f222c22617069223a5b22315f30225d2c22616e6e6f756e6365644174223a2231373630303030303030303030227d",
       "expect": {
         "accepted": false,
         "url": null,

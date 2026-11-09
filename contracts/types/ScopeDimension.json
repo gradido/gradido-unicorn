@@ -5,7 +5,7 @@
   "representation": "string",
   "description": "The dimensions along which a role assignment can be narrowed. A dimension names a column that resources are grouped by; which resource that is, is part of the dimension's meaning and is written here.",
   "source": null,
-  "origin": "gradido2",
+  "origin": "gradido-unicorn",
   "unknownValuePolicy": "ignore_and_warn",
   "values": [
     {

@@ -6,7 +6,7 @@
   "version": "0.0.1",
   "author": "Gradido Academy - https://www.gradido.net",
   "license": "Apache-2.0",
-  "repository": "git@github.com:gradido/gradido2.git",
+  "repository": "git@github.com:gradido/gradido-unicorn.git",
   "main": "./src/index.ts",
   "module": "./src/index.ts",
   "exports": {

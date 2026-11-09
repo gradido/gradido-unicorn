@@ -246,7 +246,7 @@
       "auth": "session",
       "roles": ["user", "moderator", "moderator-ai", "admin"],
       "notes": [
-        "Reads/writes the user setting main_creation_group (../../user_settings.json), not a table: gradido2 has no user_creation_groups. See db/user_settings.json."
+        "Reads/writes the user setting main_creation_group (../../user_settings.json), not a table: gradido-unicorn has no user_creation_groups. See db/user_settings.json."
       ]
     },
     {
@@ -305,7 +305,7 @@
       "auth": "session",
       "roles": ["user", "moderator", "moderator-ai", "admin"],
       "notes": [
-        "Reads/writes the user setting main_creation_group (../../user_settings.json), not a table: gradido2 has no user_creation_groups. See db/user_settings.json.",
+        "Reads/writes the user setting main_creation_group (../../user_settings.json), not a table: gradido-unicorn has no user_creation_groups. See db/user_settings.json.",
         "The wire still carries an array of tags. Legacy's admin sends one tag or none and the resolver replaces the whole list, so more than one element has never reached this route; what the second element does now is the open question below."
       ]
     },
@@ -340,7 +340,7 @@
       "auth": "session",
       "roles": ["moderator", "moderator-ai", "admin"],
       "notes": [
-        "Reads/writes the user setting main_creation_group (../../user_settings.json), not a table: gradido2 has no user_creation_groups. See db/user_settings.json."
+        "Reads/writes the user setting main_creation_group (../../user_settings.json), not a table: gradido-unicorn has no user_creation_groups. See db/user_settings.json."
       ]
     },
     {
@@ -380,7 +380,7 @@
       "auth": "session",
       "roles": ["moderator", "moderator-ai", "admin"],
       "notes": [
-        "Reads/writes the user setting main_creation_group (../../user_settings.json), not a table: gradido2 has no user_creation_groups. See db/user_settings.json.",
+        "Reads/writes the user setting main_creation_group (../../user_settings.json), not a table: gradido-unicorn has no user_creation_groups. See db/user_settings.json.",
         "The wire still carries an array of tags. Legacy's admin sends one tag or none and the resolver replaces the whole list, so more than one element has never reached this route; what the second element does now is the open question below."
       ]
     },

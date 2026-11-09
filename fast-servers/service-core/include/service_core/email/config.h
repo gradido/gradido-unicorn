@@ -8,7 +8,7 @@
  *
  * The names are legacy's -- EMAIL, EMAIL_USERNAME, EMAIL_SENDER, EMAIL_PASSWORD,
  * EMAIL_SMTP_HOST and EMAIL_SMTP_PORT are what a stage5.env holds -- so that an operator
- * moving a community to gradido2 does not have to relearn them. EMAIL_SMTP_TLS and
+ * moving a community to gradido-unicorn does not have to relearn them. EMAIL_SMTP_TLS and
  * EMAIL_SENDER_NAME are new: legacy let nodemailer guess the encryption from the port number,
  * and guessing is how a password ends up on the wire in the clear.
  *

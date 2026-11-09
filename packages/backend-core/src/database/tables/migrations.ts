@@ -16,7 +16,7 @@ import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
  * `../migrate/runMigrations.ts` and nowhere else yet.
  *
  * `file_name` is snake_case here and camelCase in legacy, where TypeORM's default naming
- * leaked into one column of one table. gradido2 spells columns one way.
+ * leaked into one column of one table. gradido-unicorn spells columns one way.
  */
 export const migrationsPg = pgTable('migrations', {
   version: pgInteger('version').primaryKey(),
