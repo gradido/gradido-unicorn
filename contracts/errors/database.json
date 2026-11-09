@@ -3,7 +3,7 @@
   "kind": "errors",
   "domain": "database",
   "codeRange": [1000, 1999],
-  "description": "Errors raised at the repository boundary. Legacy threw classes without codes; the codes here are assigned by gradido2 and are permanent.",
+  "description": "Errors raised at the repository boundary. Legacy threw classes without codes; the codes here are assigned by gradido-unicorn and are permanent.",
   "source": "database/src/errorTypes.ts",
   "errors": [
     {

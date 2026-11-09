@@ -6,7 +6,7 @@
   "description": "How a fresh community gets into the federation network: one public route that hands out peers to dial. Every running community is a bootstrap node, because every running community already serves HTTP.",
   "mount": "/",
   "source": [],
-  "origin": "gradido2",
+  "origin": "gradido-unicorn",
   "routes": [
     {
       "name": "peer.bootstrap",
@@ -71,7 +71,7 @@
         "No request parameters and a fixed bound. A bootstrap endpoint that takes a limit, a filter or a cursor is an enumeration endpoint, and this one deliberately is not: it hands out enough to join the network and no more. Sampling rather than ordering makes that structural — nobody can walk the network by calling it repeatedly.",
         "Current in the DHT sense, not complete. What belongs here comes from the node's routing table — not the federated_communities table, which knows who ever announced. An answer full of nodes that announced once years ago is a slow failure rather than a fast one.",
         "The default bootstrap URL is DHT_BOOTSTRAP_DEFAULT_URL. That makes the ordinary case safe without making it a protocol guarantee: the two mechanisms that hold when an operator points somewhere else are the per-peer handshake, and later the signed variant below.",
-        "Legacy has no counterpart. libp2p, unlike hyperswarm, comes with no public network to join, and this route is gradido2's answer to that — see Architecture.md, Peer network, Bootstrap."
+        "Legacy has no counterpart. libp2p, unlike hyperswarm, comes with no public network to join, and this route is gradido-unicorn's answer to that — see Architecture.md, Peer network, Bootstrap."
       ]
     }
   ],

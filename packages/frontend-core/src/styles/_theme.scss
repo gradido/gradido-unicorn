@@ -178,6 +178,13 @@
   animation: none !important;
 }
 
+// A checkbox has no caret to show focus, and the frame alone is fainter than its resting
+// border. `:focus-visible` keeps the ring to keyboard focus, so a click looks as in legacy.
+.form-check-input:focus-visible {
+  outline: 2px solid var(--gdd-green);
+  outline-offset: 2px;
+}
+
 /* Auth links — blue, where the rest of the app links green */
 
 .auth-navbar a,

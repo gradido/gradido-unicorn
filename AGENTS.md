@@ -1,8 +1,8 @@
-# AGENTS.md — Gradido2
+# AGENTS.md — Gradido Unicorn
 
 ## Purpose
 
-Operational guide for AI coding agents working on Gradido2.
+Operational guide for AI coding agents working on Gradido Unicorn.
 
 **Read `Architecture.md` for the detailed architecture and rationale.** This file states
 the rules; Architecture.md explains why they exist. When a rule here needs justification,
@@ -14,7 +14,7 @@ When existing code and documentation appear to disagree, inspect the surrounding
 
 ## 0. State of the repository
 
-Gradido2 is a **rebuild of gradido legacy on a new stack**, not a refactoring of its code.
+Gradido Unicorn is a **rebuild of gradido legacy on a new stack**, not a refactoring of its code.
 No legacy code is carried over — but the **complete feature set of gradido legacy is the
 target scope**. Most directories are still empty because the rebuild has barely started,
 not because the scope is small.
@@ -737,8 +737,8 @@ bun run test:interop   the two dht-nodes against each other; builds the C binary
 bun run test:e2e       setup on both paths, on a pseudo-terminal; builds the C binary first
 bun install && turbo @gradido/backend#start
 turbo publish       publish/ — the built frontends both servers embed
-bun bundle          build/gradido2 — the reference implementation, in one file
-BUNDLE_C=1 bun bundle   build/gradido2-fast as well, out of fast-servers/
+bun bundle          build/gradido-unicorn — the reference implementation, in one file
+BUNDLE_C=1 bun bundle   build/gradido-unicorn-fast as well, out of fast-servers/
 ```
 
 `bun bundle` runs `turbo publish` itself, and so does `zig build` in `fast-servers`. Run it

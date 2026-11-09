@@ -565,24 +565,24 @@ target_link_libraries(federation PUBLIC backend_core service_core)
 target_link_libraries(dht_node PUBLIC service_core)
 target_link_libraries(backend_core PUBLIC service_core)
 
-add_executable(gradido2-fast src/main.c)
-target_include_directories(gradido2-fast PRIVATE ${FS_INCLUDE_DIRS})
-target_compile_options(gradido2-fast PRIVATE ${FS_WARNING_FLAGS})
+add_executable(gradido-unicorn-fast src/main.c)
+target_include_directories(gradido-unicorn-fast PRIVATE ${FS_INCLUDE_DIRS})
+target_compile_options(gradido-unicorn-fast PRIVATE ${FS_WARNING_FLAGS})
 # The mirror of build.zig's FS_OPTIMIZE: what `--version` reports about how this was built. A
 # generator expression rather than CMAKE_BUILD_TYPE, because a multi-config generator -- which
 # is what the MSVC build this file exists for uses -- decides that at build time, not here.
-target_compile_definitions(gradido2-fast PRIVATE
+target_compile_definitions(gradido-unicorn-fast PRIVATE
   FS_OPTIMIZE="$<IF:$<BOOL:$<CONFIG>>,$<CONFIG>,unknown>")
 # main.c runs each role on a uv_thread_t; the rest arrives through service_core.
-target_link_libraries(gradido2-fast PRIVATE backend federation dht_node backend_core service_core uv_a)
+target_link_libraries(gradido-unicorn-fast PRIVATE backend federation dht_node backend_core service_core uv_a)
 if(FS_LIBP2P_FFI_DIR)
-  fs_link_libp2p_ffi(gradido2-fast)
+  fs_link_libp2p_ffi(gradido-unicorn-fast)
 endif()
 
 if(MSVC)
   # debug symbols for a parent project stepping into this one
-  target_compile_options(gradido2-fast PRIVATE $<$<CONFIG:Debug>:/JMC>)
-  set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT gradido2-fast)
+  target_compile_options(gradido-unicorn-fast PRIVATE $<$<CONFIG:Debug>:/JMC>)
+  set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT gradido-unicorn-fast)
 endif()
 
 if(FS_ENABLE_TESTS)
@@ -604,4 +604,4 @@ if(FS_ENABLE_BENCHMARKS)
   add_subdirectory(benchmarks)
 endif()
 
-install(TARGETS gradido2-fast RUNTIME DESTINATION bin)
+install(TARGETS gradido-unicorn-fast RUNTIME DESTINATION bin)

@@ -103,7 +103,7 @@
     "Rows are joined by community_uuid and by public_key, almost never by id. An implementation that treats id as the community identity will not match legacy data.",
     "Timestamps are UTC milliseconds; see types/Timestamp.json. This table uses datetime(3) throughout, so sub-second ordering is real here — unlike contributions and transaction_links.",
     "A private key lives in this table. It must never be selected by a query that also feeds a response, and never logged. See logging.json.",
-    "public_key is unique. Legacy intended it — migration 0065 created UNIQUE KEY public_key_key — and migration 0068 lost the constraint while widening the column, so the live legacy schema does not enforce it. gradido2 repairs that rather than inheriting it: public_key is what the federation handshake identifies a community by, and two rows holding one key is not a duplicate, it is an authentication ambiguity. A community that wants a new key rotates the column; it does not get a second row."
+    "public_key is unique. Legacy intended it — migration 0065 created UNIQUE KEY public_key_key — and migration 0068 lost the constraint while widening the column, so the live legacy schema does not enforce it. gradido-unicorn repairs that rather than inheriting it: public_key is what the federation handshake identifies a community by, and two rows holding one key is not a duplicate, it is an authentication ambiguity. A community that wants a new key rotates the column; it does not get a second row."
   ],
   "open": []
 }

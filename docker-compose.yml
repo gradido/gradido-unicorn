@@ -1,7 +1,7 @@
-# Development services for gradido2: a database, a database UI and a mail sink.
+# Development services for gradido-unicorn: a database, a database UI and a mail sink.
 #
 # These containers exist so that a developer can work against PostgreSQL and against real
-# SMTP without installing either. They are not a deployment: no gradido2 service is built
+# SMTP without installing either. They are not a deployment: no gradido-unicorn service is built
 # or run here, and the warning in README.md, "Development containers", says why running
 # the servers themselves in docker is the wrong measurement to take.
 #
@@ -52,7 +52,7 @@ services:
   # The database UI, and the same one for both repositories: adminer speaks PostgreSQL,
   # MySQL/MariaDB and SQLite, so it opens ../gradido's MariaDB and this project's PostgreSQL
   # with one interface -- which is the whole reason it is here rather than pgAdmin, and it
-  # covers SQLite too, which is what a gradido2 server uses when nothing is configured.
+  # covers SQLite too, which is what a gradido-unicorn server uses when nothing is configured.
   # It is an official image, unlike every phpPgAdmin one, and it logs in as the database
   # user: no second account, no application login on top.
   adminer:
@@ -81,7 +81,7 @@ services:
     # directory it lives in and give its path as the Server field. It has to be writable:
     # SQLite writes a journal next to the file.
     # volumes:
-    #   - ./:/gradido2
+    #   - ./:/gradido-unicorn
 
   ########################################################
   # MAILSERVER TO FAKE SMTP ##############################

@@ -12,7 +12,7 @@ Map lore abstractions to their real code concepts.
 | The fast road | C on h2o |
 | Losing it again at the border | the N-API crossing; it costs more than it saves unless C owns the whole request |
 | The question nobody could answer | the real peak load, which no measurement in the repository contains |
-| The empty ground, one street plan | gradido2 — a rebuild, no legacy code carried over |
+| The empty ground, one street plan | gradido-unicorn — a rebuild, no legacy code carried over |
 | Sirodunon ("the fort that lasts") | the TypeScript path in `packages/` — normative, maintainable without the author |
 | Eporedon ("the city of chariots") | the C path in `fast-servers/` — faster, denser, allowed to lag, must stay droppable |
 | One hand built her | the fast path has one maintainer; that is the reason it must be droppable |
@@ -64,7 +64,7 @@ Map lore abstractions to their real code concepts.
 | The thin fourth book | `dlt_transactions.verified` / `verified_at` / `error` — the reconciliation flag |
 | The great register outside all the cities | the Hedera/Hiero topic the transactions are written to, read back by gradido-node |
 | The scribe who reads both hands | legacy's `dlt-connector`, translating into blockchain format |
-| Writing in the register's hand from the start | intended for gradido2: one transaction shape, signed once, no second format to reconcile |
+| Writing in the register's hand from the start | intended for gradido-unicorn: one transaction shape, signed once, no second format to reconcile |
 | Making and confirming stop being two crafts | one path to create and confirm a transaction instead of two |
 | The one question turned out to be eleven | the setup conversation now covers the community, the database and the mail relay |
 | A city on a bench | a development installation — the proposal answered with one Enter |

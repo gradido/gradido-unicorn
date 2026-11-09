@@ -6,8 +6,8 @@
  * `node_modules` beside it, nothing to serve the pages with. That is the promise
  * `Architecture.md` makes, and this script is where it is kept.
  *
- *   build/gradido2        the TypeScript path — the reference implementation
- *   build/gradido2-fast   the C path, out of fast-servers/
+ *   build/gradido-unicorn        the TypeScript path — the reference implementation
+ *   build/gradido-unicorn-fast   the C path, out of fast-servers/
  *
  * **Which of them is built is a decision, and the default is the reference one.** They are two
  * implementations of the same server and a deployment runs one or the other, never both against
@@ -88,8 +88,8 @@ const C_OPTIMIZE = {
 type COptimize = keyof typeof C_OPTIMIZE
 
 /** The product's name. The C implementation is the same product, and says which one it is. */
-const TS_BINARY = process.platform === 'win32' ? 'gradido2.exe' : 'gradido2'
-const C_BINARY = process.platform === 'win32' ? 'gradido2-fast.exe' : 'gradido2-fast'
+const TS_BINARY = process.platform === 'win32' ? 'gradido-unicorn.exe' : 'gradido-unicorn'
+const C_BINARY = process.platform === 'win32' ? 'gradido-unicorn-fast.exe' : 'gradido-unicorn-fast'
 
 const FAST_SERVERS = join(ROOT, 'fast-servers')
 
