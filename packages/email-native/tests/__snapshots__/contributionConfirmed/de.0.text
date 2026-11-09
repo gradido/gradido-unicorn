@@ -1,18 +1,18 @@
 Dein Gemeinwohl-Beitrag wurde bestätigt
 
-Hallo {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hallo {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Dein Gemeinwohl-Beitrag „{contributionMemo|&<>"'ä}“ wurde soeben von {senderAlias|&<>"'ä} bestätigt. Es wurden Deinem Gradido-Konto {contributionAmount|&<>"'ä} GDD gutgeschrieben.
+Dein Gemeinwohl-Beitrag „{contributionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}“ wurde soeben von {senderAlias|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example} bestätigt. Es wurden Deinem Gradido-Konto {contributionAmount|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example} GDD gutgeschrieben.
 
 Beitragsdetails
 
 Deine Gemeinwohl-Beiträge und die Nachrichten dazu findest Du in Deinem Gradido-Konto.
 
-Zum Beitrag [{contributionFrontendLink|&<>"'ä}]
+Zum Beitrag [{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Oder kopiere den Link in Dein Browserfenster.
 
-{contributionFrontendLink|&<>"'ä}
+{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Bitte antworte nicht auf diese E-Mail.
 

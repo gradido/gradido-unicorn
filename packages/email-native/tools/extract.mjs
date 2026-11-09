@@ -1,203 +1,117 @@
-// Renders every pug template once per locale and per branch variant, with
-// sentinels where the user data goes, then splits the result into
-// [literal, slot, literal, ...]. Output: <out>/ir.json
+// The importer's pug half: legacy's templates (templates/<name>/*.pug, locales/*.json)
+// rendered with sentinels where the values go, once per locale and per value set of
+// the MJML translation -- so tools/compare_pug.mjs can hold the two to each other on
+// what a reader sees. Not part of the build. Output: <out>/ir.json
+//
+// pug has no branches the importer could keep, so here a value set is a rendering of
+// its own: renders[kind][locale][set] = ops, in the format of tools/runtime.mjs.
+//
+//   bun tools/extract.mjs --mjml build/tools/mjml/ir.json --out build/tools/pug
 import { convert } from 'html-to-text'
 import pug from 'pug'
-import fs from 'fs'
-import path from 'path'
-import { TEMPLATE_ROOT, LOCALE_DIR, OUT_DIR, LOCALES, TEMPLATES, TEXT_OPTIONS_PUG as TEXT_OPTIONS } from './manifest.mjs'
+import fs from 'node:fs'
+import path from 'node:path'
+import { LOCALE_DIR, LOCALES, OUT_DIR, TEMPLATE_ROOT, TEXT_OPTIONS_PUG as TEXT_OPTIONS } from './manifest.mjs'
+import { program, tok } from './markers.mjs'
 
-// U+0001 / U+0002 never occur in HTML or CSS, and pug's escaper leaves them
-// alone -- so they survive attribute contexts too.
-const SOT = String.fromCharCode(1)
-const EOT = String.fromCharCode(2)
-const sentinel = (n) => SOT + n + EOT
-const SPLIT_RE = new RegExp(SOT + '([^' + SOT + EOT + ']*)' + EOT)
+const arg = (name, fallback) => {
+  const i = process.argv.indexOf(`--${name}`)
+  return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : fallback
+}
+const MJML_IR = path.resolve(arg('mjml', path.join(TEMPLATE_ROOT, '..', 'build', 'tools', 'mjml', 'ir.json')))
 
 // ---------------------------------------------------------------- i18n
 const flatten = (o, p = '') =>
   Object.entries(o).reduce((acc, [k, v]) => {
-    if (v && typeof v === 'object') Object.assign(acc, flatten(v, p + k + '.'))
+    if (v && typeof v === 'object') Object.assign(acc, flatten(v, `${p + k}.`))
     else acc[p + k] = v
     return acc
   }, {})
 
 const catalogs = Object.fromEntries(
-  LOCALES.map((l) => [l, flatten(JSON.parse(fs.readFileSync(path.join(LOCALE_DIR, l + '.json'), 'utf8')))]),
+  LOCALES.map((l) => [l, flatten(JSON.parse(fs.readFileSync(path.join(LOCALE_DIR, `${l}.json`), 'utf8')))]),
 )
 
 // i18n is configured with mustacheConfig.tags = ['{','}'] (locales/localization.ts)
 function makeT(locale) {
   const cat = catalogs[locale]
-  const fallback = catalogs.en
   return (key, params) => {
-    let s = cat[key] ?? fallback[key]
+    let s = cat[key] ?? catalogs.en[key]
     if (s === undefined) throw new Error(`missing translation ${locale}:${key}`)
     if (params) s = s.replace(/\{([A-Za-z0-9_]+)\}/g, (m, k) => (k in params ? String(params[k]) : m))
     return s
   }
 }
 
-// ------------------------------------------------ read the variables off pug
-// pug compiles to `(function (a, b, t, ...) {...}`, which is the exact list of
-// identifiers the template uses, includes and extends included.
+// ---------------------------------------------- values as legacy's code sees them
+const slot = (name, mode = 'v') => tok(`$${mode}:${name}`)
+
+/*
+ * legacy's helpers, given the sentinels instead of values. humanTextParts hands its
+ * text back whole with every value in it marked as a person's text -- per value, which
+ * is what the C does; the phrases around a value carry no addresses. encodeURIComponent
+ * marks the value as a URI component instead of encoding the sentinel away.
+ */
+const helpers = {
+  humanTextParts: (text, options) => [
+    { type: 'text', value: String(text ?? '').replace(/\u0001\$v:/g, `\u0001$${options?.bold ? 'hb' : 'h'}:`) },
+  ],
+  encodeURIComponent: (v) => String(v).replace(/\u0001\$v:/g, '\u0001$u:'),
+}
+
+// pug compiles to `(function (a, b, t, ...) {...}`, the identifiers the template uses.
 function pugVars(fn) {
   const m = /\(function \(([^)]*)\)/.exec(fn.toString())
   return m[1].split(',').map((s) => s.trim()).filter(Boolean)
 }
 
-function materialize(v) {
-  if (v && typeof v === 'object' && '__slot' in v) return sentinel(v.__slot)
-  if (v && typeof v === 'object') return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, materialize(x)]))
-  return v
-}
-
-const unescapeHtml = (s) =>
-  s.replace(/&(amp|lt|gt|quot|#39);/g, (m, e) => ({ amp: '&', lt: '<', gt: '>', quot: '"', '#39': "'" })[e])
-
-function chunkify(html, kind) {
-  const parts = html.split(SPLIT_RE) // [lit, slot, lit, slot, ..., lit]
-  const ops = []
-  for (let i = 0; i < parts.length; i++) {
-    if (i % 2 === 0) {
-      if (parts[i]) ops.push({ t: 'lit', s: kind === 'text' ? unescapeHtml(parts[i]) : parts[i] })
-    } else {
-      ops.push({ t: 'slot', name: parts[i], esc: kind === 'html' ? 'html' : 'raw' })
-    }
-  }
-  return ops
-}
-
-// ------------------------------------------------ drift check (load-bearing)
-// The extractor renders branches exactly the way manifest.mjs describes them.
-// If a new `if` appeared in a template, only one branch would silently end up
-// in the binary. So: count the branches in the pug sources and hold the
-// manifest to that number.
-function stripPugComments(src) {
-  const lines = src.split('\n')
-  const out = []
-  let blockIndent = -1
-  for (const line of lines) {
-    const indent = line.search(/\S/)
-    if (blockIndent >= 0) {
-      if (indent === -1 || indent > blockIndent) { out.push(''); continue }
-      blockIndent = -1
-    }
-    if (/^\s*\/\//.test(line)) { blockIndent = indent; out.push(''); continue }
-    out.push(line)
-  }
-  return out.join('\n')
-}
-
-function pugGraph(file, seen = new Set()) {
-  const real = path.resolve(file)
-  if (seen.has(real) || !real.endsWith('.pug')) return seen
-  seen.add(real)
-  const src = fs.readFileSync(real, 'utf8')
-  for (const m of src.matchAll(/^\s*(?:include|extends?)\s+(\S+)\s*$/gm)) {
-    const dep = m[1].startsWith('/')
-      ? path.join(TEMPLATE_ROOT, m[1])
-      : path.resolve(path.dirname(real), m[1])
-    const ext = path.extname(dep)
-    if (ext && ext !== '.pug') continue // include includes/email.css -- raw text, not pug
-    pugGraph(ext ? dep : dep + '.pug', seen)
-  }
-  return seen
-}
-
-function countBranchPoints(name) {
-  let n = 0
-  const where = []
-  for (const kind of ['html.pug', 'subject.pug'])
-    for (const f of pugGraph(path.join(TEMPLATE_ROOT, name, kind))) {
-      const src = stripPugComments(fs.readFileSync(f, 'utf8'))
-      for (const m of src.matchAll(/^[ \t]*(else if|if|unless|case|each|while)\b/gm)) {
-        n++
-        where.push(`${path.relative(TEMPLATE_ROOT, f)}: ${m[1]}`)
-      }
-    }
-  return { n, where }
-}
-
 // ------------------------------------------------------------------ build
-const cartesian = (arrs) => arrs.reduce((a, b) => a.flatMap((x) => b.map((y) => [...x, y])), [[]])
-
+if (!fs.existsSync(MJML_IR)) {
+  console.error(`no ${MJML_IR} -- the value sets come from there: bun run extract:mjml`)
+  process.exit(1)
+}
+const mjml = JSON.parse(fs.readFileSync(MJML_IR, 'utf8'))
 const ir = { locales: LOCALES, templates: [] }
 const problems = []
 
-for (const [name, spec] of Object.entries(TEMPLATES)) {
-  const conditions = spec.conditions ?? []
-  const flags = spec.flags ?? []
-  const combos = cartesian(conditions.map((c) => c.cases.map((_, i) => i)))
-
-  const declared = conditions.reduce((a, c) => a + c.cases.length - 1, 0)
-  const found = countBranchPoints(name)
-  if (found.n !== declared)
-    problems.push(
-      `${name}: ${found.n} branch(es) in the pug sources, but ${declared} in the manifest.\n` +
-        found.where.map((w) => '      ' + w).join('\n') +
-        '\n      -> adjust tools/manifest.mjs (otherwise only one branch ships).',
-    )
-
-  const slotNames = new Set()
-  const renders = {} // renders[kind][localeIdx][comboIdx] = ops
-
-  for (const kind of ['html', 'subject']) {
-    const file = path.join(TEMPLATE_ROOT, name, kind === 'html' ? 'html.pug' : 'subject.pug')
-    const fn = pug.compileFile(file, { basedir: TEMPLATE_ROOT, filename: file })
-    const vars = pugVars(fn).filter((v) => v !== 't' && v !== 'locale' && !flags.includes(v))
-    renders[kind] = []
-    if (kind === 'html') renders.text = []
-    for (const locale of LOCALES) {
-      const perCombo = []
-      const perComboText = []
-      for (const combo of combos) {
-        // Baseline: every template variable becomes its own sentinel ...
-        const locals = { t: makeT(locale), locale: sentinel('locale') }
-        for (const v of vars) locals[v] = sentinel(v)
-        for (const f of flags) locals[f] = false
-        // ... unless the branch case says otherwise.
-        combo.forEach((ci, i) => Object.assign(locals, materialize(conditions[i].cases[ci].locals ?? {})))
-
-        const out = fn(locals)
-        if (/undefined|\[object Object\]/.test(out))
-          problems.push(`${name}/${kind}/${locale}: 'undefined' or '[object Object]' in the output`)
-        const ops = chunkify(kind === 'subject' ? out.trim() : out, kind === 'subject' ? 'text' : 'html')
-        for (const op of ops) if (op.t === 'slot') slotNames.add(op.name)
-        perCombo.push(ops)
-
-        /* The plain text alternative comes off the same rendering, sentinels and all -- so the
-         * text a receiver without HTML sees is derived from the one document, not maintained
-         * beside it. html-to-text decodes the entities on its way, which is why the literals
-         * are taken as they are here and only the slots are marked raw. */
-        if (kind === 'html') {
-          const text = convert(out, TEXT_OPTIONS).trim()
-          const textOps = chunkify(text, 'plain')
-          perComboText.push(textOps)
-        }
-      }
-      renders[kind].push(perCombo)
-      if (kind === 'html') renders.text.push(perComboText)
-    }
+for (const t of mjml.templates) {
+  const dir = path.join(TEMPLATE_ROOT, t.name)
+  if (!fs.existsSync(path.join(dir, 'html.pug'))) {
+    console.error(`  ${t.name.padEnd(32)} no pug source, skipped`)
+    continue
   }
+  try {
+    const compile = (file) => pug.compileFile(path.join(dir, file), { basedir: TEMPLATE_ROOT, filename: path.join(dir, file) })
+    const fns = { html: compile('html.pug'), subject: compile('subject.pug') }
+    const vars = [...new Set([...pugVars(fns.html), ...pugVars(fns.subject)])]
+    const renders = { html: [], subject: [], text: [] }
 
-  slotNames.delete('locale') // filled in by the renderer, not by the caller
-  const slots = [...slotNames].sort()
-  ir.templates.push({
-    name,
-    slots, // -> const char* fields
-    flags, // -> bool fields
-    conditions: conditions.map((c) => ({ id: c.id, cases: c.cases.map((x) => x.c) })),
-    combos,
-    renders,
-  })
-  console.error(
-    `  ${name.padEnd(32)} ${combos.length} variant(s) x ${LOCALES.length} locales, ${slots.length} slots`,
-  )
+    for (const locale of LOCALES) {
+      for (const kind of ['html', 'subject', 'text']) renders[kind].push([])
+      for (const cleared of t.valueSets) {
+        const locals = { t: makeT(locale), locale: slot('locale'), language: slot('locale'), ...helpers }
+        for (const v of vars) if (!(v in locals)) locals[v] = t.flags.includes(v) ? true : slot(v)
+        for (const name of cleared) locals[name] = t.flags.includes(name) ? false : null
+        // legacy hands the link's validity over as one object; the slots are its leaves
+        locals.timeDurationObject = { hours: locals.hours ?? slot('hours'), minutes: locals.minutes === null ? 0 : slot('minutes') }
+
+        const html = fns.html(locals)
+        if (/undefined|\[object Object\]/.test(html)) throw new Error(`${locale}: 'undefined' or '[object Object]' in the output`)
+        const where = `${t.name}/${locale}`
+        renders.html.at(-1).push(program(html, 'html', where))
+        renders.subject.at(-1).push(program(fns.subject(locals).trim(), 'subject', where))
+        renders.text.at(-1).push(program(convert(html, TEXT_OPTIONS).trim(), 'text', where))
+      }
+    }
+    ir.templates.push({ name: t.name, renders })
+    console.error(`  ${t.name.padEnd(32)} ${t.valueSets.length} value set(s) x ${LOCALES.length} locales`)
+  } catch (e) {
+    problems.push(`${t.name}: ${e.message.split('\n')[0]}`)
+  }
 }
 
 if (problems.length) {
-  console.error('\nERROR:\n' + problems.join('\n'))
+  console.error(`\nERROR:\n${problems.join('\n')}`)
   process.exit(1)
 }
 fs.mkdirSync(OUT_DIR, { recursive: true })

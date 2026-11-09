@@ -576,11 +576,12 @@ packages/          TypeScript — reference implementation
                    and linked directly by the fast servers
   email-native     the e-mail templates and the codegen that renders them into C
                    at build time. Both implementations send the same mails
-                   because both compile the same generated file — the pug
-                   sources here are the single source of truth, and the pug
-                   output is checked in as snapshots: the tests hold pug and
-                   the addon to them, and every build holds the C binary to
-                   them before it hands the generated file to fast-servers.
+                   because both compile the same generated file — the MJML
+                   templates here are the single source of truth, and what
+                   they render to is checked in as snapshots: the tests hold
+                   the reference renderer and the addon to them, and every
+                   build holds the C binary to them before it hands the
+                   generated file to fast-servers.
                    It also compiles fast-servers' message and transport layers,
                    so both paths put the same bytes on the wire; the worker
                    pool above them is the fast path's alone

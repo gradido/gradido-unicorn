@@ -1,12 +1,12 @@
 E-mailadres gewijzigd
 
-Hallo {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hallo {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Vanaf nu is het e-mailadres van je Gradido-account {newEmail|&<>"'ä}.
+Vanaf nu is het e-mailadres van je Gradido-account {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
-Tot nu toe was het {oldEmail|&<>"'ä}.
+Tot nu toe was het {oldEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
-Was jij dat niet? Neem dan meteen contact op met {supportEmail|&<>"'ä}.
+Was jij dat niet? Neem dan meteen contact op met {supportEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
 Hartelijke groet,
 je Gradido-team

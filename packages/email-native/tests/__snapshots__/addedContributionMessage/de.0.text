@@ -1,18 +1,18 @@
 Nachricht zu Deinem Gemeinwohl-Beitrag
 
-Hallo {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hallo {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Du hast zu Deinem Gemeinwohl-Beitrag „{contributionMemo|&<>"'ä}“ eine Nachricht von {senderAlias|&<>"'ä} erhalten.
+Du hast zu Deinem Gemeinwohl-Beitrag „{contributionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}“ eine Nachricht von {senderAlias|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example} erhalten.
 
 Nachricht lesen und beantworten
 
-„{message|&<>"'ä}“
+„{message|&<>"'ä b https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}“
 
 Antworten kannst Du direkt bei Deinem Beitrag.
 
-Jetzt antworten [{contributionFrontendLink|&<>"'ä}]
+Jetzt antworten [{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
-Zum Konto [{communityURL|&<>"'ä}/transactions]
+Zum Konto [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/transactions]
 
 Bitte antworte nicht auf diese E-Mail.
 

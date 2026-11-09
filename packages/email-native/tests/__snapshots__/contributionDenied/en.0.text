@@ -1,18 +1,18 @@
 Your common good contribution was rejected
 
-Hello {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hello {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Your common good contribution “{contributionMemo|&<>"'ä}” was rejected by {senderAlias|&<>"'ä}.
+Your common good contribution “{contributionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}” was rejected by {senderAlias|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}.
 
 Contribution details
 
 You will find your common good contributions and the messages about them in your Gradido account.
 
-To contribution [{contributionFrontendLink|&<>"'ä}]
+To contribution [{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Or copy the link into your browser window.
 
-{contributionFrontendLink|&<>"'ä}
+{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Please do not reply to this email.
 

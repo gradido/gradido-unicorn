@@ -1,8 +1,8 @@
 Ton adresse e-mail va changer
 
-Bonjour {firstName|&<>"'ä} {lastName|&<>"'ä},
+Bonjour {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Un changement de l'adresse e-mail de ton compte Gradido vers {newEmail|&<>"'ä} a été demandé.
+Un changement de l'adresse e-mail de ton compte Gradido vers {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} a été demandé.
 
 Tant que la nouvelle adresse n'est pas confirmée, celle-ci reste valable. Si c'était toi, tu n'as rien d'autre à faire.
 
@@ -10,15 +10,15 @@ Ce n'était pas toi ?
 
 Ce n'était pas toi ? Alors clique ici : le changement est annulé et cette adresse reste en place.
 
-Annuler le changement [{revokeLink|&<>"'ä}]
+Annuler le changement [{revokeLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Ou copie le lien dans la fenêtre de ton navigateur.
 
-{revokeLink|&<>"'ä}
+{revokeLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Si tu annules le changement, pense aussi à modifier ton mot de passe ensuite.
 
-Le lien est valable jusqu'au {validUntil|&<>"'ä} ; ensuite, le changement demandé expire de lui-même.
+Le lien est valable jusqu'au {validUntil|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ; ensuite, le changement demandé expire de lui-même.
 
 Cordialement,
 ton équipe Gradido

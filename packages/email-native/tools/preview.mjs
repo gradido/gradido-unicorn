@@ -2,11 +2,10 @@
  * The preview: every locale and every variant of a template, in a browser, with
  * the slot values editable.
  *
- * It renders NOTHING. build/tools/mjml/ir.json already holds each document as
- * [literal, slot, literal, ...]; the page joins the literals and escapes the slot
- * values, which is exactly what ge_render_* does at runtime -- so switching a
- * locale or typing a 40-character surname costs no round trip, and what you look
- * at is what the C would send.
+ * It renders nothing itself. The page carries tools/runtime.mjs verbatim -- the op
+ * machine src/render.c is held to -- and runs the programs of build/tools/mjml/ir.json
+ * through it. Switching a locale, emptying a value or unticking a flag costs no round
+ * trip, and what you look at is what the C would send.
  *
  * That is also why it is a third consumer of the IR and not a second renderer:
  *
@@ -37,10 +36,7 @@ const IR = path.resolve(arg('ir', path.join(ROOT, 'build', 'tools', 'mjml', 'ir.
 const OUT = path.resolve(arg('out', path.join(ROOT, 'build', 'tools', 'preview')))
 const INLINE = process.argv.includes('--inline')
 
-const LIT = 0
-const SLOT = 1
-
-/** One template's documents, with the literals pooled and the ops made compact. */
+/** One template's programs, with the literals pooled per template. */
 export function pack(t, locales) {
   const pool = []
   const index = new Map()
@@ -49,32 +45,16 @@ export function pack(t, locales) {
     if (i === undefined) { i = pool.length; pool.push(s); index.set(s, i) }
     return i
   }
-  const slots = t.slots.slice()
-  const slotIndex = new Map(slots.map((s, i) => [s, i]))
-  const packOps = (ops) =>
-    ops.map((op) => {
-      if (op.t === 'lit') return [LIT, intern(op.s)]
-      // `locale` is filled by the renderer rather than by a caller, so it is not
-      // in t.slots -- it gets an index past the end and a value the page supplies.
-      const at = slotIndex.get(op.name)
-      return [SLOT, at ?? -1, op.esc === 'html' ? 1 : 0, at === undefined ? op.name : undefined]
-    })
-
   const docs = {}
   for (const kind of ['html', 'text', 'subject'])
-    docs[kind] = t.renders[kind].map((perVariant) => perVariant.map(packOps))
-
-  return {
-    name: t.name,
-    slots,
-    flags: t.flags,
-    variants: t.combos.map((c) => c.join('')),
-    conditions: t.conditions.map((c) => c.id),
-    locales,
-    pool,
-    docs,
-  }
+    docs[kind] = t.renders[kind].map((ops) => ops.map((op) => (op[0] === 'lit' ? ['lit', intern(op[1])] : op)))
+  return { name: t.name, values: t.values, slots: t.slots, flags: t.flags, valueSets: t.valueSets, locales, pool, docs }
 }
+
+/** What the page runs: tools/runtime.mjs as it is, minus its export line. */
+export const RUNTIME = fs
+  .readFileSync(path.join(ROOT, 'tools', 'runtime.mjs'), 'utf8')
+  .replace(/^export \{[^}]*\}\n?/m, '')
 
 /**
  * The page itself is a file, not a template literal: it contains backticks and
@@ -83,6 +63,7 @@ export function pack(t, locales) {
  */
 const PAGE = (bootstrap) =>
   fs.readFileSync(path.join(ROOT, 'tools', 'preview-page.html'), 'utf8')
+    .replace('__RUNTIME__', () => RUNTIME)
     .replace('__BOOTSTRAP__', () => bootstrap)
 
 

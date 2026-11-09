@@ -1,6 +1,6 @@
 Şifreyi sıfırla
 
-Merhaba {firstName|&<>"'ä} {lastName|&<>"'ä},
+Merhaba {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 sen ya da bir başkası, bu hesap için şifre sıfırlama talebinde bulundu.
 
@@ -8,17 +8,17 @@ sen ya da bir başkası, bu hesap için şifre sıfırlama talebinde bulundu.
 
 Eğer sendin, lütfen buraya tıkla.
 
-sıfırla [{resetLink|&<>"'ä}]
+sıfırla [{resetLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Veya bağlantıyı tarayıcı pencerene kopyala.
 
-{resetLink|&<>"'ä}
+{resetLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Yeni geçerli bağlantı iste
 
-Bağlantı {hours|&<>"'ä} saat {minutes|&<>"'ä} dakika geçerlidir. Bağlantının geçerlilik süresi dolduysa, buradan yeni bir bağlantı gönderilmesini isteyebilirsin.
+Bağlantı {hours|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} saat {minutes|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} dakika geçerlidir. Bağlantının geçerlilik süresi dolduysa, buradan yeni bir bağlantı gönderilmesini isteyebilirsin.
 
-Yeni bağlantı [{resendLink|&<>"'ä}]
+Yeni bağlantı [{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Sevgiler,
 Gradido ekibin

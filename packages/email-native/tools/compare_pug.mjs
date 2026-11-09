@@ -14,17 +14,18 @@
  *             collapsed. This is the question "did a sentence go missing", asked
  *             independently of how it is marked up.
  *
- * Both sides are filled with the same fixture values the snapshots use, so what
- * is compared is two finished documents and not two intermediate forms.
+ * Both sides are filled with the value sets the snapshots use, through tools/runtime.mjs,
+ * so what is compared is two finished documents and not two intermediate forms.
  *
- *   bun tools/extract.mjs       --out build/tools/pug
  *   bun tools/extract_mjml.mjs  --out build/tools/mjml
+ *   bun tools/extract.mjs       --out build/tools/pug
  *   bun tools/compare_pug.mjs  [--pug DIR] [--mjml DIR] [--diff DIR]
  */
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { fixture } from './variants.mjs'
+import { run } from './runtime.mjs'
+import { valueVector } from './values.mjs'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const arg = (name, fallback) => {
@@ -35,14 +36,18 @@ const PUG = path.resolve(arg('pug', path.join(ROOT, 'build', 'tools', 'pug')))
 const MJML = path.resolve(arg('mjml', path.join(ROOT, 'build', 'tools', 'mjml')))
 const DIFF_DIR = path.resolve(arg('diff', path.join(ROOT, 'build', 'tools', 'diff')))
 
-const escape = (s) =>
-  String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
-
-/** What ge_render_* does: literals as they are, slot values escaped by mode. */
-const fill = (ops) =>
-  ops
-    .map((op) => (op.t === 'lit' ? op.s : op.esc === 'html' ? escape(fixture(op.name)) : fixture(op.name)))
-    .join('')
+/** The pug side names its values; the MJML template says which index each one has. */
+const indexed = (ops, values, missing) =>
+  ops.map((op) => {
+    const at = (n) => {
+      const i = values.indexOf(n)
+      if (i < 0) missing.add(n)
+      return i
+    }
+    if (op[0] === 'slot') return ['slot', at(op[1]), op[2]]
+    if (op[0] === 'jz') return ['jz', op[1].map(at), op[2]]
+    return op
+  })
 
 const decode = (s) =>
   s
@@ -117,6 +122,7 @@ for (const name of Object.keys(A)) {
   if (!B[name]) { console.error(`  ${name}: only in the pug side`); continue }
   const counts = { subject: [0, 0], text: [0, 0], html: [0, 0] }
   const notes = []
+  const missing = new Set()
 
   for (const kind of ['subject', 'text', 'html']) {
     const pa = A[name].renders[kind]
@@ -124,8 +130,9 @@ for (const name of Object.keys(A)) {
     for (let li = 0; li < pa.length; li++) {
       for (let vi = 0; vi < pa[li].length; vi++) {
         const doc = `${a.locales[li]}.${vi}`
-        const sa = fill(pa[li][vi])
-        const sb = fill(pb[li][vi])
+        const values = valueVector(B[name], vi, a.locales[li])
+        const sa = run(indexed(pa[li][vi], B[name].values, missing), values)
+        const sb = run(pb[li], values)
         const [x, y] = kind === 'html' ? [visible(sa), visible(sb)] : [sa.trim(), sb.trim()]
         counts[kind][1]++
         totals[kind][1]++
@@ -142,6 +149,7 @@ for (const name of Object.keys(A)) {
       }
     }
   }
+  if (missing.size) notes.unshift({ kind: 'values', doc: '-', at: 0, pug: [...missing].join(', '), mjml: '(nicht im MJML-Template)' })
 
   const cell = ([ok, all]) => (ok === all ? `${all}/${all}` : `${ok}/${all}`)
   rows.push([name, cell(counts.subject), cell(counts.text), cell(counts.html), notes])

@@ -1,18 +1,18 @@
 A tua contribuição para o bem comum foi confirmada
 
-Olá {firstName|&<>"'ä} {lastName|&<>"'ä},
+Olá {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-a tua contribuição para o bem comum «{contributionMemo|&<>"'ä}» acabou de ser confirmada por {senderAlias|&<>"'ä}. Foram creditados {contributionAmount|&<>"'ä} GDD na tua conta Gradido.
+a tua contribuição para o bem comum «{contributionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}» acabou de ser confirmada por {senderAlias|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}. Foram creditados {contributionAmount|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example} GDD na tua conta Gradido.
 
 Detalhes da contribuição
 
 Encontras as tuas contribuições para o bem comum e as mensagens associadas na tua conta Gradido.
 
-Para a contribuição [{contributionFrontendLink|&<>"'ä}]
+Para a contribuição [{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Ou copia o link para a janela do teu navegador.
 
-{contributionFrontendLink|&<>"'ä}
+{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Por favor, não respondas a este e-mail.
 

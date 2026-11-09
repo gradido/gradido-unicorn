@@ -1,0 +1,30 @@
+Hello {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
+
+you have just received a message from {senderAlias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
+
+{subject|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}
+
+↪ Forwarded from {forwardedFromAlias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
+
+📷 The message contains a picture – you can see it in the conversation.
+
+{memo|&<>"'ä b https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}
+
+Reply [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/contacts?with={senderUuid|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}&community={senderCommunityUuid|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
+
+To account [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/transactions]
+
+Kind regards,
+your Gradido team
+
+If you have any further questions, please contact our support.
+support@gradido.net
+
+Impressum [https://gradido.net/de/impressum/]
+Privacy Policy [https://gradido.net/de/datenschutz/]
+
+Gradido-Akademie
+Institut für Wirtschaftsbionik
+Pfarrweg 2
+74653 Künzelsau
+Deutschland

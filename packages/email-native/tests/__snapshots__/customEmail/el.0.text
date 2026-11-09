@@ -1,14 +1,22 @@
-Γεια σου {firstName|&<>"'ä} {lastName|&<>"'ä},
+Γεια σου {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-μόλις έλαβες ένα μήνυμα από {senderAlias|&<>"'ä}
+μόλις έλαβες ένα μήνυμα από {senderAlias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-{subject|&<>"'ä}
+{subject|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}
 
-{memo|&<>"'ä}
+↪ Προωθημένο μήνυμα από {forwardedFromAlias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Απάντησε [{communityURL|&<>"'ä}/send/{senderCommunityUuid|&<>"'ä}/{senderUuid|&<>"'ä}?art=email]
+📷 Το μήνυμα περιέχει μια εικόνα – τη βλέπεις στη συνομιλία.
 
-Στον λογαριασμό [{communityURL|&<>"'ä}/transactions]
+{memo|&<>"'ä b https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}
+
+{senderAlias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} προσθέτει:
+
+{forwardWords|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}
+
+Απάντησε [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/contacts?with={senderUuid|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}&community={senderCommunityUuid|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
+
+Στον λογαριασμό [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/transactions]
 
 Με εκτίμηση,
 η ομάδα σου Gradido

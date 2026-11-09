@@ -1,12 +1,12 @@
 Un membro ha cambiato il proprio indirizzo e-mail
 
-Membro: {firstName|&<>"'ä} {lastName|&<>"'ä} ({alias|&<>"'ä})
+Membro: {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ({alias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example})
 
-Indirizzo precedente: {oldEmail|&<>"'ä}
+Indirizzo precedente: {oldEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Nuovo indirizzo: {newEmail|&<>"'ä}
+Nuovo indirizzo: {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Per il server GDT conta ancora il primo indirizzo di questo account: {gdtEmail|&<>"'ä}.
+Per il server GDT conta ancora il primo indirizzo di questo account: {gdtEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
 Ritorno a un indirizzo precedente di questo account: non c'è nulla da unire sul server GDT. Aggiorna solo Klick-Tipp.
 

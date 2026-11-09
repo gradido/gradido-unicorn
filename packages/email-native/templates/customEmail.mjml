@@ -1,13 +1,14 @@
 <!--
-  customEmail/html.pug as MJML -- a spike, not a source.
+  A message from one member to another: a chat message, or one sent from the send form
+  with a subject.
 
   How the markers, the includes and the preview settings work is written once, in
-  accountActivation.mjml. This file is the six-line skeleton plus what makes this
-  mail this mail.
+  accountActivation.mjml.
+
+  The mail is the nudge, the conversation is the content: a picture in the message is
+  not in the mail, a line says there is one. A picture may come without a caption, and
+  a chat message without a subject -- then there is no empty box for either.
 -->
-<!-- lang= is layout.pug's html(lang=locale): a slot the RENDERER fills from the
-     locale it was called with, not one a caller supplies -- which is why it does
-     not show up in the struct. -->
 <mjml lang="{{v:locale}}">
   <mj-head>
     <mj-include path="includes/head.mjml" />
@@ -26,26 +27,46 @@
 
     <!-- .subject-block: the same card, but bold and darker -- what a person wrote
          as the subject of their message. -->
+    {{if subject}}
     <mj-wrapper background-color="#f5f5f5" border="1px solid #808080" border-radius="16px" padding="5px 8%">
       <mj-section background-color="#f5f5f5">
         <mj-column>
-          <mj-text css-class="human-text" font-weight="bold" align="left">{{v:subject}}</mj-text>
+          <mj-text css-class="human-text" font-weight="bold" align="left">{{h:subject}}</mj-text>
         </mj-column>
       </mj-section>
     </mj-wrapper>
+    {{end}}
 
     <mj-wrapper background-color="#f5f5f5" border="1px solid #808080" border-radius="24px" padding="20px 8% 40px 8%">
       <mj-section background-color="#f5f5f5">
         <mj-column>
-          <mj-text mj-class="p-content" css-class="human-text" align="left">{{v:memo}}</mj-text>
-          
-          <!--@if senderCommunityUuid-->
+          <!-- A forwarded copy says so, with the name of whoever wrote the words first --
+               none where the sender forwards words of their own. -->
+          {{if forwarded}}
+          <mj-text mj-class="p-content" align="left">{{if forwardedFromAlias}}{{t:↪ Forwarded from %1|forwardedFromAlias}}{{else}}{{t:↪ Forwarded}}{{end}}</mj-text>
+          {{end}}
+          {{if hasImage}}
+          <mj-text mj-class="p-content" align="left">{{t:📷 The message contains a picture – you can see it in the conversation.}}</mj-text>
+          {{end}}
+          <!-- Bold as in the thread. -->
+          {{if memo}}
+          <mj-text mj-class="p-content" css-class="human-text" align="left">{{hb:memo}}</mj-text>
+          {{end}}
+          <!-- What the sender wrote to go with a forwarded message: in the conversation a
+               message of its own right after the copy, here under it -- one mail for both. -->
+          {{if forwardWords}}
+          <mj-text mj-class="p-content" align="left">{{t:%1 adds:|senderAlias}}</mj-text>
+          <mj-text mj-class="p-content" css-class="human-text" align="left">{{h:forwardWords}}</mj-text>
+          {{end}}
+
           <!-- .button-5, the green one: an answer to a person, and it stands INSIDE the
-               card because that is where it is seen. The chatbox icon is cid:chatboxicon
-               in production; the path here is written from the template's directory. -->
+               card because that is where it is seen. The answer is written in the thread
+               with the sender: the contact page opens the window with the member `with`
+               names, of the community `community` names. -->
+          {{if senderCommunityUuid && senderUuid}}
           <mj-button mj-class="btn-answer" css-class="btn-green" background-color="#53900c"
-                      href="{{v:communityURL}}/send/{{v:senderCommunityUuid}}/{{v:senderUuid}}?art=email">{{t:Reply}}</mj-button>
-          <!--@endif-->
+                      href="{{v:communityURL}}/contacts?with={{v:senderUuid}}&amp;community={{v:senderCommunityUuid}}">{{t:Reply}}</mj-button>
+          {{end}}
         </mj-column>
       </mj-section>
     </mj-wrapper>

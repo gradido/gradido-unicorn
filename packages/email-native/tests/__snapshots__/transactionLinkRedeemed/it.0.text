@@ -1,16 +1,18 @@
-{senderAlias|&<>"'ä} ha riscattato il tuo link Gradido
+{senderAlias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ha accettato il tuo ringraziamento
 
-Ciao {firstName|&<>"'ä} {lastName|&<>"'ä},
+Ciao {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-{senderAlias|&<>"'ä} ({senderCommunity|&<>"'ä}) ha appena riscattato il tuo link.
+{senderAlias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ({senderCommunity|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}) ha appena accettato il tuo ringraziamento — ed è un nuovo arrivo su Gradido. Che bello che tu gliel'abbia mostrato.
 
 Dettagli della transazione
 
-Importo: {transactionAmount|&<>"'ä} GDD
-Messaggio: {transactionMemo|&<>"'ä}
+Importo: {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD
+Messaggio: {transactionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}
 Trovi i dettagli della transazione nel tuo account Gradido.
 
-All'account [{communityURL|&<>"'ä}/transactions]
+Conversazione [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/contacts?with=%7BsenderUuid%7C%26%3C%3E%22'%C3%A4%20**b**%20https%3A%2F%2Fx.example%2Fr%23config.subject%3D%2522T%2522%20ftp%3A%2F%2Fy.example%2Fa.%20m%40x.example%7D&community=%7BsenderCommunityUuid%7C%26%3C%3E%22'%C3%A4%20**b**%20https%3A%2F%2Fx.example%2Fr%23config.subject%3D%2522T%2522%20ftp%3A%2F%2Fy.example%2Fa.%20m%40x.example%7D]
+
+All'account [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/transactions]
 
 Per favore, non rispondere a questa e-mail.
 

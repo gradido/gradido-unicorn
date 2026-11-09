@@ -1,16 +1,16 @@
-{senderAlias|&<>"'ä} ti ha inviato {transactionAmount|&<>"'ä} Gradido
+{senderAlias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ti ha inviato {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} Gradido
 
-Ciao {firstName|&<>"'ä} {lastName|&<>"'ä},
+Ciao {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-hai appena ricevuto {transactionAmount|&<>"'ä} GDD da {senderAlias|&<>"'ä}.
+hai appena ricevuto {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD da {senderAlias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
 Messaggio
 
-{memo|&<>"'ä}
+{memo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}
 
-Rispondi [{communityURL|&<>"'ä}/send/{senderCommunityUuid|&<>"'ä}/{senderUuid|&<>"'ä}?art=email]
+Rispondi [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/contacts?with={senderUuid|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}&community={senderCommunityUuid|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
-All'account [{communityURL|&<>"'ä}/transactions]
+All'account [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/transactions]
 
 Cordiali saluti,
 il tuo team Gradido

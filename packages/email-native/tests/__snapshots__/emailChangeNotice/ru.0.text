@@ -1,8 +1,8 @@
 Ваш адрес электронной почты скоро изменится
 
-Здравствуйте, {firstName|&<>"'ä} {lastName|&<>"'ä},
+Здравствуйте, {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Для вашего аккаунта Gradido запрошено изменение адреса электронной почты на {newEmail|&<>"'ä}.
+Для вашего аккаунта Gradido запрошено изменение адреса электронной почты на {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
 Пока новый адрес не подтверждён, действует этот. Если это были вы, больше ничего делать не нужно.
 
@@ -10,15 +10,15 @@
 
 Это были не вы? Тогда нажмите здесь – изменение будет отклонено, и этот адрес останется.
 
-Отклонить изменение [{revokeLink|&<>"'ä}]
+Отклонить изменение [{revokeLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Или скопируйте ссылку в окно вашего браузера.
 
-{revokeLink|&<>"'ä}
+{revokeLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Если вы отклоните изменение, после этого, пожалуйста, смените и пароль.
 
-Ссылка действительна до {validUntil|&<>"'ä} – после этого запрошенное изменение истекает само.
+Ссылка действительна до {validUntil|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} – после этого запрошенное изменение истекает само.
 
 С наилучшими пожеланиями,
 ваша команда Gradido

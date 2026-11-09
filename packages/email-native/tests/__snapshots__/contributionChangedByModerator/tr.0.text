@@ -1,18 +1,18 @@
 Ortak yarara katkın değiştirildi
 
-Merhaba {firstName|&<>"'ä} {lastName|&<>"'ä},
+Merhaba {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-ortak yarara katkın “{contributionMemo|&<>"'ä}” az önce {senderAlias|&<>"'ä} tarafından değiştirildi ve şimdi şöyle: “{contributionMemoUpdated|&<>"'ä}”
+ortak yarara katkın “{contributionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}” az önce {senderAlias|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example} tarafından değiştirildi ve şimdi şöyle: “{contributionMemoUpdated|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}”
 
 Katkı ayrıntıları
 
 Ortak yarara katkılarını ve ilgili mesajları Gradido hesabında bulabilirsin.
 
-Katkıya git [{contributionFrontendLink|&<>"'ä}]
+Katkıya git [{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Veya bağlantıyı tarayıcı pencerene kopyala.
 
-{contributionFrontendLink|&<>"'ä}
+{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Lütfen bu e-postayı yanıtlama.
 

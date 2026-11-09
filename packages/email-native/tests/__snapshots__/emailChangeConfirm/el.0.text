@@ -1,6 +1,6 @@
 Επιβεβαίωση νέας διεύθυνσης e-mail
 
-Γεια σου {firstName|&<>"'ä} {lastName|&<>"'ä},
+Γεια σου {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 Θέλεις να αλλάξεις τη διεύθυνση e-mail του λογαριασμού σου Gradido σε αυτή τη διεύθυνση.
 
@@ -8,13 +8,13 @@
 
 Επιβεβαίωσε με ένα κλικ ότι αυτή η διεύθυνση είναι δική σου.
 
-Επιβεβαίωση νέας διεύθυνσης [{confirmLink|&<>"'ä}]
+Επιβεβαίωση νέας διεύθυνσης [{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Ή αντίγραψε τον σύνδεσμο στο παράθυρο του προγράμματος περιήγησής σου.
 
-{confirmLink|&<>"'ä}
+{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Ο σύνδεσμος ισχύει έως τις {validUntil|&<>"'ä}. Μετά μπορείς να ζητήσεις νέο e-mail από τις ρυθμίσεις σου.
+Ο σύνδεσμος ισχύει έως τις {validUntil|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}. Μετά μπορείς να ζητήσεις νέο e-mail από τις ρυθμίσεις σου.
 
 Αν δεν ζήτησες εσύ αυτή την αλλαγή, μπορείς απλώς να αγνοήσεις αυτό το e-mail – χωρίς την επιβεβαίωσή σου δεν αλλάζει τίποτα.
 

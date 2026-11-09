@@ -1,18 +1,18 @@
 Ortak yarara katkın hakkında mesaj
 
-Merhaba {firstName|&<>"'ä} {lastName|&<>"'ä},
+Merhaba {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-{senderAlias|&<>"'ä}, ortak yarara katkın “{contributionMemo|&<>"'ä}” hakkında sana bir mesaj gönderdi.
+{senderAlias|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}, ortak yarara katkın “{contributionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}” hakkında sana bir mesaj gönderdi.
 
 Mesajı oku ve yanıtla
 
-“{message|&<>"'ä}”
+“{message|&<>"'ä b https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}”
 
 Doğrudan katkının yanından yanıtlayabilirsin.
 
-Yanıtla [{contributionFrontendLink|&<>"'ä}]
+Yanıtla [{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
-Hesaba git [{communityURL|&<>"'ä}/transactions]
+Hesaba git [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/transactions]
 
 Lütfen bu e-postayı yanıtlama.
 

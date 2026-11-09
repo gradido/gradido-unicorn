@@ -1,6 +1,6 @@
 Νέα προσπάθεια εγγραφής με το email σου
 
-Γεια σου {firstName|&<>"'ä} {lastName|&<>"'ä},
+Γεια σου {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 η διεύθυνση email σου μόλις χρησιμοποιήθηκε ξανά για την εγγραφή λογαριασμού στο Gradido.
 
@@ -10,27 +10,17 @@
 
 Αν ξέχασες τον κωδικό πρόσβασής σου, κάνε κλικ εδώ.
 
-επαναφορά [{resendLink|&<>"'ä}]
+επαναφορά [{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Ή αντίγραψε τον σύνδεσμο στο παράθυρο του προγράμματος περιήγησής σου.
 
-{resendLink|&<>"'ä}
-
-Βοηθάς αυτή τη στιγμή κάποιον σε ένα καφέ Gradido;
-
-Αν δίπλα σου κάθεται ένας άνθρωπος που μόλις χρησιμοποίησε τη διεύθυνση email σου για να ξεκινήσει έναν λογαριασμό Gradido: συνέχισε εδώ τη ρύθμιση. Μαζί καταχωρείτε τη δική του διεύθυνση email, και τον κωδικό τον επιλέγει ο ίδιος.
-
-Βοηθώ κάποιον να δημιουργήσει λογαριασμό [{helperLink|&<>"'ä}]
-
-Ή αντίγραψε τον σύνδεσμο στο παράθυρο του προγράμματος περιήγησής σου.
-
-{helperLink|&<>"'ä}
+{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Επικοινωνία με την υποστήριξη
 
 Αν δεν προσπάθησες να εγγραφείς ξανά, επικοινώνησε με την υποστήριξή μας:
 
-{supportEmail|&<>"'ä}
+{supportEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Με εκτίμηση,
 η ομάδα σου Gradido

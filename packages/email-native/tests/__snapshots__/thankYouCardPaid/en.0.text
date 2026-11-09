@@ -1,21 +1,21 @@
-{transactionAmount|&<>"'ä} GDD were passed on with your thank you card
+{transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD were passed on with your thank you card
 
-Hello {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hello {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-{transactionAmount|&<>"'ä} GDD have just been passed on with your thank you card.
+{transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD have just been passed on with your thank you card.
 
 Transaction details
 
-Amount: {transactionAmount|&<>"'ä} GDD
-Recipient: {recipientName|&<>"'ä} ({recipientCommunity|&<>"'ä})
-Reference: {transactionMemo|&<>"'ä}
-Card: {cardLabel|&<>"'ä}
+Amount: {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD
+Recipient: {recipientName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ({recipientCommunity|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example})
+Reference: {transactionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}
+Card: {cardLabel|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-To account [{communityURL|&<>"'ä}/transactions]
+To account [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/transactions]
 
 That was not you? Block your card right here — it stops working, your Gradido address stays.
 
-Block card [{communityURL|&<>"'ä}/settings/thank-you-card?block={cardId|&<>"'ä}]
+Block card [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/settings/thank-you-card?block={cardId|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Please do not reply to this email.
 

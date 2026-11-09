@@ -9,8 +9,8 @@
  *              more; it is what `gradido` still runs, and the number is here so
  *              the comparison to the system being replaced does not disappear.
  *
- * The variant is not assumed: every one is walked and the one matching the
- * addon's output is used, so the timing compares two things already proven to
+ * The JS row is tools/runtime.mjs over the same program, and it is checked against
+ * the addon's output first, so the timing compares two things already proven to
  * produce the same bytes.
  *
  *   node tests/render-bench.mjs
@@ -39,37 +39,24 @@ const values = {
   resendLink: 'https://gradido.net/resend?code=abcdef0123456789abcdef',
 }
 
-// --- the same walk, in JS -------------------------------------------------
-const escape = (s) =>
-  String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
-
-/** ge_render_*, in JavaScript. `locale` is the renderer's, not a caller's. */
-const walk = (ops, vals, locale) => {
-  let out = ''
-  for (const op of ops) {
-    if (op.t === 'lit') { out += op.s; continue }
-    const v = op.name === 'locale' ? locale : (vals[op.name] ?? '')
-    out += op.esc === 'html' ? escape(v) : v
-  }
-  return out
-}
+// --- the same program, in JS ----------------------------------------------
+const { run } = await import('../tools/runtime.mjs')
 
 let jsHtml = null
 let jsSubject = null
+let vector = null
 if (fs.existsSync(IR)) {
   const ir = JSON.parse(fs.readFileSync(IR, 'utf8'))
   const t = ir.templates.find((x) => x.name === TEMPLATE)
   const li = ir.locales.indexOf(LOCALE)
-  const want = email.render(TEMPLATE, LOCALE, values)
-  // Which variant did the addon pick? Ask the documents, not the manifest.
-  const vi = t.renders.html[li].findIndex((ops) => walk(ops, values, LOCALE) === want.html)
-  if (vi < 0) {
-    console.error('no variant of the IR matches what the addon rendered -- rebuild:')
+  vector = t.values.map((n, i) => (i === 0 ? LOCALE : (values[n] ?? '')))
+  jsHtml = t.renders.html[li]
+  jsSubject = t.renders.subject[li]
+  if (run(jsHtml, vector) !== email.render(TEMPLATE, LOCALE, values).html) {
+    console.error('the IR does not render what the addon renders -- rebuild:')
     console.error('  bun run extract:mjml && bun run build')
     process.exit(1)
   }
-  jsHtml = t.renders.html[li][vi]
-  jsSubject = t.renders.subject[li][vi]
 } else {
   console.error(`no ${path.relative(process.cwd(), IR)} -- the JS row needs it: bun run extract:mjml\n`)
 }
@@ -115,7 +102,7 @@ function time(label, fn) {
 
 console.log(`${TEMPLATE}/${LOCALE}, ${N} renders, html + subject:`)
 const jsNs = jsHtml
-  ? time('JS ops over ir.json', () => walk(jsHtml, values, LOCALE).length + walk(jsSubject, values, LOCALE).length)
+  ? time('JS ops over ir.json', () => run(jsHtml, vector).length + run(jsSubject, vector).length)
   : null
 const pugNs = havePug
   ? time('pug (legacy, reference)', () => htmlFn(pugLocals).length + subjectFn(pugLocals).length)

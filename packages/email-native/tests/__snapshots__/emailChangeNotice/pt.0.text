@@ -1,8 +1,8 @@
 O teu endereço de e-mail vai mudar
 
-Olá {firstName|&<>"'ä} {lastName|&<>"'ä},
+Olá {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Foi pedida uma alteração do endereço de e-mail da tua conta Gradido para {newEmail|&<>"'ä}.
+Foi pedida uma alteração do endereço de e-mail da tua conta Gradido para {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
 Até o novo endereço ser confirmado, este continua válido. Se foste tu, não precisas de fazer mais nada.
 
@@ -10,15 +10,15 @@ Não foste tu?
 
 Não foste tu? Então clica aqui – a alteração é rejeitada e este endereço mantém-se.
 
-Rejeitar a alteração [{revokeLink|&<>"'ä}]
+Rejeitar a alteração [{revokeLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Ou copia o link para a janela do teu navegador.
 
-{revokeLink|&<>"'ä}
+{revokeLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Se rejeitares a alteração, altera também a tua palavra-passe a seguir.
 
-A ligação é válida até {validUntil|&<>"'ä} – depois, a alteração pedida expira por si.
+A ligação é válida até {validUntil|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} – depois, a alteração pedida expira por si.
 
 Com os melhores cumprimentos,
 a tua equipa Gradido

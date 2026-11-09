@@ -667,3 +667,40 @@ the window it was tied at has shut, and the Archive, which unties everything lef
 that shuts, has already untied it. In Sirodunon the next errand simply finds another window. In
 Eporedon the carter — who owns one cart for his whole life — has that cart rebuilt where he
 stands, has his forms stamped again, and takes the next slate.
+
+## XXII. The letters with folds in them
+
+The letter-writer of Sirodunon had a cabinet with a drawer for every letter the city might
+ever send.
+
+Not every *kind* of letter — every letter. The welcome letter with a picture of the city and
+the welcome letter without one were two drawers; with a note on how long the seal stays good
+for, and without, two more. A letter that might carry a subject line, a forwarded note, a
+mention of a picture and an answer-slip had six such choices in it, and so ninety-six drawers,
+in each of ten languages. The cabinet was magnificent. The carpenter was asked, politely, to
+stop.
+
+So the letters were written once more, and this time **with folds in them**. Every passage
+the letter might or might not carry is written out in full, and the clerk folds away, at
+sealing, whichever ones this citizen's letter does not need. A fold always runs along a ruled
+line — between two paragraphs, never through one — because the press that sets the letters
+draws its rules on both sides of whatever it is told is a fold. Ten languages, one sheet each.
+The cabinet now has a drawer per letter and a little space left over, and the carpenter has
+taken up the lute.
+
+The press is still slow and still particular. But it now sets each letter once, in no language
+at all: the words are tokens it is not allowed to read, put in afterwards in each language by
+a boy with a list.
+
+Two new habits came with the folds. Where a citizen's own words go into a letter — a note on a
+transfer, a message between two people — a street address in them is turned into a signpost
+to that street, and a word between two pairs of stars is written heavier. The signposts are
+the letter-writer's, painted in his ink; nothing the citizen wrote is ever ink of its own. And
+where a citizen's name is part of a road-sign — *this way to your conversation with* — it is
+written in the road-sign's own careful lettering, so that no name can bend the road.
+
+Someone then asked whether the sheets could be kept rolled up tight, to make the cabinet
+smaller still. They could, by about a quarter. But a rolled sheet must be unrolled onto the
+desk of every clerk who might need it, each morning, and left lying there all day; while the
+cabinet, which every clerk shares, opens only the drawers that are asked for, and the
+cleaners may close them again whenever they need the room. The cabinet stayed as it is.

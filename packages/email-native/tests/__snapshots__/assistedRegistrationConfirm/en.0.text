@@ -1,8 +1,8 @@
 Your Gradido account is ready
 
-Hello {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hello {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Together with a Gradido member, an account has just been set up for you — with this e-mail address.
+On acceptance of a thank-you, an account has just been set up for you — with this e-mail address.
 
 Please confirm that this address is yours — only then will your account stay open for good.
 
@@ -10,13 +10,13 @@ Confirm e-mail address
 
 Please click here to confirm your e-mail address.
 
-Confirm address [{confirmLink|&<>"'ä}]
+Confirm address [{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Or copy the link into your browser window.
 
-{confirmLink|&<>"'ä}
+{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-The link has a validity of {hours|&<>"'ä} hours and {minutes|&<>"'ä} minutes. If the validity of the link has already expired, you can have a new link sent to you here.
+The link has a validity of {hours|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} hours and {minutes|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} minutes. If the validity of the link has already expired, sign in and have a new mail sent to you.
 
 You know nothing about this account? Then ignore this e-mail — without confirmation the account stays locked.
 

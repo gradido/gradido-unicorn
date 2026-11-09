@@ -1,18 +1,18 @@
 Ваш вклад в общее благо был изменён
 
-Здравствуйте, {firstName|&<>"'ä} {lastName|&<>"'ä},
+Здравствуйте, {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-ваш вклад в общее благо «{contributionMemo|&<>"'ä}» только что был изменён пользователем {senderAlias|&<>"'ä} и теперь звучит так: «{contributionMemoUpdated|&<>"'ä}»
+ваш вклад в общее благо «{contributionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}» только что был изменён пользователем {senderAlias|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example} и теперь звучит так: «{contributionMemoUpdated|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}»
 
 Сведения о вкладе
 
 Ваши вклады в общее благо и сообщения к ним вы найдёте в вашем аккаунте Gradido.
 
-К вкладу [{contributionFrontendLink|&<>"'ä}]
+К вкладу [{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Или скопируйте ссылку в окно вашего браузера.
 
-{contributionFrontendLink|&<>"'ä}
+{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Пожалуйста, не отвечайте на это письмо.
 

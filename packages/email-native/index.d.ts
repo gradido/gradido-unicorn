@@ -14,7 +14,7 @@ export interface RenderedMailBytes {
   text: Buffer
 }
 
-/** What a template accepts, read off the pug sources at build time. */
+/** What a template accepts, read off the MJML templates at build time. */
 export interface TemplateInfo {
   /** e.g. "accountActivation" */
   name: string
@@ -22,8 +22,6 @@ export interface TemplateInfo {
   slots: readonly string[]
   /** Boolean switches that select a branch, e.g. "typoCorrection". */
   flags: readonly string[]
-  /** How many pre-rendered branch variants this template has. */
-  variants: number
 }
 
 export interface Limits {
@@ -31,6 +29,8 @@ export interface Limits {
   maxStaticSubject: number
   maxStaticText: number
   maxSlotRefs: number
+  /** What the values add to one mail at most, all three parts, per byte of the longest value. */
+  maxSlotCost: number
   /** What the addon's own arena was sized to. */
   arenaBytes: number
 }

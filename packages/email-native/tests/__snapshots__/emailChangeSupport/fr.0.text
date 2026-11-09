@@ -1,12 +1,12 @@
 Un membre a modifié son adresse e-mail
 
-Membre : {firstName|&<>"'ä} {lastName|&<>"'ä} ({alias|&<>"'ä})
+Membre : {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ({alias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example})
 
-Ancienne adresse : {oldEmail|&<>"'ä}
+Ancienne adresse : {oldEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Nouvelle adresse : {newEmail|&<>"'ä}
+Nouvelle adresse : {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Pour le serveur GDT, c'est toujours la première adresse de ce compte qui compte : {gdtEmail|&<>"'ä}.
+Pour le serveur GDT, c'est toujours la première adresse de ce compte qui compte : {gdtEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
 L'ancienne adresse n'a jamais été confirmée (faute de frappe à la création) – rien à fusionner sur le serveur GDT. Merci de seulement saisir la nouvelle adresse dans Klick-Tipp.
 

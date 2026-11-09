@@ -1,6 +1,6 @@
 Nuevo intento de registro con tu correo electrónico
 
-Hola {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hola {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 tu dirección de correo electrónico acaba de utilizarse de nuevo para registrar una cuenta en Gradido.
 
@@ -10,27 +10,17 @@ Restablecer contraseña
 
 Si has olvidado tu contraseña, haz clic aquí.
 
-restablecer [{resendLink|&<>"'ä}]
+restablecer [{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 O copia el enlace en la ventana de tu navegador.
 
-{resendLink|&<>"'ä}
-
-¿Estás ayudando a alguien en un café Gradido?
-
-Si a tu lado hay una persona que acaba de usar tu dirección de correo electrónico para empezar una cuenta de Gradido: continúa aquí la configuración. Juntos introducís su propia dirección de correo, y su contraseña la elige ella misma.
-
-Estoy ayudando a alguien a crear una cuenta [{helperLink|&<>"'ä}]
-
-O copia el enlace en la ventana de tu navegador.
-
-{helperLink|&<>"'ä}
+{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Contactar con el soporte
 
 Si no has intentado registrarte de nuevo, ponte en contacto con nuestro soporte:
 
-{supportEmail|&<>"'ä}
+{supportEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Un cordial saludo,
 tu equipo de Gradido

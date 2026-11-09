@@ -1,8 +1,8 @@
 Je e-mailadres gaat veranderen
 
-Hallo {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hallo {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Voor je Gradido-account is een wijziging van het e-mailadres naar {newEmail|&<>"'ä} aangevraagd.
+Voor je Gradido-account is een wijziging van het e-mailadres naar {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} aangevraagd.
 
 Totdat het nieuwe adres is bevestigd, blijft dit adres gelden. Was jij het zelf, dan hoef je niets te doen.
 
@@ -10,15 +10,15 @@ Was jij dat niet?
 
 Was jij dat niet? Klik dan hier – de wijziging wordt afgewezen en dit adres blijft bestaan.
 
-Wijziging afwijzen [{revokeLink|&<>"'ä}]
+Wijziging afwijzen [{revokeLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Of kopieer de link naar je browservenster.
 
-{revokeLink|&<>"'ä}
+{revokeLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Als je de wijziging afwijst, wijzig daarna dan ook je wachtwoord.
 
-De link is geldig tot {validUntil|&<>"'ä} – daarna vervalt de aangevraagde wijziging vanzelf.
+De link is geldig tot {validUntil|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} – daarna vervalt de aangevraagde wijziging vanzelf.
 
 Hartelijke groet,
 je Gradido-team

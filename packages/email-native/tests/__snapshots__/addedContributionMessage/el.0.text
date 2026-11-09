@@ -1,18 +1,18 @@
 Μήνυμα σχετικά με τη συνεισφορά σου στο κοινό καλό
 
-Γεια σου {firstName|&<>"'ä} {lastName|&<>"'ä},
+Γεια σου {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-έλαβες ένα μήνυμα από {senderAlias|&<>"'ä} σχετικά με τη συνεισφορά σου στο κοινό καλό «{contributionMemo|&<>"'ä}».
+έλαβες ένα μήνυμα από {senderAlias|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example} σχετικά με τη συνεισφορά σου στο κοινό καλό «{contributionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}».
 
 Διάβασε και απάντησε στο μήνυμα
 
-«{message|&<>"'ä}»
+«{message|&<>"'ä b https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}»
 
 Μπορείς να απαντήσεις απευθείας στη συνεισφορά σου.
 
-Απάντησε [{contributionFrontendLink|&<>"'ä}]
+Απάντησε [{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
-Στον λογαριασμό [{communityURL|&<>"'ä}/transactions]
+Στον λογαριασμό [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/transactions]
 
 Παρακαλώ μην απαντήσεις σε αυτό το email.
 

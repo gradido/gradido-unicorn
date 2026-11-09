@@ -354,7 +354,7 @@ service-core/email/
                   the mail half, in three layers: message (the bytes),
                   transport (one SMTP session) and mailer (queue, retry,
                   worker pool). render and templates are the template
-                  renderer, and those two are copies -- built out of the pug
+                  renderer, and those two are copies -- built out of the MJML
                   templates by packages/email-native and written into this
                   tree by that package's build. Change them there, not here
                   -- AGENTS.md section 3c

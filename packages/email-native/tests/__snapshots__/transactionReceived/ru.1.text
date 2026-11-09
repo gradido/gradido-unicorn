@@ -1,14 +1,14 @@
-Пользователь {senderAlias|&<>"'ä} отправил вам {transactionAmount|&<>"'ä} Gradido
+Пользователь {senderAlias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} отправил вам {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} Gradido
 
-Здравствуйте, {firstName|&<>"'ä} {lastName|&<>"'ä},
+Здравствуйте, {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-вы только что получили {transactionAmount|&<>"'ä} GDD от {senderAlias|&<>"'ä}.
+вы только что получили {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD от {senderAlias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
 Сообщение
 
-{memo|&<>"'ä}
+{memo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}
 
-В аккаунт [{communityURL|&<>"'ä}/transactions]
+В аккаунт [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/transactions]
 
 С наилучшими пожеланиями,
 ваша команда Gradido

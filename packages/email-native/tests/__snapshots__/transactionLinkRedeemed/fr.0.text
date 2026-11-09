@@ -1,16 +1,18 @@
-{senderAlias|&<>"'ä} a utilisé ton lien Gradido
+{senderAlias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} a accepté ton remerciement
 
-Bonjour {firstName|&<>"'ä} {lastName|&<>"'ä},
+Bonjour {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-{senderAlias|&<>"'ä} ({senderCommunity|&<>"'ä}) vient d'utiliser ton lien.
+{senderAlias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ({senderCommunity|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}) vient d'accepter ton remerciement — et d'arriver sur Gradido. C'est beau que tu le lui aies montré.
 
 Détails de la transaction
 
-Montant : {transactionAmount|&<>"'ä} GDD
-Message : {transactionMemo|&<>"'ä}
+Montant : {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD
+Message : {transactionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}
 Tu trouveras les détails de la transaction dans ton compte Gradido.
 
-Vers le compte [{communityURL|&<>"'ä}/transactions]
+Conversation [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/contacts?with=%7BsenderUuid%7C%26%3C%3E%22'%C3%A4%20**b**%20https%3A%2F%2Fx.example%2Fr%23config.subject%3D%2522T%2522%20ftp%3A%2F%2Fy.example%2Fa.%20m%40x.example%7D&community=%7BsenderCommunityUuid%7C%26%3C%3E%22'%C3%A4%20**b**%20https%3A%2F%2Fx.example%2Fr%23config.subject%3D%2522T%2522%20ftp%3A%2F%2Fy.example%2Fa.%20m%40x.example%7D]
+
+Vers le compte [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/transactions]
 
 Merci de ne pas répondre à cet e-mail.
 

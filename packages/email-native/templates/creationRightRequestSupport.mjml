@@ -1,0 +1,45 @@
+<!--
+  To support: a project account asks to create again. Who it is, since when it is a
+  project account, and what support is to check.
+
+  How the markers, the includes and the preview settings work is written once, in
+  accountActivation.mjml.
+-->
+<mjml lang="{{v:locale}}">
+  <mj-head>
+    <mj-include path="includes/head.mjml" />
+    <mj-title>{{t:Creation right requested: %1|alias}}</mj-title>
+  </mj-head>
+
+  <mj-body>
+    <mj-include path="includes/top.mjml" />
+
+    <mj-section padding="15px 25px 0 25px">
+      <mj-column>
+        <mj-text mj-class="h2">{{t:A project account asks for the creation right back}}</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- A project account declared by its holder carries the moment of that declaration;
+         one switched off by an administrator carries none, and the mail says which. -->
+    <mj-section padding="20px 25px 0 25px">
+      <mj-column>
+        <mj-text mj-class="muted">{{t:Member: %1 %2 (%3)|firstName,lastName,alias}}</mj-text>
+        <mj-text mj-class="muted">{{t:Gradido ID: %1|gradidoId}}</mj-text>
+        <mj-text mj-class="muted">{{t:E-mail address: %1|memberEmail}}</mj-text>
+        <mj-text mj-class="muted">{{if declaredAt}}{{t:Declared a project account by its holder on: %1|declaredAt}}{{else}}{{t:Creation was switched off by an administrator, not declared by the holder.}}{{end}}</mj-text>
+        <mj-text mj-class="muted">{{t:Requested on: %1|requestedAt}}</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-wrapper background-color="#f5f5f5" border="1px solid #808080" border-radius="24px" padding="20px 8% 40px 8%">
+      <mj-section background-color="#f5f5f5">
+        <mj-column>
+          <mj-text mj-class="p-content" padding="15px 0 15px 0">{{t:Please check whether this account belongs to a person who may create. If so, switch "May create" on for this member in the admin interface (user role tab). The member has been told that a person checks the request.}}</mj-text>
+        </mj-column>
+      </mj-section>
+    </mj-wrapper>
+
+    <mj-include path="includes/bottom.mjml" />
+  </mj-body>
+</mjml>

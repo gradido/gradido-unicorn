@@ -1,8 +1,8 @@
 Il tuo account Gradido è pronto
 
-Ciao {firstName|&<>"'ä} {lastName|&<>"'ä},
+Ciao {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Insieme a un membro Gradido è stato appena creato un account per te — con questo indirizzo e-mail.
+Nell'accettare un ringraziamento è stato appena creato un account per te — con questo indirizzo e-mail.
 
 Conferma che questo indirizzo è tuo — solo allora il tuo account resterà aperto in modo permanente.
 
@@ -10,13 +10,13 @@ Confermare l'indirizzo e-mail
 
 Clicca qui per confermare il tuo indirizzo e-mail.
 
-Conferma indirizzo [{confirmLink|&<>"'ä}]
+Conferma indirizzo [{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Oppure copia il link nella finestra del tuo browser.
 
-{confirmLink|&<>"'ä}
+{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Il link è valido per {hours|&<>"'ä} ore e {minutes|&<>"'ä} minuti. Se la validità del link è già scaduta, qui puoi farti inviare un nuovo link.
+Il link è valido per {hours|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ore e {minutes|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} minuti. Se la validità del link è già scaduta, accedi e fatti inviare una nuova mail.
 
 Non sai nulla di questo account? Allora ignora questa e-mail — senza conferma il conto resta chiuso.
 

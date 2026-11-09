@@ -1,8 +1,8 @@
 Tu dirección de correo va a cambiar
 
-Hola {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hola {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Se ha solicitado cambiar la dirección de correo de tu cuenta Gradido a {newEmail|&<>"'ä}.
+Se ha solicitado cambiar la dirección de correo de tu cuenta Gradido a {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
 Hasta que la nueva dirección sea confirmada, esta sigue siendo válida. Si has sido tú, no tienes que hacer nada más.
 
@@ -10,15 +10,15 @@ Hasta que la nueva dirección sea confirmada, esta sigue siendo válida. Si has 
 
 ¿No has sido tú? Entonces haz clic aquí: el cambio se rechaza y esta dirección se mantiene.
 
-Rechazar el cambio [{revokeLink|&<>"'ä}]
+Rechazar el cambio [{revokeLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 O copia el enlace en la ventana de tu navegador.
 
-{revokeLink|&<>"'ä}
+{revokeLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Si rechazas el cambio, cambia también tu contraseña después.
 
-El enlace es válido hasta el {validUntil|&<>"'ä}; después, el cambio solicitado caduca por sí solo.
+El enlace es válido hasta el {validUntil|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}; después, el cambio solicitado caduca por sí solo.
 
 Un cordial saludo,
 tu equipo de Gradido

@@ -1,12 +1,12 @@
 Адрес электронной почты изменён
 
-Здравствуйте, {firstName|&<>"'ä} {lastName|&<>"'ä},
+Здравствуйте, {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Отныне адрес электронной почты вашего аккаунта Gradido – {newEmail|&<>"'ä}.
+Отныне адрес электронной почты вашего аккаунта Gradido – {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
-До сих пор это был {oldEmail|&<>"'ä}.
+До сих пор это был {oldEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
-Это были не вы? Тогда немедленно обратитесь по адресу {supportEmail|&<>"'ä}.
+Это были не вы? Тогда немедленно обратитесь по адресу {supportEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
 С наилучшими пожеланиями,
 ваша команда Gradido

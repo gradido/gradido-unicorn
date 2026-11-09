@@ -1,8 +1,8 @@
 E-posta adresin değişmek üzere
 
-Merhaba {firstName|&<>"'ä} {lastName|&<>"'ä},
+Merhaba {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Gradido hesabının e-posta adresinin {newEmail|&<>"'ä} olarak değiştirilmesi istendi.
+Gradido hesabının e-posta adresinin {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} olarak değiştirilmesi istendi.
 
 Yeni adres onaylanana kadar bu adres geçerli kalır. Bunu sen yaptıysan başka bir şey yapmana gerek yok.
 
@@ -10,15 +10,15 @@ Bu sen değil miydin?
 
 Bu sen değil miydin? O zaman buraya tıkla – değişiklik reddedilir ve bu adres kalır.
 
-Değişikliği reddet [{revokeLink|&<>"'ä}]
+Değişikliği reddet [{revokeLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Veya bağlantıyı tarayıcı pencerene kopyala.
 
-{revokeLink|&<>"'ä}
+{revokeLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Değişikliği reddedersen, ardından lütfen şifreni de değiştir.
 
-Bağlantı {validUntil|&<>"'ä} tarihine kadar geçerlidir – sonrasında istenen değişiklik kendiliğinden geçersiz olur.
+Bağlantı {validUntil|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} tarihine kadar geçerlidir – sonrasında istenen değişiklik kendiliğinden geçersiz olur.
 
 Sevgiler,
 Gradido ekibin

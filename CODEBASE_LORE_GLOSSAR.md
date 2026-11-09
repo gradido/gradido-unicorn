@@ -182,3 +182,14 @@ Map lore abstractions to their real code concepts.
 | The window has shut, and the Archive has untied it | a failed PostgreSQL `ROLLBACK` is a dead connection; the server rolls back a session that ended |
 | The next errand finds another window | bun's pool replaces the connection on the reference path |
 | The cart rebuilt where he stands, the forms stamped again | `sc_db_postgres_redial`: `PQreset` on the worker's connection, prepared statements forgotten and prepared afresh |
+| A drawer for every letter | the earlier email-native codegen: every combination of a template's branches rendered out at build time, one program each |
+| Letters with folds in them | the jump ops (`GE_OP_JZ`, `GE_OP_JMP`) in `packages/email-native/src/render.c`: one program per template, locale and part, branches skipped at runtime |
+| A fold always runs along a ruled line | a `{{if}}` alone on its line becomes `<mj-raw>`, which MJML places between two elements with its Outlook wrappers closed on both sides |
+| The press sets each letter once, in no language | `tools/extract_mjml.mjs` runs MJML once per template; messages are opaque ids until afterwards, translated by string replacement |
+| The boy with a list | the gettext catalogues in `packages/email-native/po/` |
+| A street address turned into a signpost | the `{{h:}}` / `{{hb:}}` modes: legacy's humanText — web and mail addresses as links, `**bold**` — in `ge_put_human` and `tools/runtime.mjs` |
+| Painted in his ink, never the citizen's | every piece of a person's text is HTML-escaped; the link text is always the address itself |
+| The road-sign's own careful lettering | the `{{u:}}` mode: a value as one URI component (encodeURIComponent) |
+| Keeping the sheets rolled up tight | zstd or zlib over the generated pool and ops — measured, ~0.26 MB smaller binary, declined |
+| Unrolled onto every clerk's desk | an unpacked copy is 361 KB of private anonymous memory in every process |
+| The cabinet every clerk shares | `.rodata`: file-backed, shared between processes, demand-paged, reclaimable — 116 to 280 KB resident in practice |

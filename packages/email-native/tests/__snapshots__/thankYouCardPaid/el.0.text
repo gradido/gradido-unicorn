@@ -1,21 +1,21 @@
-Μεταβιβάστηκαν {transactionAmount|&<>"'ä} GDD με την κάρτα ευχαριστίας σου
+Μεταβιβάστηκαν {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD με την κάρτα ευχαριστίας σου
 
-Γεια σου {firstName|&<>"'ä} {lastName|&<>"'ä},
+Γεια σου {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Μόλις μεταβιβάστηκαν {transactionAmount|&<>"'ä} GDD με την κάρτα ευχαριστίας σου.
+Μόλις μεταβιβάστηκαν {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD με την κάρτα ευχαριστίας σου.
 
 Λεπτομέρειες συναλλαγής
 
-Ποσό: {transactionAmount|&<>"'ä} GDD
-Παραλήπτης: {recipientName|&<>"'ä} ({recipientCommunity|&<>"'ä})
-Αιτιολογία: {transactionMemo|&<>"'ä}
-Κάρτα: {cardLabel|&<>"'ä}
+Ποσό: {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD
+Παραλήπτης: {recipientName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ({recipientCommunity|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example})
+Αιτιολογία: {transactionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}
+Κάρτα: {cardLabel|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Στον λογαριασμό [{communityURL|&<>"'ä}/transactions]
+Στον λογαριασμό [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/transactions]
 
 Δεν ήσουν εσύ; Μπλόκαρε την κάρτα σου εδώ — παύει να λειτουργεί, η διεύθυνση Gradido παραμένει.
 
-Μπλοκάρισμα κάρτας [{communityURL|&<>"'ä}/settings/thank-you-card?block={cardId|&<>"'ä}]
+Μπλοκάρισμα κάρτας [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/settings/thank-you-card?block={cardId|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Παρακαλώ μην απαντήσεις σε αυτό το email.
 

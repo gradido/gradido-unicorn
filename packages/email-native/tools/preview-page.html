@@ -43,12 +43,10 @@
   <select id="tpl"></select>
   <label for="loc">Sprache</label>
   <select id="loc"></select>
-  <label for="var">Variante</label>
-  <select id="var"></select>
-  <p class="hint" id="varhint"></p>
-  <h2>Slot-Werte</h2>
+  <h2>Werte</h2>
   <div id="slots"></div>
-  <p class="hint">Nichts davon wird gespeichert. Ein 40-Zeichen-Nachname ist der Sinn der Übung.</p>
+  <p class="hint">Ein leerer Wert und ein abgewählter Schalter nehmen die Zweige, die an ihnen hängen.
+     Nichts davon wird gespeichert. Ein 40-Zeichen-Nachname ist der Sinn der Übung.</p>
 </aside>
 <main>
   <nav>
@@ -61,58 +59,38 @@
 <script type="module">
 const BOOT = __BOOTSTRAP__;
 
-const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
-  ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]));
-
-/* ge_render_* in JavaScript: literals as they are, slot values escaped by the
-   op's own mode. Sixteen lines, and the reason the preview cannot drift from
-   what ships -- both walk the same op list. */
-function render(doc, pool, slots, values, locale) {
-  let out = '';
-  for (const op of doc) {
-    if (op[0] === 0) { out += pool[op[1]]; continue; }
-    const name = op[1] >= 0 ? slots[op[1]] : op[3];
-    const value = op[1] >= 0 ? (values[name] ?? '') : locale;
-    out += op[2] ? esc(value) : value;
-  }
-  return out;
-}
+/* tools/runtime.mjs, pasted in by tools/preview.mjs: the op machine src/render.c is
+   held to. The page runs the same programs through it, so it cannot drift from what
+   ships. */
+__RUNTIME__
 
 const $ = (id) => document.getElementById(id);
 let data = null, values = {}, pane = 'html';
 
 async function loadTemplate(name) {
   data = BOOT.inline ? BOOT.templates[name] : await (await fetch(`./${name}.json`)).json();
+  for (const kind of ['html', 'text', 'subject'])
+    data.docs[kind] = data.docs[kind].map((ops) => ops.map((op) => op[0] === 'lit' ? ['lit', data.pool[op[1]]] : op));
   values = Object.fromEntries(data.slots.map((s) => [s, BOOT.samples[s] ?? s]));
+  for (const f of data.flags) values[f] = BOOT.samples[f] ?? true;
 
   $('loc').innerHTML = data.locales.map((l) => `<option>${l}</option>`).join('');
-  $('var').innerHTML = data.variants.map((v, i) =>
-    `<option value="${i}">${i}${data.conditions.length ? ' — ' + describe(i) : ''}</option>`).join('');
-  $('varhint').textContent = data.conditions.length
-    ? 'Zweige: ' + data.conditions.join(', ')
-    : 'Dieses Template hat nur eine Variante.';
-
   $('slots').innerHTML = data.slots.map((s) =>
     `<label for="s-${s}">${s}</label><textarea id="s-${s}" data-slot="${s}" rows="1">${esc(values[s])}</textarea>`
   ).join('') + data.flags.map((f) =>
-    `<div class="flag"><input type="checkbox" disabled><label>${f} (Flag, wählt die Variante)</label></div>`
+    `<div class="flag"><input type="checkbox" id="f-${f}" data-flag="${f}"${values[f] ? " checked" : ""}><label for="f-${f}">${f}</label></div>`
   ).join('');
   for (const el of $('slots').querySelectorAll('textarea'))
     el.addEventListener('input', () => { values[el.dataset.slot] = el.value; draw(); });
+  for (const el of $('slots').querySelectorAll('input[type=checkbox]'))
+    el.addEventListener('change', () => { values[el.dataset.flag] = el.checked; draw(); });
   draw();
 }
 
-/* Which case of each branch this variant index stands for -- the same counting
-   the extractor does, so the numbers here are the ones in the snapshots. */
-function describe(vi) {
-  const v = data.variants[vi];
-  return data.conditions.map((id, i) => `${id}=${v[i]}`).join(' ');
-}
-
 function draw() {
-  const li = $('loc').selectedIndex, vi = +$('var').value;
-  const locale = data.locales[li];
-  const one = (kind) => render(data.docs[kind][li][vi], data.pool, data.slots, values, locale);
+  const li = $('loc').selectedIndex;
+  const vector = data.values.map((n, i) => (i === 0 ? data.locales[li] : values[n]));
+  const one = (kind) => run(data.docs[kind][li], vector);
   $('subject').textContent = one('subject');
   $('subject').title = one('subject');
   if (pane === 'html') $('html').srcdoc = one('html');
@@ -129,7 +107,6 @@ for (const b of document.querySelectorAll('nav button'))
     draw();
   });
 $('loc').addEventListener('change', draw);
-$('var').addEventListener('change', draw);
 $('tpl').addEventListener('change', () => loadTemplate($('tpl').value));
 
 $('tpl').innerHTML = BOOT.names.map((n) => `<option>${n}</option>`).join('');

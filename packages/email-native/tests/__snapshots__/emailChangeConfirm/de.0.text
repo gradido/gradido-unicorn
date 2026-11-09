@@ -1,6 +1,6 @@
 Neue E-Mail-Adresse bestätigen
 
-Hallo {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hallo {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 Du möchtest die E-Mail-Adresse Deines Gradido-Kontos auf diese Adresse ändern.
 
@@ -8,13 +8,13 @@ Neue E-Mail-Adresse bestätigen
 
 Bitte bestätige mit einem Klick, dass diese Adresse Dir gehört.
 
-Neue Adresse bestätigen [{confirmLink|&<>"'ä}]
+Neue Adresse bestätigen [{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Oder kopiere den Link in Dein Browserfenster.
 
-{confirmLink|&<>"'ä}
+{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Der Link gilt bis {validUntil|&<>"'ä}. Danach kannst Du Dir in Deinen Einstellungen eine neue E-Mail schicken lassen.
+Der Link gilt bis {validUntil|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}. Danach kannst Du Dir in Deinen Einstellungen eine neue E-Mail schicken lassen.
 
 Wenn Du diese Änderung nicht angestoßen hast, kannst Du diese E-Mail einfach ignorieren – ohne Deine Bestätigung ändert sich nichts.
 

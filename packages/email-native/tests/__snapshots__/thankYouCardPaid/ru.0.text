@@ -1,21 +1,21 @@
-Картой благодарности передано {transactionAmount|&<>"'ä} GDD
+Картой благодарности передано {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD
 
-Здравствуйте, {firstName|&<>"'ä} {lastName|&<>"'ä},
+Здравствуйте, {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Только что вашей картой благодарности передано {transactionAmount|&<>"'ä} GDD.
+Только что вашей картой благодарности передано {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD.
 
 Сведения о транзакции
 
-Сумма: {transactionAmount|&<>"'ä} GDD
-Получатель: {recipientName|&<>"'ä} ({recipientCommunity|&<>"'ä})
-Назначение: {transactionMemo|&<>"'ä}
-Карта: {cardLabel|&<>"'ä}
+Сумма: {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD
+Получатель: {recipientName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ({recipientCommunity|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example})
+Назначение: {transactionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}
+Карта: {cardLabel|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-В аккаунт [{communityURL|&<>"'ä}/transactions]
+В аккаунт [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/transactions]
 
 Это были не вы? Заблокируйте карту прямо здесь — она перестанет работать, ваш адрес Gradido останется.
 
-Заблокировать карту [{communityURL|&<>"'ä}/settings/thank-you-card?block={cardId|&<>"'ä}]
+Заблокировать карту [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/settings/thank-you-card?block={cardId|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Пожалуйста, не отвечайте на это письмо.
 

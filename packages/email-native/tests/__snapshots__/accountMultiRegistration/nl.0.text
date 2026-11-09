@@ -1,6 +1,6 @@
 Nieuwe registratiepoging met je e-mailadres
 
-Hallo {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hallo {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 je e-mailadres is zojuist opnieuw gebruikt om een account bij Gradido te registreren.
 
@@ -10,27 +10,17 @@ Wachtwoord resetten
 
 Als je je wachtwoord bent vergeten, klik dan hier.
 
-resetten [{resendLink|&<>"'ä}]
+resetten [{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Of kopieer de link naar je browservenster.
 
-{resendLink|&<>"'ä}
-
-Help je op dit moment iemand in een Gradido-café?
-
-Als er iemand naast je zit die zojuist jouw e-mailadres heeft gebruikt om een Gradido-account te beginnen: ga hier verder met de installatie. Samen voeren jullie het eigen e-mailadres in, en het wachtwoord kiest hij of zij zelf.
-
-Ik help iemand een account aan te maken [{helperLink|&<>"'ä}]
-
-Of kopieer de link naar je browservenster.
-
-{helperLink|&<>"'ä}
+{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Contact opnemen met support
 
 Als je niet hebt geprobeerd je opnieuw te registreren, neem dan contact op met onze support:
 
-{supportEmail|&<>"'ä}
+{supportEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Hartelijke groet,
 je Gradido-team

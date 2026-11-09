@@ -35,7 +35,7 @@
     "build:debug": "c-cpp-zig-build --debug && bun scripts/sync-fast-servers.ts",
     "extract:mjml": "bun tools/extract_mjml.mjs --out build/tools/mjml",
     "extract:pug": "bun tools/extract.mjs --out build/tools/pug",
-    "import:pug": "bun run extract:pug && bun run extract:mjml && bun tools/compare_pug.mjs",
+    "import:pug": "bun run extract:mjml && bun run extract:pug && bun tools/compare_pug.mjs",
     "info": "c-cpp-zig-build info",
     "lint": "biome check --error-on-warnings .",
     "lint:fix": "biome check --error-on-warnings . --write",

@@ -1,12 +1,12 @@
 Η διεύθυνση e-mail άλλαξε
 
-Γεια σου {firstName|&<>"'ä} {lastName|&<>"'ä},
+Γεια σου {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Από τώρα η διεύθυνση e-mail του λογαριασμού σου Gradido είναι {newEmail|&<>"'ä}.
+Από τώρα η διεύθυνση e-mail του λογαριασμού σου Gradido είναι {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
-Μέχρι τώρα ήταν {oldEmail|&<>"'ä}.
+Μέχρι τώρα ήταν {oldEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
-Δεν ήσουν εσύ; Τότε επικοινώνησε αμέσως με {supportEmail|&<>"'ä}.
+Δεν ήσουν εσύ; Τότε επικοινώνησε αμέσως με {supportEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
 Με εκτίμηση,
 η ομάδα σου Gradido

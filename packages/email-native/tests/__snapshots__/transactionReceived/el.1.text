@@ -1,14 +1,14 @@
-{senderAlias|&<>"'ä} σου έστειλε {transactionAmount|&<>"'ä} Gradido
+{senderAlias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} σου έστειλε {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} Gradido
 
-Γεια σου {firstName|&<>"'ä} {lastName|&<>"'ä},
+Γεια σου {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-μόλις έλαβες {transactionAmount|&<>"'ä} GDD από {senderAlias|&<>"'ä}.
+μόλις έλαβες {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD από {senderAlias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
 Μήνυμα
 
-{memo|&<>"'ä}
+{memo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}
 
-Στον λογαριασμό [{communityURL|&<>"'ä}/transactions]
+Στον λογαριασμό [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/transactions]
 
 Με εκτίμηση,
 η ομάδα σου Gradido

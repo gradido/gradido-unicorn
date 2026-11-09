@@ -1,6 +1,6 @@
 Ο λογαριασμός σου Gradido είναι έτοιμος
 
-Γεια σου {firstName|&<>"'ä} {lastName|&<>"'ä},
+Γεια σου {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 Μαζί με ένα μέλος Gradido μόλις δημιουργήθηκε ένας λογαριασμός για σένα — με αυτή τη διεύθυνση email.
 
@@ -10,13 +10,13 @@
 
 Κάνε κλικ εδώ για να επιβεβαιώσεις τη διεύθυνση email σου.
 
-Επιβεβαίωση διεύθυνσης [{confirmLink|&<>"'ä}]
+Επιβεβαίωση διεύθυνσης [{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Ή αντίγραψε τον σύνδεσμο στο παράθυρο του προγράμματος περιήγησής σου.
 
-{confirmLink|&<>"'ä}
+{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Ο σύνδεσμος ισχύει για {hours|&<>"'ä} ώρες. Αν η ισχύς του συνδέσμου έχει ήδη λήξει, μπορείς να ζητήσεις εδώ την αποστολή νέου συνδέσμου.
+Ο σύνδεσμος ισχύει για {hours|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ώρες και {minutes|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} λεπτά. Αν η ισχύς του συνδέσμου έχει ήδη λήξει, συνδέσου και ζήτησε να σου σταλεί νέο e-mail.
 
 Δεν γνωρίζεις τίποτα για αυτόν τον λογαριασμό; Τότε αγνόησε αυτό το email — χωρίς επιβεβαίωση ο λογαριασμός παραμένει κλειστός.
 

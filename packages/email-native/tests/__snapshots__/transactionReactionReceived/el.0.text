@@ -1,0 +1,33 @@
+Το ευχαριστώ σου έφτασε
+
+Γεια σου {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
+
+{recipientAlias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ({recipientCommunity|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}) χάρηκε με το ευχαριστώ σου:
+
+{emoji|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
+
+Το ευχαριστώ σου προς {recipientAlias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
+
+Ποσό: {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD
+Μήνυμα: {transactionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}
+
+Στη συνομιλία [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/contacts?with=%7BrecipientUuid%7C%26%3C%3E%22'%C3%A4%20**b**%20https%3A%2F%2Fx.example%2Fr%23config.subject%3D%2522T%2522%20ftp%3A%2F%2Fy.example%2Fa.%20m%40x.example%7D&community=%7BrecipientCommunityUuid%7C%26%3C%3E%22'%C3%A4%20**b**%20https%3A%2F%2Fx.example%2Fr%23config.subject%3D%2522T%2522%20ftp%3A%2F%2Fy.example%2Fa.%20m%40x.example%7D]
+
+Στον λογαριασμό [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/transactions]
+
+Παρακαλώ μην απαντήσεις σε αυτό το email.
+
+Με εκτίμηση,
+η ομάδα σου Gradido
+
+Αν έχεις περαιτέρω ερωτήσεις, επικοινώνησε με την υποστήριξή μας.
+support@gradido.net
+
+Νομική σημείωση [https://gradido.net/de/impressum/]
+Πολιτική απορρήτου [https://gradido.net/de/datenschutz/]
+
+Gradido-Akademie
+Institut für Wirtschaftsbionik
+Pfarrweg 2
+74653 Künzelsau
+Deutschland

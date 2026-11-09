@@ -1,8 +1,8 @@
 Deine E-Mail-Adresse soll geändert werden
 
-Hallo {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hallo {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Für Dein Gradido-Konto wurde eine Änderung der E-Mail-Adresse auf {newEmail|&<>"'ä} angestoßen.
+Für Dein Gradido-Konto wurde eine Änderung der E-Mail-Adresse auf {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} angestoßen.
 
 Bis die neue Adresse bestätigt ist, gilt weiterhin diese hier. Wenn Du das selbst warst, musst Du nichts weiter tun.
 
@@ -10,15 +10,15 @@ Das warst nicht Du?
 
 Warst Du das nicht? Dann klicke hier – die Änderung wird verworfen und diese Adresse bleibt bestehen.
 
-Änderung verwerfen [{revokeLink|&<>"'ä}]
+Änderung verwerfen [{revokeLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Oder kopiere den Link in Dein Browserfenster.
 
-{revokeLink|&<>"'ä}
+{revokeLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Wenn Du die Änderung verwirfst, ändere danach bitte auch Dein Passwort.
 
-Der Link gilt bis {validUntil|&<>"'ä} – danach verfällt die angestoßene Änderung von selbst.
+Der Link gilt bis {validUntil|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} – danach verfällt die angestoßene Änderung von selbst.
 
 Liebe Grüße
 Dein Gradido-Team

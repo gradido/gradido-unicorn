@@ -7,13 +7,14 @@
 //!
 //!   node tools/extract_mjml.mjs  ->  ir.json                (mjml + gettext, build time only)
 //!   node tools/gen_c.mjs    ->  service_core/email/templates.h + templates.c
+//!                               + test_sets.c, the snapshots' value sets, for dump only
 //!
 //! Every mjml, po and PNG file under templates/ and po/ is registered as an input,
 //! so the codegen re-runs exactly when a template changes and is skipped otherwise -- zig
 //! hashes contents, not mtimes, so a bare `touch` triggers nothing.
 //!
-//! The default step also runs `check`: the C binary renders all 810 documents and they
-//! are compared against tests/__snapshots__, the checked-in extractor output. A build whose
+//! The default step also runs `check`: the C binary renders every document of the
+//! snapshots and they are compared against tests/__snapshots__, checked in. A build whose
 //! tables no longer match the templates fails there rather than in a mail.
 //!
 //! The two generated files are also installed into the output directory, because
@@ -77,7 +78,8 @@ pub fn build(b: *std.Build) !void {
     extract.addArg("--out");
     const ir_dir = extract.addOutputDirectoryArg("ir");
     extract.addFileInput(b.path("tools/extract_mjml.mjs"));
-    extract.addFileInput(b.path("tools/branches.mjs"));
+    extract.addFileInput(b.path("tools/markers.mjs"));
+    extract.addFileInput(b.path("tools/po.mjs"));
     extract.addFileInput(b.path("tools/manifest.mjs"));
     try addTreeAsInput(b, extract, templates_dir);
     try addTreeAsInput(b, extract, po_dir);
@@ -345,6 +347,8 @@ fn addExe(
     mod.addIncludePath(gen_dir);
     mod.addCSourceFiles(.{ .files = &.{ root_c, "src/render.c" }, .flags = &cflags });
     mod.addCSourceFile(.{ .file = gen_dir.path(b, "templates.c"), .flags = &cflags });
+    // The value sets of the snapshots: test data, which only these two are linked with.
+    mod.addCSourceFile(.{ .file = gen_dir.path(b, "test_sets.c"), .flags = &cflags });
     return b.addExecutable(.{ .name = name, .root_module = mod });
 }
 

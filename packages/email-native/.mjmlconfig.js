@@ -102,15 +102,41 @@ const values = JSON.parse(fs.readFileSync(path.join(__dirname, '.preview-values.
 // called with. In the preview that is simply the locale being previewed.
 values.locale = locale
 
-const sample = (name) => (name in values ? escape(values[name]) : `[[no sample value: ${name}]]`)
+const sample = (name) => (name in values ? escape(String(values[name])) : `[[no sample value: ${name}]]`)
+
+/*
+ * {{if}} as the sample values decide it: a name is set when its value is a non-empty
+ * string or true. Unlike the build, which keeps every case for the runtime, the
+ * editor shows the one case these values select.
+ */
+const isSet = (name) => values[name] === true || (typeof values[name] === 'string' && values[name] !== '')
+const BRANCH = /\{\{(if|elif|else|end)(?:\s+([^{}]*?))?\s*\}\}/g
+function branches(xml) {
+  let out = ''
+  let last = 0
+  const stack = [] // { taken: a case was taken, on: this case is shown }
+  const shown = () => stack.every((f) => f.on)
+  for (const m of xml.matchAll(BRANCH)) {
+    if (shown()) out += xml.slice(last, m.index)
+    last = m.index + m[0].length
+    const [, kind, cond] = m
+    const holds = () => (cond ?? '').split('&&').every((n) => isSet(n.trim()))
+    if (kind === 'if') stack.push({ taken: holds(), on: holds() })
+    else if (kind === 'elif') { const f = stack.at(-1); f.on = !f.taken && holds(); f.taken ||= f.on }
+    else if (kind === 'else') { const f = stack.at(-1); f.on = !f.taken; f.taken = true }
+    else stack.pop()
+  }
+  return out + xml.slice(last)
+}
 
 // msgid and the argument list are free of { } |, which json2po.mjs guarantees --
-// so the markers need no escaping of their own.
+// so the markers need no escaping of their own. A mode prefix (u:, h:, hb:) and a
+// wrapper (/whole) change nothing a designer needs to see.
 const substitute = (xml) =>
-  xml
-    .replace(/\{\{v:([A-Za-z0-9_]+)\}\}/g, (_, name) => sample(name))
+  branches(xml)
+    .replace(/\{\{(?:v|u|h|hb):([A-Za-z0-9_]+)\}\}/g, (_, name) => sample(name))
     .replace(/\{\{t:([^|{}]+)(?:\|([^{}]*))?\}\}/g, (_, msgid, args) => {
-      const slots = (args || '').split(',').map((s) => s.trim()).filter(Boolean)
+      const slots = (args || '').split(',').map((s) => s.trim().replace(/^(?:v|u|h|hb):/, '').replace(/\/\w+$/, '')).filter(Boolean)
       // An unknown msgid is not an error: gettext falls back to the source text,
       // and here that is exactly what is written in the template.
       const text = catalogue[msgid] ?? msgid

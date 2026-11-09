@@ -1,12 +1,12 @@
 Indirizzo e-mail cambiato
 
-Ciao {firstName|&<>"'ä} {lastName|&<>"'ä},
+Ciao {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Da ora l'indirizzo e-mail del tuo account Gradido è {newEmail|&<>"'ä}.
+Da ora l'indirizzo e-mail del tuo account Gradido è {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
-Finora era {oldEmail|&<>"'ä}.
+Finora era {oldEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
-Non sei stato tu? Allora contatta subito {supportEmail|&<>"'ä}.
+Non sei stato tu? Allora contatta subito {supportEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
 Cordiali saluti,
 il tuo team Gradido

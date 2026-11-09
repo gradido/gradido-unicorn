@@ -73,8 +73,11 @@ const toPositional = (s, order, where) =>
     return `%${i + 1}`
   })
 
+// The mails' messages. legacy's catalogue carries the server's other texts as well
+// (firstCreation, redeemPreview); they are not mail and have no place here.
+const OURS = /^(emails|general)\./
 const source = read(SOURCE)
-const keys = Object.keys(source)
+const keys = Object.keys(source).filter((k) => OURS.test(k))
 
 
 /*
@@ -155,11 +158,18 @@ for (const u of units) {
  * silently giving both places whichever translation came first.
  */
 const conflicts = []
+/* A place that still carries the English text has not been translated; it does not
+ * disagree with a place that has been. The translation is taken for both. */
+const translatedPart = (e, cat, locale) => {
+  const all = [e.unit, ...e.also].map((u) => partOf(cat, u, locale))
+  const english = [e.unit, ...e.also].map((u) => partOf(read(SOURCE), u, SOURCE))
+  const translated = all.filter((s, i) => s !== english[i])
+  return { seen: new Set(translated.length ? translated : all), pick: e.also.length ? [e.unit, ...e.also][all.findIndex((s, i) => s !== english[i])] : e.unit }
+}
 for (const e of entries) {
   if (!e.also.length) continue
   for (const locale of LOCALES) {
-    const cat = read(locale)
-    const seen = new Set([e.unit, ...e.also].map((u) => partOf(cat, u, locale)))
+    const { seen } = translatedPart(e, read(locale), locale)
     if (seen.size > 1) {
       conflicts.push(`  ${JSON.stringify(e.msgid)}\n    ${e.keys.join(', ')}\n    differs in ${locale}: ${[...seen].map((s) => JSON.stringify(s)).join(' vs ')}`)
       break
@@ -183,7 +193,8 @@ for (const locale of LOCALES) {
   const existing = !OVERWRITE && fs.existsSync(file) ? readPo(file) : { byId: new Map() }
 
   const out = entries.map((e) => {
-    const fromJson = toPositional(partOf(cat, e.unit, locale), e.unit.order, `${locale}:${e.unit.key}`)
+    const unit = translatedPart(e, cat, locale).pick ?? e.unit
+    const fromJson = toPositional(partOf(cat, unit, locale), unit.order, `${locale}:${unit.key}`)
     const had = existing.byId.get(e.msgid)
     // English is the source language: msgstr stays empty, gettext falls back to
     // the msgid. That is what makes a missing translation degrade to English
@@ -215,6 +226,6 @@ console.log(
 )
 if (totalStale)
   console.log(
-    `${totalStale / langs} message(s) are in the .po but no longer in locales/*.json` +
+    `${totalStale / LOCALES.length} message(s) are in the .po but no longer in locales/*.json` +
       ' -- dropped, which is what a removed template looks like.',
   )

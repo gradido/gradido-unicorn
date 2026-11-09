@@ -1,6 +1,6 @@
 Confermare il nuovo indirizzo e-mail
 
-Ciao {firstName|&<>"'ä} {lastName|&<>"'ä},
+Ciao {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 Vuoi cambiare l'indirizzo e-mail del tuo account Gradido con questo indirizzo.
 
@@ -8,13 +8,13 @@ Confermare il nuovo indirizzo e-mail
 
 Conferma con un clic che questo indirizzo è tuo.
 
-Conferma il nuovo indirizzo [{confirmLink|&<>"'ä}]
+Conferma il nuovo indirizzo [{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Oppure copia il link nella finestra del tuo browser.
 
-{confirmLink|&<>"'ä}
+{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Il link è valido fino al {validUntil|&<>"'ä}. Dopo potrai richiedere una nuova e-mail dalle tue impostazioni.
+Il link è valido fino al {validUntil|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}. Dopo potrai richiedere una nuova e-mail dalle tue impostazioni.
 
 Se non hai richiesto questa modifica, puoi semplicemente ignorare questa e-mail: senza la tua conferma non cambia nulla.
 

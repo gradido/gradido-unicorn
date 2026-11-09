@@ -1,10 +1,11 @@
 /* The e-mail renderer's API. It does not change when a template changes --
  * everything template-dependent is generated into service_core/email/templates.h out
- * of the pug sources.
+ * of the MJML templates.
  *
- * A rendered document is a sequence of ops: either a slice of the static byte
- * pool (memcpy) or a slot (user data, HTML-escaped). No parser, no per-op
- * allocation, nothing to decompress.
+ * A rendered document is a program of ops: slices of the static byte pool (memcpy),
+ * values in one of a few modes, and jumps for the template's {{if}}s. No parser, no
+ * per-op allocation, nothing to decompress. tools/runtime.mjs is the same machine in
+ * JavaScript, and the snapshots hold the two to each other.
  *
  * The file belongs to packages/email-native. The copy under
  * fast-servers/service-core/include/service_core/email is written by that package's build
@@ -31,9 +32,32 @@ typedef struct {
     ge_str_t text;
 } ge_mail_t;
 
-/* len == GE_SLOT_* means: 'off' is a slot index, not a pool offset. */
-#define GE_SLOT_HTML 0xFFFFFFFFu /* value is inserted HTML-escaped */
-#define GE_SLOT_RAW  0xFFFFFFFEu /* value is inserted verbatim (subject line) */
+/* An op is a pool slice unless its len is one of the kinds below; the low byte
+ * of len is then the kind's argument.
+ *
+ *   GE_OP_SLOT | mode   value[off], written in that mode
+ *   GE_OP_JZ   | i      jump to op off of the program unless value[i] is set
+ *   GE_OP_JMP           jump to op off of the program
+ *   GE_OP_BRK  | n      text only: n line breaks before the next output, merged
+ *                       by max, dropped at the start and at the end
+ *
+ * A value is "set" when GE_HAS() says so; a flag is a value that is "1" or NULL. */
+#define GE_OP_SLOT 0xFFFFFF00u
+#define GE_OP_JZ   0xFFFFFE00u
+#define GE_OP_JMP  0xFFFFFD00u
+#define GE_OP_BRK  0xFFFFFC00u
+#define GE_OP_KIND(len) ((len) >= GE_OP_BRK ? (len) & 0xFFFFFF00u : 0u)
+#define GE_OP_ARG(len)  ((len) & 0xFFu)
+
+enum {
+    GE_MODE_HTML            = 0, /* HTML-escaped: & < > " */
+    GE_MODE_RAW             = 1, /* as it is: the subject, the text part */
+    GE_MODE_URI             = 2, /* one URI component, as encodeURIComponent writes it */
+    GE_MODE_HUMAN           = 3, /* text a person typed: escaped, its addresses as links */
+    GE_MODE_HUMAN_BOLD      = 4, /* the same, and **...** in bold */
+    GE_MODE_HUMAN_TEXT      = 5, /* the two above for the text part */
+    GE_MODE_HUMAN_BOLD_TEXT = 6,
+};
 
 typedef struct {
     uint32_t off;
@@ -53,13 +77,13 @@ typedef struct {
     size_t               size;
 } ge_asset_t;
 
-/* "set" means: not NULL and not empty -- this is how the generated wrappers
- * decide the if-branches that came from the pug templates. */
+/* "set" means: not NULL and not empty -- what a template's {{if}} asks. */
 #define GE_HAS(s) ((s) != NULL && (s)[0] != '\0')
 
-/* Runs a program. Two passes: length first, then exactly one malloc.
+/* Runs a program over the value vector sv (sv[0] is the locale code). Two passes:
+ * length first, then exactly one malloc.
  * Returns 0 on success, -1 on out of memory. */
-int  ge_run(const char *pool, const ge_op_t *ops, uint32_t count, const char *const *slots,
+int  ge_run(const char *pool, const ge_op_t *ops, uint32_t count, const char *const *sv,
             ge_str_t *out);
 
 void ge_str_free(ge_str_t *s);
@@ -90,7 +114,7 @@ static inline void ge_arena_reset(ge_arena_t *a) { a->used = 0; }
 
 /* Two passes, but checked: -1 if there is not enough room (out->len then holds
  * the requirement). */
-int ge_run_into(const char *pool, const ge_op_t *ops, uint32_t count, const char *const *slots,
+int ge_run_into(const char *pool, const ge_op_t *ops, uint32_t count, const char *const *sv,
                 ge_arena_t *a, ge_str_t *out);
 
 /* One pass, unchecked. The caller guarantees the room -- via

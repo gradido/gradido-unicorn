@@ -11,9 +11,6 @@
       "contactSupport": "Contact support",
       "emailExists": "However, an account already exists for your email address.",
       "emailReused": "Your email address has just been used again to register an account with Gradido.",
-      "helperButton": "I am helping someone set up an account",
-      "helperIntro": "If someone is sitting next to you who just used your e-mail address to start a Gradido account: continue the setup here. Together you enter their own e-mail address, and they choose their password themselves.",
-      "helperTitle": "Helping someone at a Gradido café right now?",
       "ifYouAreNotTheOne": "If you did not try to register again, please contact our support:",
       "onForgottenPasswordClickLink": "If you have forgotten your password, please click here.",
       "subject": "Try To Register Again With Your Email",
@@ -21,21 +18,39 @@
     },
     "addedContributionMessage": {
       "commonGoodContributionMessage": "You have received a message from {senderAlias} regarding your common good contribution “{contributionMemo}”.",
+      "contributionClosed": "This contribution is complete — you cannot reply here any more.",
       "message": "„{message}“",
       "readMessage": "Read and reply to message",
+      "readMessageOnly": "Read message",
       "subject": "Message about your common good contribution",
       "title": "Message about your common good contribution",
       "toSeeAndAnswerMessage": "You can reply directly at your contribution."
     },
     "assistedRegistrationConfirm": {
       "accountCreated": "Together with a Gradido member, an account has just been set up for you — with this e-mail address.",
+      "accountCreatedByThanks": "On acceptance of a thank-you, an account has just been set up for you — with this e-mail address.",
       "clickToConfirm": "Please click here to confirm your e-mail address.",
       "confirmButton": "Confirm address",
       "confirmHeading": "Confirm e-mail address",
+      "linkValidity": "The link has a validity of {hours} hours.\nIf the validity of the link has already expired, sign in and have a new mail sent to you.",
+      "linkValidityWithMinutes": "The link has a validity of {hours} hours and {minutes} minutes.\nIf the validity of the link has already expired, sign in and have a new mail sent to you.",
       "notYou": "You know nothing about this account? Then ignore this e-mail — without confirmation the account stays locked.",
       "pleaseConfirm": "Please confirm that this address is yours — only then will your account stay open for good.",
       "subject": "Confirm your e-mail address",
       "title": "Your Gradido account is ready"
+    },
+    "chatGroupAdded": {
+      "inTheGroup": "{memberCount} members write to each other in the group. All members see your username.",
+      "leaveAnyTime": "You can mute or leave the group in your Gradido account at any time.",
+      "openGroup": "Open group",
+      "subject": "You are now in the group “{groupTitle}”",
+      "title": "{adderAlias} has added you to the group “{groupTitle}”"
+    },
+    "chatGroupMessage": {
+      "announcement": "{senderAlias} has sent a message to all members of the group as an announcement.",
+      "muteHint": "No more announcements by email? Tap the bell in the group in your Gradido account.",
+      "subject": "Announcement in “{groupTitle}” from {senderAlias}",
+      "title": "{senderAlias} writes in “{groupTitle}”"
     },
     "contribution": {
       "toSeeContributionsAndMessages": "You will find your common good contributions and the messages about them in your Gradido account."
@@ -60,8 +75,23 @@
       "subject": "Your common good contribution was rejected",
       "title": "Your common good contribution was rejected"
     },
+    "creationRightRequestSupport": {
+      "declaredAt": "Declared a project account by its holder on: {declaredAt}",
+      "declaredByAdmin": "Creation was switched off by an administrator, not declared by the holder.",
+      "gradidoId": "Gradido ID: {gradidoId}",
+      "member": "Member: {firstName} {lastName} ({alias})",
+      "memberEmail": "E-mail address: {memberEmail}",
+      "requestedAt": "Requested on: {requestedAt}",
+      "subject": "Creation right requested: {alias}",
+      "title": "A project account asks for the creation right back",
+      "todo": "Please check whether this account belongs to a person who may create. If so, switch \"May create\" on for this member in the admin interface (user role tab). The member has been told that a person checks the request."
+    },
     "customEmail": {
+      "forwardWords": "{senderAlias} adds:",
+      "forwarded": "↪ Forwarded",
+      "forwardedFrom": "↪ Forwarded from {forwardedFromAlias}",
       "haveReceivedMessageFrom": "you have just received a message from {senderAlias}",
+      "imageNote": "📷 The message contains a picture – you can see it in the conversation.",
       "title": "{senderAlias} has sent you a message"
     },
     "emailChangeConfirm": {
@@ -129,6 +159,7 @@
       "sincerelyYours": "Kind regards,",
       "toAccount": "To account",
       "toContribution": "To contribution",
+      "toConversation": "Conversation",
       "transactionDetails": "Transaction details",
       "yourGradidoTeam": "your Gradido team"
     },
@@ -149,10 +180,18 @@
       "wasPaid": "{amountGDD} GDD have just been passed on with your thank you card."
     },
     "transactionLinkRedeemed": {
-      "hasRedeemedYourLink": "{senderAlias} ({senderCommunity}) has just redeemed your link.",
+      "hasAcceptedYourThanks": "{senderAlias} ({senderCommunity}) has just accepted your thank-you.",
+      "hasAcceptedYourThanksNewMember": "{senderAlias} ({senderCommunity}) has just accepted your thank-you — and is new to Gradido. How lovely that you showed it.",
       "memo": "Message: {transactionMemo}",
-      "subject": "{senderAlias} has redeemed your Gradido link",
-      "title": "{senderAlias} has redeemed your Gradido link"
+      "subject": "{senderAlias} has accepted your thank-you",
+      "title": "{senderAlias} has accepted your thank-you"
+    },
+    "transactionReactionReceived": {
+      "hasEnjoyedYourThanks": "{recipientAlias} ({recipientCommunity}) was happy about your thank-you:",
+      "memo": "Message: {transactionMemo}",
+      "subject": "Your thank-you has arrived",
+      "title": "Your thank-you has arrived",
+      "yourThanksTo": "Your thank-you to {recipientAlias}"
     },
     "transactionReceived": {
       "haveReceivedAmountGDDFrom": "You have just received {transactionAmount} GDD from {senderAlias}.",
@@ -160,7 +199,58 @@
       "title": "{senderAlias} has sent you {transactionAmount} Gradido"
     }
   },
+  "firstCreation": {
+    "catalog": {
+      "accompaniedHardTime": "I stood by someone through a hard time by {text}",
+      "animalShelter": "I helped out at an animal shelter or sanctuary by {text}",
+      "animalsOrNature": "I did something for animals or nature by {text}",
+      "caredForChildren": "I cared for my children and guided them into life by {text}",
+      "communityProject": "I carried a community project (festival, community-supported farm, community garden …) by {text}",
+      "fireBrigadeRescue": "I served with the volunteer fire brigade or the rescue service by {text}",
+      "helpedAtHome": "I helped at home by {text}",
+      "helpedElderlyPerson": "I helped an elderly person by {text}",
+      "helpedFellowStudents": "I helped my classmates or fellow students by {text}",
+      "helpedNeighbourhood": "I helped out in the neighbourhood where help was needed by {text}",
+      "helpedOldPerson": "I helped an old person by {text}",
+      "helpedParish": "I helped out in my municipality or parish by {text}",
+      "helpedSickPerson": "I helped a sick person by {text}",
+      "lookedAfterGrandchildren": "I looked after my grandchildren by {text}",
+      "lookedAfterOrTaught": "I looked after someone or taught someone something by {text}",
+      "madeSomeoneHappy": "I made someone happy by {text}",
+      "musicChoirCulture": "I contributed to music, choir or culture in the community by {text}",
+      "natureEnvironment": "I did something for nature and the environment by {text}",
+      "nursedRelative": "I nursed a relative by {text}",
+      "sharedKnowledge": "I passed on my knowledge (tutoring, a course, guidance) by {text}",
+      "supportedClub": "I supported my club by {text}",
+      "supportedDisabledPerson": "I supported a person with a disability by {text}"
+    },
+    "checks": {
+      "child": "I am a child.",
+      "retiree": "I am a retiree."
+    },
+    "message": {
+      "checkConflictNote": "This first creation was paused: ticks are set that exclude each other — {checks} Please review and confirm, change or reject by hand.",
+      "childLine": "for being here and seeing the world with your own eyes",
+      "closing": "Good to have you here.",
+      "greetingAnonymous": "Welcome!",
+      "greetingFemale": "Dear {name}, welcome!",
+      "greetingMale": "Dear {name}, welcome!",
+      "greetingNeutral": "Welcome, {name}!",
+      "internalNote": "Crea paused this first creation: {reason}. Please review and confirm, change or deny it by hand.",
+      "retireeLine": "for your life's work: all the years you were there for others",
+      "review": "A person will take a look at your entries. You will hear from us.",
+      "thanks": "The community thanks you — {lines}.",
+      "thanksOnlyCheck": "The community thanks you — {checkLine}.",
+      "thanksWithCheck": "The community thanks you — {lines}. And {checkLine}.",
+      "w1": "Your first 100 Gradido are thanks for what you have long since done."
+    }
+  },
   "general": {
     "decimalSeparator": "."
+  },
+  "redeemPreview": {
+    "description": "Help. Give. Thank.",
+    "greetingTitle": "{name} sent you a thank-you greeting",
+    "linkTitle": "{name} sent you a thank-you"
   }
 }

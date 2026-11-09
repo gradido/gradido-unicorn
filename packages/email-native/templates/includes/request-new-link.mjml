@@ -10,16 +10,16 @@
 -->
 <mj-text mj-class="h2">{{t:Request new valid link}}</mj-text>
 
-<!--@if minutes-->
+{{if minutes}}
 <mj-text mj-class="p-content" padding="15px 0 15px 0">
   {{t:The link has a validity of %1 hours and %2 minutes.|hours,minutes}}
   {{t:If the validity of the link has already expired, you can have a new link sent to you here.}}
 </mj-text>
-<!--@else-->
+{{else}}
 <mj-text mj-class="p-content" padding="15px 0 15px 0">
   {{t:The link has a validity of %1 hours.|hours}}
   {{t:If the validity of the link has already expired, you can have a new link sent to you here.}}
 </mj-text>
-<!--@endif-->
+{{end}}
 
 <mj-button mj-class="btn" css-class="btn-grey" background-color="#8f8f8f" href="{{v:resendLink}}">{{t:New link}}</mj-button>

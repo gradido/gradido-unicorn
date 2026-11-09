@@ -1,6 +1,6 @@
 Je Gradido-account is klaar
 
-Hallo {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hallo {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 Samen met een Gradido-lid is er zojuist een account voor je aangemaakt — met dit e-mailadres.
 
@@ -10,13 +10,13 @@ E-mailadres bevestigen
 
 Klik hier om je e-mailadres te bevestigen.
 
-Adres bevestigen [{confirmLink|&<>"'ä}]
+Adres bevestigen [{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Of kopieer de link naar je browservenster.
 
-{confirmLink|&<>"'ä}
+{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-De link is {hours|&<>"'ä} uur geldig. Als de geldigheid van de link al verlopen is, kun je hier een nieuwe link laten toesturen.
+De link is {hours|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} uur en {minutes|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} minuten geldig. Als de geldigheid van de link al verlopen is, meld je aan en laat je een nieuwe mail sturen.
 
 Weet je niets van dit account? Negeer dan deze e-mail — zonder bevestiging blijft het account gesloten.
 

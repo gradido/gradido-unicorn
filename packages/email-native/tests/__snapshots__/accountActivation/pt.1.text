@@ -1,6 +1,6 @@
 Verificação de e-mail
 
-Olá {firstName|&<>"'ä} {lastName|&<>"'ä},
+Olá {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 o teu endereço de e-mail acabou de ser registado no Gradido.
 
@@ -8,17 +8,17 @@ Concluir o registo
 
 Clica aqui para concluir o registo e ativar a tua conta Gradido.
 
-Ativar conta [{activationLink|&<>"'ä}]
+Ativar conta [{activationLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Ou copia o link para a janela do teu navegador.
 
-{activationLink|&<>"'ä}
+{activationLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Pedir um novo link válido
 
-O link é válido durante {hours|&<>"'ä} horas. Se a validade do link já tiver expirado, podes pedir aqui o envio de um novo link.
+O link é válido durante {hours|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} horas e {minutes|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} minutos. Se a validade do link já tiver expirado, podes pedir aqui o envio de um novo link.
 
-Novo link [{resendLink|&<>"'ä}]
+Novo link [{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Com os melhores cumprimentos,
 a tua equipa Gradido

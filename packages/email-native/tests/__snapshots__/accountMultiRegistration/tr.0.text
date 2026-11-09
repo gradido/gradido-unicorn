@@ -1,6 +1,6 @@
 E-postanla yeniden kayıt denemesi
 
-Merhaba {firstName|&<>"'ä} {lastName|&<>"'ä},
+Merhaba {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 e-posta adresin az önce Gradido'da bir hesap kaydetmek için yeniden kullanıldı.
 
@@ -10,27 +10,17 @@ Ancak e-posta adresin için zaten bir hesap mevcut.
 
 Şifreni unuttuysan, lütfen buraya tıkla.
 
-sıfırla [{resendLink|&<>"'ä}]
+sıfırla [{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Veya bağlantıyı tarayıcı pencerene kopyala.
 
-{resendLink|&<>"'ä}
-
-Şu anda bir Gradido kafesinde birine mi yardım ediyorsun?
-
-Yanında, az önce senin e-posta adresini kullanarak bir Gradido hesabı açmaya başlayan biri oturuyorsa: Kuruluma buradan devam et. Birlikte onun kendi e-posta adresini girersiniz, şifresini ise kendisi seçer.
-
-Birine hesap açmasında yardım ediyorum [{helperLink|&<>"'ä}]
-
-Veya bağlantıyı tarayıcı pencerene kopyala.
-
-{helperLink|&<>"'ä}
+{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Desteğe başvur
 
 Yeniden kaydolmayı sen denemediysen, lütfen desteğimize başvur:
 
-{supportEmail|&<>"'ä}
+{supportEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Sevgiler,
 Gradido ekibin
