@@ -204,6 +204,55 @@ TEST_F(JwtTest, TheClaimIsTheOneAskedForByName)
         << "nor by prefix";
 }
 
+/* --- the prepared key ----------------------------------------------------------------- */
+
+/* Preparing is a shortcut and nothing else: the same token, byte for byte, with or without it,
+ * and each side reads what the other wrote. A state copied in wrong would show here as a
+ * different signature rather than as a slower one. */
+TEST_F(JwtTest, APreparedConfigSignsAndVerifiesExactlyAsAnUnpreparedOne)
+{
+    sc_jwt_config prepared = configWith(kSecret, "gradido", "gradido-backend");
+    char from_prepared[SC_JWT_MAX_TOKEN];
+    ASSERT_EQ(sc_jwt_config_prepare(&prepared), 0);
+
+    const int written = sc_jwt_sign_hs256(&config_, kClaim, kUuid, kNow, kTtl, token_,
+                                          sizeof(token_));
+    ASSERT_GT(written, 0);
+    ASSERT_EQ(sc_jwt_sign_hs256(&prepared, kClaim, kUuid, kNow, kTtl, from_prepared,
+                                sizeof(from_prepared)),
+              written);
+    EXPECT_STREQ(token_, from_prepared);
+
+    const size_t length = static_cast<size_t>(written);
+    EXPECT_EQ(sc_jwt_verify_hs256(&prepared, token_, length, kClaim, claim_, kNow), SC_JWT_OK);
+    EXPECT_STREQ(claim_, kUuid);
+    EXPECT_EQ(sc_jwt_verify_hs256(&config_, from_prepared, length, kClaim, claim_, kNow),
+              SC_JWT_OK);
+}
+
+/* The state belongs to the secret it was prepared for. A config pointed at another secret
+ * afterwards -- or copied and then repointed, which is what configWith-style code does -- has
+ * to sign with the new one, not quietly with the old. */
+TEST_F(JwtTest, AConfigRepointedAfterPreparingUsesItsNewSecret)
+{
+    sc_jwt_config repointed = configWith(kSecret, "gradido", "gradido-backend");
+    sc_jwt_config other = configWith(kOtherSecret, "gradido", "gradido-backend");
+    char expected[SC_JWT_MAX_TOKEN];
+    ASSERT_EQ(sc_jwt_config_prepare(&repointed), 0);
+
+    repointed.secret = reinterpret_cast<const uint8_t *>(kOtherSecret);
+    repointed.secret_len = std::strlen(kOtherSecret);
+
+    ASSERT_GT(sc_jwt_sign_hs256(&repointed, kClaim, kUuid, kNow, kTtl, token_, sizeof(token_)), 0);
+    ASSERT_GT(sc_jwt_sign_hs256(&other, kClaim, kUuid, kNow, kTtl, expected, sizeof(expected)), 0);
+    EXPECT_STREQ(token_, expected);
+}
+
+TEST_F(JwtTest, PreparingNothingIsRefused)
+{
+    EXPECT_EQ(sc_jwt_config_prepare(nullptr), -1);
+}
+
 /* --- the buffers ---------------------------------------------------------------------- */
 
 /* The signer measures before it writes, at every one of the four places it appends. Walking the

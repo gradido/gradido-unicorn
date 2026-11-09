@@ -63,6 +63,7 @@ Options, all with `-D`:
 | `tests` | off | the googletest binaries and the integration probe |
 | `benchmarks` | off | the `bench_*` binaries |
 | `sanitize` | `off` | `undefined_behavior` (UBSan) or `thread` (TSan) |
+| `lto` | on, off in Debug | link-time optimization across the binary and every library it links |
 
 `-Doptimize` is zig's own and is Debug unless it is given, which is right for developing and
 wrong for shipping: `bun bundle` passes `ReleaseFast` unless `BUNDLE_C_OPTIMIZE` says `safe` or
@@ -183,6 +184,12 @@ point: what a JWT costs depends on which SHA-256 is underneath, and the one this
 not the one on the system. A Debug build measures Debug — pass `--release=fast` for a number
 worth quoting, and name the machine beside it.
 
+`bench_gzip` is the same idea for h2o's compress filter: what a gzip'd response costs through
+the compressor libh2o-evloop carries, against the zlib it was built with, split into the
+deflate itself and the stream set up per response, once with glibc's malloc as it comes and
+once with heap trimming off. Its one argument is the request rate the cores column is computed
+for (default 42,000 /s). It exists only in an h2o build.
+
 ## Run
 
 ```text
@@ -202,7 +209,7 @@ Configuration comes from the environment, with legacy's names and ports:
 | `LISTEN_HOST` | `127.0.0.1` |
 | `BACKEND_PORT` | `4000` |
 | `FEDERATION_PORT` | `5010` |
-| `DHT_PORT` | `5000` |
+| `DHT_PORT` | `4001` |
 | `DHT_TOPIC` | unset — `--dht-node` refuses to start without it |
 | `MASTER_SEED` | unset — a secret, see `contracts/secrets.json`. `setup` makes it and never replaces it; `--dht-node` derives its identity from it |
 | `DHT_DELEGATION` | unset — `setup` writes it: the community key's signature over this instance's dht identity |
