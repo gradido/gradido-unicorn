@@ -1,4 +1,9 @@
 export {
+  type AnnouncementVector,
+  announcementVectorSchema,
+  loadAnnouncementVectors,
+} from './announcement.vectors.ts'
+export {
   type JwtReason,
   type JwtVerifyConfig,
   type JwtVerifyResult,

@@ -1,0 +1,137 @@
+{
+  "contractVersion": 1,
+  "kind": "convention",
+  "name": "DhtAnnouncement",
+  "description": "What a community's node publishes on DHT_ANNOUNCE_TOPIC so that others learn a community they were not told about: which community it is, and where its federation API answers. Legacy's dht-node sent the same list over a hyperswarm socket; this is its form on the libp2p network, and the one legacy and gradido2 nodes exchange with each other.",
+
+  "principle": "An announcement is a hint, not a fact. It says who claims to be reachable where; whether that is true is settled by the federation handshake under the announced URL, never by the announcement.",
+
+  "frame": {
+    "layout": "u8 1 | delegation (136) | payload",
+    "carrier": "the data of one gossipsub message on DHT_ANNOUNCE_TOPIC, signed by the publishing node (strict signing)",
+    "rules": [
+      "The frame is libp2p-ffi's announcement frame, byte for byte -- src/wire.rs there. The leading byte is the frame version and is 1.",
+      "The delegation is libp2p-ffi's: node key (32) | community key (32) | expiry in unix milliseconds, big endian (8, 0 for never) | the community key's ed25519 signature (64) over \"libp2p-ffi delegation v1\" || node key || community key || expiry. test-vectors/master-seed.json pins its bytes.",
+      "The payload is at most DHT_ANNOUNCE_MAX_PAYLOAD_BYTES. The frame around it is not counted."
+    ]
+  },
+
+  "signatures": {
+    "community": "The community key is in the announcement, inside the delegation, and its private key signs the delegation: \"this node belongs to this community\". It does not sign the payload.",
+    "node": "The node key signs the gossipsub message, and with it the whole frame, the topic and the sequence number. That signature is what covers the payload.",
+    "rules": [
+      "The two form a chain: community key -> node key -> payload. A receiver accepts an announcement only when both hold and the node key the delegation names is the key that signed the message.",
+      "A gradido2 node's key is never the community key: every instance signs with a key derived from its MASTER_SEED along MASTER_SEED_PATH_DHT, and does not hold the community's private key at all, which is why the payload cannot be signed with it.",
+      "A legacy community is one server, and its node key is its community key. Its delegation names the same key twice and is signed by it, with expiry 0. That is a valid delegation by the rules above and needs no special case in a receiver; the frame stays the same so that both kinds of node read each other's announcements. For such a node the chain is one key, and the message signature is the community's own.",
+      "The community an announcement is about is the community key of its delegation. It is never taken from the peer id, the connection or the payload."
+    ]
+  },
+
+  "payload": {
+    "encoding": "JSON, UTF-8, every byte below 0x80",
+    "shape": "an object with the string members `url` and `announcedAt` and the member `api`, an array of strings",
+    "example": "{\"url\":\"https://gdd.gradido.net/api/\",\"api\":[\"1_0\",\"1_1\"],\"announcedAt\":\"1760000000000\"}",
+    "members": [
+      {
+        "name": "url",
+        "type": "varchar(255)",
+        "description": "The base URL the community's federation role answers under, as federated_communities.end_point holds it -- one for every API version. At most DHT_ANNOUNCE_URL_MAX_BYTES bytes, and of the form `url` below spells out. Empty for a community without a URL."
+      },
+      {
+        "name": "api",
+        "type": "varchar(10)[]",
+        "description": "The API versions served under `url`, each as federated_communities.api_version holds it: '1_0', '1_1'. At most DHT_ANNOUNCE_MAX_APIS entries, none twice, each 1 to DHT_ANNOUNCE_API_MAX_BYTES of the characters A-Z, a-z, 0-9 and underscore: the federation client appends an entry to `url`, so it is a name and never a path."
+      },
+      {
+        "name": "announcedAt",
+        "type": "int64",
+        "unit": "unix_milliseconds",
+        "description": "When the node published this announcement, by its own UTC clock: a decimal string, as types/Timestamp.json has every instant on the wire. Taken anew for every publication, a repeat included."
+      }
+    ],
+    "rules": [
+      "All three members are required. A community without a URL announces an empty `url` and an empty `api`: it exists and offers no federation API over HTTP. An empty `url` with a non-empty `api`, or the other way round, refuses the announcement.",
+      "A byte of 0x80 or above anywhere in the payload refuses the announcement, as legacy refuses it. A URL with other characters is announced in its ASCII form: punycode for the host, percent-encoding for the rest.",
+      "A member other than `url`, `api` and `announcedAt` is ignored, not refused. That is how the format grows: a newer node adds a member and an older one still reads what it knows.",
+      "An announcement is taken whole or not at all. A payload that is not an object, lacks a member, has a member of another type or exceeds a bound stores nothing.",
+      "`announcedAt` is digits only, without sign and without leading zeros, and at most 9223372036854775807. A JSON number in its place refuses the announcement.",
+      "An announcement whose `announcedAt` differs from the receiver's clock by more than DHT_ANNOUNCE_MAX_CLOCK_DIFFERENCE_SECONDS, in either direction, stores nothing.",
+      "An announcement whose `announcedAt` is not later than the last one taken from that community stores nothing. What was taken last is kept per community key for at least DHT_ANNOUNCE_MAX_CLOCK_DIFFERENCE_SECONDS and may be kept in memory only: after a restart the clock rule alone bounds what can be played back.",
+      "A member named twice refuses the announcement, whichever member it is. JSON.parse keeps the last occurrence and the fast path's reader the first; with either rule the two paths would store different URLs from one payload.",
+      "A member name spelled with a JSON escape refuses the announcement: decoded it could be a second `url` that only one reader recognises. Names are compared as they are written.",
+      "The whole payload is checked before anything of it is stored, and what is stored is exactly what was checked -- the URL is never rewritten, normalized or completed by a parser on the way.",
+      "No member order, no whitespace rule and no canonical form: a receiver parses the payload and never compares its bytes. What is signed is the bytes as sent.",
+      "One row of federated_communities per entry of `api`: public_key is the delegation's community key, api_version the entry, end_point `url`, last_announced_at the time of receipt, by the receiver's clock -- not `announcedAt`, which is compared with verified_at nowhere and is the sender's claim. Storing it is the federation role's decision on the gradido2 paths and done by the node itself in legacy.",
+      "Legacy's hyperswarm exchange was an array of { api, url } pairs and could name a different URL per version. No community ever did, and the object says so."
+    ]
+  },
+
+  "url": {
+    "principle": "What is announced is called: the federation client sends its requests to `url` with an entry of `api` appended. So an announcement carries only what can be spelled out character by character, and nothing a URL parser would have to interpret -- that interpretation is where two implementations differ and where a URL is made to say one thing and reach another.",
+    "form": "scheme \"://\" host [ \":\" port ] path",
+    "parts": [
+      { "name": "scheme", "rule": "`http` or `https`, lowercase." },
+      {
+        "name": "host",
+        "rule": "One or more labels joined by dots, at most 253 bytes. A label is 1 to 63 of a-z, 0-9 and hyphen and neither starts nor ends with a hyphen. Lowercase only, no trailing dot. A dotted IPv4 address is such a host; an IPv6 literal is not."
+      },
+      { "name": "port", "rule": "Optional. 1 to 65535, digits only, without leading zeros." },
+      {
+        "name": "path",
+        "rule": "Empty, or segments each led by a slash. A segment is any number of A-Z, a-z, 0-9, `.`, `_`, `~`, `-` and `%` followed by two hex digits. No segment is `.` or `..`."
+      }
+    ],
+    "rules": [
+      "No user or password, no query, no fragment, no backslash, no whitespace: none of them is in the form above.",
+      "The format does not ask where the host is. `http://localhost/api/` is a URL an announcement may carry, because a development network announces exactly that. Whether a server calls an address that is not on the public internet is the caller's decision -- see open.",
+      "A URL that is taken is one that may be stored, not one that is trusted. The handshake under it still decides whether the community is there."
+    ]
+  },
+
+  "publishing": {
+    "rules": [
+      "A node publishes when it has joined the network and again whenever its payload changes.",
+      "A node may publish the unchanged payload again. Legacy does, every DHT_ANNOUNCE_REPEAT_SECONDS, because that is the only way a legacy community that joined later, or whose backend was restarted and dropped its remote rows, learns the ones already there.",
+      "A repeat carries a new `announcedAt` and is otherwise the same payload; it changes nothing but last_announced_at. A receiver must not treat a repeated announcement as a new community.",
+      "No node publishes faster than the rate every receiver enforces per source: one announcement in ten seconds, three in reserve. An announcement over it is neither reported nor forwarded."
+    ]
+  },
+
+  "receiving": {
+    "order": [
+      "the message is signed, and the frame parses with version 1",
+      "the payload is at most DHT_ANNOUNCE_MAX_PAYLOAD_BYTES",
+      "the delegation verifies and has not expired",
+      "the delegation's node key is the key that signed the message",
+      "the community is not blocked",
+      "the source is within its rate",
+      "the payload parses by the rules above"
+    ],
+    "rules": [
+      "Old and repeated announcements are told apart by `announcedAt`, in the payload, and so after the node's checks: a played-back announcement is forwarded like any other and stored by nobody.",
+      "Everything up to the rate is the node's check and decides whether the message is forwarded to other peers. The payload is read after that, by whoever stores it: a node forwards an announcement whose payload it would not store itself, because the next node may be newer and understand it.",
+      "An announcement of the receiving community's own key is not stored as a remote community."
+    ]
+  },
+
+  "open": [
+    {
+      "question": "Does a server call an announced URL that is not on the public internet?",
+      "detail": "The form keeps out what makes a URL lie about where it leads. It does not keep out `http://127.0.0.1:4000/` or `http://169.254.169.254/`: an announcement naming one would have the receiving server send a federation request to itself or into its own network. test-vectors/public-url.json already decides, on both paths, whether a URL names a public host. Refusing every other one in production and allowing them by a setting in development would close this; refusing them in the format would break every development network.",
+      "why_it_matters": "It is the one way left to make a community server call something its operator did not mean to expose. The request is a fixed federation call, not one the announcer shapes, which bounds what it can do -- but does not make it nothing.",
+      "status": "unanswered -- to be decided where the URL is called, not where it is parsed"
+    },
+    {
+      "question": "Does the periodic repeat stay once every community runs gradido2?",
+      "detail": "libp2p-ffi publishes a payload only when it differs from the last one, which `announcedAt` now makes true of every repeat, so a node on the fast path can repeat too. Architecture.md, Peer network, says an announcement is published at start and on change, with no heartbeat, and that a node which was offline catches up through the federation operation \"communities you know\". Legacy has no such operation and deletes its remote rows on every backend start, so legacy nodes repeat. gradido2 nodes receive the repeats and need not send them.",
+      "why_it_matters": "A heartbeat turns last_announced_at into an online signal, which Architecture.md deliberately does not have. As long as legacy nodes are in the network the column means that for them and not for gradido2 communities.",
+      "status": "decided for now: only legacy nodes repeat. To be looked at again when the known-list operation exists"
+    },
+    {
+      "question": "The C runner",
+      "detail": "test-vectors/announcement.json holds the payload, the two rules that decide whether an announcement is current, and the delegation a legacy node signs for itself. packages/contract-tests runs it against packages/shared/src/schemas/dhtAnnouncement.ts. fast-servers/tests/contract/test_announcement_contract.cpp does not exist: the fast path parses no payload yet.",
+      "why_it_matters": "The fast path may lag behind, and until it reads a payload there is nothing for the vectors to disagree with. The day it does, the runner comes with it -- `payload.member-twice` and `payload.escaped-non-ascii` are the two a C parser gets wrong by default.",
+      "status": "open"
+    }
+  ]
+}

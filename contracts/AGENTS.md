@@ -456,7 +456,7 @@ regenerating is caught rather than believed.
 | Area | State |
 |---|---|
 | `const.json` | from legacy `shared/src/const`. Values exported by `shared-native` are deliberately absent, see working rule 5 |
-| `types/` | 20 enums — 18 from legacy `shared`, `database` and the backend, plus `RightDomain` and `ScopeDimension`, which gradido2 invents — and the `Timestamp` and `PasswordHash` conventions |
+| `types/` | 20 enums — 18 from legacy `shared`, `database` and the backend, plus `RightDomain` and `ScopeDimension`, which gradido2 invents — and the `Timestamp`, `PasswordHash` and `DhtAnnouncement` conventions |
 | `errors/` | database, domain and mutation errors; codes newly assigned |
 | `db/` | **28 tables — every one legacy has except `user_creation_groups`**, which could never hold more than one row and becomes the member setting `main_creation_group` — plus `settings`, `user_settings`, `roles`, `role_rights` and `user_role_scopes`, which gradido2 invents and legacy has no counterpart for. Column types, defaults, keys and indexes are decided; what is not is collected as `open` on the column or on the table |
 | `settings.json` | **28 runtime keys** — 21 instance settings from legacy's config, 4 that gradido2 invents for mirroring (`dht.mirror_*`), and in `user_settings.json` 3 member settings: 2 leaving `db/users.json` and `main_creation_group`, which replaces a table. Types, defaults and bounds are decided; the three publish-name enums are not |
