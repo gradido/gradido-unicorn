@@ -159,6 +159,7 @@ export class Register implements m.ClassComponent {
               field: this.form.fields.privacy,
               name: 'privacy',
               label: consentLabel(),
+              fieldName: t.__('Privacy policy consent'),
               disabled: this.submitting,
             }),
           ),

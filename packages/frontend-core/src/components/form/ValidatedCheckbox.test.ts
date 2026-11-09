@@ -10,7 +10,7 @@ const schema = v.pipe(
   v.check((agreed: boolean) => agreed, 'Please agree to the privacy policy'),
 )
 const draw = (field: FormField<boolean>) =>
-  render(ValidatedCheckbox, { field, name: 'privacy', label: 'I agree' })
+  render(ValidatedCheckbox, { field, name: 'privacy', label: 'I agree', fieldName: 'Consent' })
 
 const box = (tree: unknown) => find(tree, byTag('input'))
 
@@ -46,6 +46,7 @@ describe('ValidatedCheckbox', () => {
       field,
       name: 'privacy',
       label: ['I agree to the ', m('a', { href: '/p' }, 'privacy policy')],
+      fieldName: 'Consent',
     })
     expect(find(tree, byTag('a'))).toBeDefined()
   })

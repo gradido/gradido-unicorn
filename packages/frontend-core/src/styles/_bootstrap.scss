@@ -56,7 +56,9 @@
   $input-color: tokens.get('input-color'),
   $input-border-color: tokens.get('input-border'),
   $input-placeholder-color: tokens.get('input-placeholder'),
-  // Focus shows in the frame alone, without a ring around it.
+  // Focus shows in the frame alone, without a ring around it — fainter than a keyboard
+  // user needs, and kept that way on purpose: it is what the legacy frontend renders,
+  // which this one matches in every state. Strengthen it in both, not here alone.
   $input-focus-border-color: tokens.get('input-border-focus'),
   $input-focus-width: 0,
   $input-focus-box-shadow: none,

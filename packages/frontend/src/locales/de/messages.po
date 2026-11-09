@@ -166,6 +166,9 @@ msgstr "Registrieren …"
 msgid "Already have a %1 account?"
 msgstr "Du hast schon ein %1 Konto?"
 
+msgid "Privacy policy consent"
+msgstr "Zustimmung zur Datenschutzerklärung"
+
 msgid "I agree to the [privacy policy]."
 msgstr "Ich stimme der [Datenschutzerklärung] zu."
 
