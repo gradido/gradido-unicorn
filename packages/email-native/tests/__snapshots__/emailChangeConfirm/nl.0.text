@@ -1,6 +1,6 @@
 Nieuw e-mailadres bevestigen
 
-Hallo {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hallo {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 Je wilt het e-mailadres van je Gradido-account wijzigen naar dit adres.
 
@@ -8,13 +8,13 @@ Nieuw e-mailadres bevestigen
 
 Bevestig met één klik dat dit adres van jou is.
 
-Nieuw adres bevestigen [{confirmLink|&<>"'ä}]
+Nieuw adres bevestigen [{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Of kopieer de link naar je browservenster.
 
-{confirmLink|&<>"'ä}
+{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-De link is geldig tot {validUntil|&<>"'ä}. Daarna kun je in je instellingen een nieuwe e-mail laten sturen.
+De link is geldig tot {validUntil|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}. Daarna kun je in je instellingen een nieuwe e-mail laten sturen.
 
 Heb je deze wijziging niet aangevraagd, dan kun je deze e-mail gewoon negeren – zonder jouw bevestiging verandert er niets.
 

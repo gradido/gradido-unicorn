@@ -1,6 +1,6 @@
 Tu cuenta de Gradido está lista
 
-Hola {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hola {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 Junto con un miembro de Gradido se acaba de crear una cuenta para ti — con esta dirección de correo electrónico.
 
@@ -10,13 +10,13 @@ Confirmar dirección de correo
 
 Haz clic aquí para confirmar tu dirección de correo electrónico.
 
-Confirmar dirección [{confirmLink|&<>"'ä}]
+Confirmar dirección [{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 O copia el enlace en la ventana de tu navegador.
 
-{confirmLink|&<>"'ä}
+{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-El enlace tiene una validez de {hours|&<>"'ä} horas. Si la validez del enlace ya ha expirado, aquí puedes solicitar que se te envíe un nuevo enlace.
+El enlace tiene una validez de {hours|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} horas y {minutes|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} minutos. Si la validez del enlace ya ha expirado, inicia sesión y pide que te envíen un nuevo correo.
 
 ¿No sabes nada de esta cuenta? Entonces ignora este correo — sin confirmación la cuenta permanece cerrada.
 

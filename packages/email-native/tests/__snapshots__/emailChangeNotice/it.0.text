@@ -1,8 +1,8 @@
 Il tuo indirizzo e-mail sta per cambiare
 
-Ciao {firstName|&<>"'ä} {lastName|&<>"'ä},
+Ciao {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Per il tuo account Gradido è stata richiesta la modifica dell'indirizzo e-mail in {newEmail|&<>"'ä}.
+Per il tuo account Gradido è stata richiesta la modifica dell'indirizzo e-mail in {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
 Finché il nuovo indirizzo non viene confermato, resta valido questo. Se sei stato tu, non devi fare altro.
 
@@ -10,15 +10,15 @@ Non sei stato tu?
 
 Non sei stato tu? Allora clicca qui: la modifica viene annullata e questo indirizzo resta valido.
 
-Annulla la modifica [{revokeLink|&<>"'ä}]
+Annulla la modifica [{revokeLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Oppure copia il link nella finestra del tuo browser.
 
-{revokeLink|&<>"'ä}
+{revokeLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Se annulli la modifica, cambia poi anche la tua password.
 
-Il link è valido fino al {validUntil|&<>"'ä}; dopo, la modifica richiesta decade da sola.
+Il link è valido fino al {validUntil|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}; dopo, la modifica richiesta decade da sola.
 
 Cordiali saluti,
 il tuo team Gradido

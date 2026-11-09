@@ -1,18 +1,18 @@
 Η συνεισφορά σου στο κοινό καλό άλλαξε
 
-Γεια σου {firstName|&<>"'ä} {lastName|&<>"'ä},
+Γεια σου {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-η συνεισφορά σου στο κοινό καλό «{contributionMemo|&<>"'ä}» μόλις άλλαξε από {senderAlias|&<>"'ä} και τώρα είναι «{contributionMemoUpdated|&<>"'ä}»
+η συνεισφορά σου στο κοινό καλό «{contributionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}» μόλις άλλαξε από {senderAlias|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example} και τώρα είναι «{contributionMemoUpdated|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}»
 
 Λεπτομέρειες συνεισφοράς
 
 Τις συνεισφορές σου στο κοινό καλό και τα σχετικά μηνύματα θα τις βρεις στον λογαριασμό σου στο Gradido.
 
-Στη συνεισφορά [{contributionFrontendLink|&<>"'ä}]
+Στη συνεισφορά [{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Ή αντίγραψε τον σύνδεσμο στο παράθυρο του προγράμματος περιήγησής σου.
 
-{contributionFrontendLink|&<>"'ä}
+{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Παρακαλώ μην απαντήσεις σε αυτό το email.
 

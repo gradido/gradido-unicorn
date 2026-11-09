@@ -1,18 +1,18 @@
 Your contribution to the common good was confirmed
 
-Hello {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hello {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Your common good contribution “{contributionMemo|&<>"'ä}” has just been approved by {senderAlias|&<>"'ä}. Your Gradido account has been credited with {contributionAmount|&<>"'ä} GDD.
+Your common good contribution “{contributionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}” has just been approved by {senderAlias|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}. Your Gradido account has been credited with {contributionAmount|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example} GDD.
 
 Contribution details
 
 You will find your common good contributions and the messages about them in your Gradido account.
 
-To contribution [{contributionFrontendLink|&<>"'ä}]
+To contribution [{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Or copy the link into your browser window.
 
-{contributionFrontendLink|&<>"'ä}
+{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Please do not reply to this email.
 

@@ -1,18 +1,18 @@
 Your common good contribution has been changed
 
-Hello {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hello {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-your common good contribution '{contributionMemo|&<>"'ä}' has just been changed by {senderAlias|&<>"'ä} and now reads as '{contributionMemoUpdated|&<>"'ä}'
+your common good contribution '{contributionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}' has just been changed by {senderAlias|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example} and now reads as '{contributionMemoUpdated|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}'
 
 Contribution details
 
 You will find your common good contributions and the messages about them in your Gradido account.
 
-To contribution [{contributionFrontendLink|&<>"'ä}]
+To contribution [{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Or copy the link into your browser window.
 
-{contributionFrontendLink|&<>"'ä}
+{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Please do not reply to this email.
 

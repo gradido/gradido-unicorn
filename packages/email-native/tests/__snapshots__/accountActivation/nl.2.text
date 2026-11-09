@@ -1,6 +1,6 @@
 E-mailverificatie
 
-Hallo {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hallo {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 je e-mailadres is zojuist geregistreerd bij Gradido.
 
@@ -8,17 +8,17 @@ Registratie voltooien
 
 Klik hier om de registratie te voltooien en je Gradido-account te activeren.
 
-Account activeren [{activationLink|&<>"'ä}]
+Account activeren [{activationLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Of kopieer de link naar je browservenster.
 
-{activationLink|&<>"'ä}
+{activationLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Nieuwe geldige link aanvragen
 
-De link is {hours|&<>"'ä} uur en {minutes|&<>"'ä} minuten geldig. Als de geldigheid van de link al verlopen is, kun je hier een nieuwe link laten toesturen.
+De link is {hours|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} uur geldig. Als de geldigheid van de link al verlopen is, kun je hier een nieuwe link laten toesturen.
 
-Nieuwe link [{resendLink|&<>"'ä}]
+Nieuwe link [{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Hartelijke groet,
 je Gradido-team

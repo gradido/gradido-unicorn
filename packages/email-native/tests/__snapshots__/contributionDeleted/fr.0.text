@@ -1,18 +1,18 @@
 Ta contribution au bien commun a été supprimée
 
-Bonjour {firstName|&<>"'ä} {lastName|&<>"'ä},
+Bonjour {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-ta contribution au bien commun « {contributionMemo|&<>"'ä} » a été supprimée par {senderAlias|&<>"'ä}.
+ta contribution au bien commun « {contributionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example} » a été supprimée par {senderAlias|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}.
 
 Détails de la contribution
 
 Tu trouveras tes contributions au bien commun et les messages associés dans ton compte Gradido.
 
-Vers la contribution [{contributionFrontendLink|&<>"'ä}]
+Vers la contribution [{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Ou copie le lien dans la fenêtre de ton navigateur.
 
-{contributionFrontendLink|&<>"'ä}
+{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Merci de ne pas répondre à cet e-mail.
 

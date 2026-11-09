@@ -11,9 +11,6 @@
       "contactSupport": "Desteğe başvur",
       "emailExists": "Ancak e-posta adresin için zaten bir hesap mevcut.",
       "emailReused": "e-posta adresin az önce Gradido'da bir hesap kaydetmek için yeniden kullanıldı.",
-      "helperButton": "Birine hesap açmasında yardım ediyorum",
-      "helperIntro": "Yanında, az önce senin e-posta adresini kullanarak bir Gradido hesabı açmaya başlayan biri oturuyorsa: Kuruluma buradan devam et. Birlikte onun kendi e-posta adresini girersiniz, şifresini ise kendisi seçer.",
-      "helperTitle": "Şu anda bir Gradido kafesinde birine mi yardım ediyorsun?",
       "ifYouAreNotTheOne": "Yeniden kaydolmayı sen denemediysen, lütfen desteğimize başvur:",
       "onForgottenPasswordClickLink": "Şifreni unuttuysan, lütfen buraya tıkla.",
       "subject": "E-postanla yeniden kayıt denemesi",
@@ -21,21 +18,39 @@
     },
     "addedContributionMessage": {
       "commonGoodContributionMessage": "{senderAlias}, ortak yarara katkın “{contributionMemo}” hakkında sana bir mesaj gönderdi.",
+      "contributionClosed": "Bu katkı tamamlandı — buraya artık yanıt veremezsin.",
       "message": "“{message}”",
       "readMessage": "Mesajı oku ve yanıtla",
+      "readMessageOnly": "Mesajı oku",
       "subject": "Ortak yarara katkın hakkında mesaj",
       "title": "Ortak yarara katkın hakkında mesaj",
       "toSeeAndAnswerMessage": "Doğrudan katkının yanından yanıtlayabilirsin."
     },
     "assistedRegistrationConfirm": {
       "accountCreated": "Bir Gradido üyesiyle birlikte az önce senin için bir hesap oluşturuldu — bu e-posta adresiyle.",
+      "accountCreatedByThanks": "Bir teşekkür kabul edilirken az önce senin için bir hesap oluşturuldu — bu e-posta adresiyle.",
       "clickToConfirm": "E-posta adresini onaylamak için lütfen buraya tıkla.",
       "confirmButton": "Adresi onayla",
       "confirmHeading": "E-posta adresini onayla",
+      "linkValidity": "Bağlantı {hours} saat geçerlidir.\nBağlantının geçerlilik süresi dolduysa, giriş yap ve kendine yeni bir e-posta gönder.",
+      "linkValidityWithMinutes": "Bağlantı {hours} saat {minutes} dakika geçerlidir.\nBağlantının geçerlilik süresi dolduysa, giriş yap ve kendine yeni bir e-posta gönder.",
       "notYou": "Bu hesaptan haberin yok mu? O zaman bu e-postayı dikkate alma — onay olmadan hesap kapalı kalır.",
       "pleaseConfirm": "Lütfen bu adresin sana ait olduğunu onayla — hesabın ancak o zaman kalıcı olarak açık kalır.",
       "subject": "E-posta adresini onayla",
       "title": "Gradido hesabın hazır"
+    },
+    "chatGroupAdded": {
+      "inTheGroup": "grupta {memberCount} üye birbiriyle yazışıyor. Tüm üyeler senin kullanıcı adını görür.",
+      "leaveAnyTime": "Grubu istediğin zaman Gradido hesabından sessize alabilir ya da gruptan çıkabilirsin.",
+      "openGroup": "Grubu aç",
+      "subject": "Artık “{groupTitle}” grubundasın",
+      "title": "{adderAlias} seni “{groupTitle}” grubuna ekledi"
+    },
+    "chatGroupMessage": {
+      "announcement": "{senderAlias}, grubun tüm üyelerine duyuru olarak bir mesaj gönderdi.",
+      "muteHint": "Artık e-postayla duyuru almak istemiyor musun? Gradido hesabında gruptaki zile dokun.",
+      "subject": "“{groupTitle}” grubunda {senderAlias} kişisinden duyuru",
+      "title": "{senderAlias}, “{groupTitle}” grubunda yazıyor"
     },
     "contribution": {
       "toSeeContributionsAndMessages": "Ortak yarara katkılarını ve ilgili mesajları Gradido hesabında bulabilirsin."
@@ -60,8 +75,23 @@
       "subject": "Ortak yarara katkın reddedildi",
       "title": "Ortak yarara katkın reddedildi"
     },
+    "creationRightRequestSupport": {
+      "declaredAt": "Declared a project account by its holder on: {declaredAt}",
+      "declaredByAdmin": "Creation was switched off by an administrator, not declared by the holder.",
+      "gradidoId": "Gradido ID: {gradidoId}",
+      "member": "Member: {firstName} {lastName} ({alias})",
+      "memberEmail": "E-mail address: {memberEmail}",
+      "requestedAt": "Requested on: {requestedAt}",
+      "subject": "Creation right requested: {alias}",
+      "title": "A project account asks for the creation right back",
+      "todo": "Please check whether this account belongs to a person who may create. If so, switch \"May create\" on for this member in the admin interface (user role tab). The member has been told that a person checks the request."
+    },
     "customEmail": {
+      "forwardWords": "{senderAlias} ekliyor:",
+      "forwarded": "↪ İletildi",
+      "forwardedFrom": "↪ {forwardedFromAlias} kişisinden iletildi",
       "haveReceivedMessageFrom": "az önce {senderAlias} tarafından bir mesaj aldın",
+      "imageNote": "📷 Mesajda bir görsel var – onu sohbette görebilirsin.",
       "title": "{senderAlias} sana bir mesaj gönderdi"
     },
     "emailChangeConfirm": {
@@ -129,6 +159,7 @@
       "sincerelyYours": "Sevgiler,",
       "toAccount": "Hesaba git",
       "toContribution": "Katkıya git",
+      "toConversation": "Sohbete git",
       "transactionDetails": "İşlem ayrıntıları",
       "yourGradidoTeam": "Gradido ekibin"
     },
@@ -149,10 +180,18 @@
       "wasPaid": "Teşekkür kartınla az önce {amountGDD} GDD aktarıldı."
     },
     "transactionLinkRedeemed": {
-      "hasRedeemedYourLink": "{senderAlias} ({senderCommunity}) az önce bağlantını kullandı.",
+      "hasAcceptedYourThanks": "{senderAlias} ({senderCommunity}) gönderdiğin teşekkürü az önce kabul etti.",
+      "hasAcceptedYourThanksNewMember": "{senderAlias} ({senderCommunity}) gönderdiğin teşekkürü az önce kabul etti — ve Gradido'da yeni. Göstermen çok güzel.",
       "memo": "Mesaj: {transactionMemo}",
-      "subject": "{senderAlias} Gradido bağlantını kullandı",
-      "title": "{senderAlias} Gradido bağlantını kullandı"
+      "subject": "{senderAlias} gönderdiğin teşekkürü kabul etti",
+      "title": "{senderAlias} gönderdiğin teşekkürü kabul etti"
+    },
+    "transactionReactionReceived": {
+      "hasEnjoyedYourThanks": "{recipientAlias} ({recipientCommunity}) gönderdiğin teşekküre sevindi:",
+      "memo": "Mesaj: {transactionMemo}",
+      "subject": "Teşekkürün ulaştı",
+      "title": "Teşekkürün ulaştı",
+      "yourThanksTo": "{recipientAlias} için teşekkürün"
     },
     "transactionReceived": {
       "haveReceivedAmountGDDFrom": "az önce {senderAlias} tarafından {transactionAmount} GDD aldın.",
@@ -160,7 +199,58 @@
       "title": "{senderAlias} sana {transactionAmount} Gradido gönderdi"
     }
   },
+  "firstCreation": {
+    "catalog": {
+      "accompaniedHardTime": "Zor bir dönemde birinin yanında oldum ve {text}",
+      "animalShelter": "Bir hayvan barınağında ya da bir hayvan koruma çiftliğinde yardım ettim ve {text}",
+      "animalsOrNature": "Hayvanlar ya da doğa için bir şey yaptım ve {text}",
+      "caredForChildren": "Çocuklarımı büyütüp hayata hazırladım ve {text}",
+      "communityProject": "Bir topluluk projesine destek verdim (şenlik, dayanışmacı tarım, topluluk bahçesi …) ve {text}",
+      "fireBrigadeRescue": "Gönüllü itfaiyede ya da bir kurtarma ekibinde görev aldım ve {text}",
+      "helpedAtHome": "Evde yardım ettim ve {text}",
+      "helpedElderlyPerson": "Bir büyüğüme yardım ettim ve {text}",
+      "helpedFellowStudents": "Sınıf ya da üniversite arkadaşlarıma yardım ettim ve {text}",
+      "helpedNeighbourhood": "Mahallede ihtiyaç olan yerde el uzattım ve {text}",
+      "helpedOldPerson": "Yaşlı birine yardım ettim ve {text}",
+      "helpedParish": "Yaşadığım yerde ya da inanç topluluğumda yardım ettim ve {text}",
+      "helpedSickPerson": "Hasta birine yardım ettim ve {text}",
+      "lookedAfterGrandchildren": "Torunlarıma baktım ve {text}",
+      "lookedAfterOrTaught": "Birine göz kulak oldum ya da birine bir şey öğrettim ve {text}",
+      "madeSomeoneHappy": "Birini sevindirdim ve {text}",
+      "musicChoirCulture": "Toplulukta müziğe, koroya ya da kültüre katkıda bulundum ve {text}",
+      "natureEnvironment": "Doğa ve çevre için bir şey yaptım ve {text}",
+      "nursedRelative": "Bir yakınımın bakımını üstlendim ve {text}",
+      "sharedKnowledge": "Bilgimi başkalarına aktardım (özel ders, kurs, rehberlik) ve {text}",
+      "supportedClub": "Derneğimi destekledim ve {text}",
+      "supportedDisabledPerson": "Engelli bir insanı destekledim ve {text}"
+    },
+    "checks": {
+      "child": "Ben bir çocuğum.",
+      "retiree": "Emekliyim."
+    },
+    "message": {
+      "checkConflictNote": "Bu ilk yaratım askıya alındı: birbirini dışlayan kutucuklar işaretli — {checks} Lütfen kontrol et ve elle onayla, değiştir ya da reddet.",
+      "childLine": "burada olduğun, dünyayı kendi gözlerinle gördüğün için",
+      "closing": "İyi ki buradasın.",
+      "greetingAnonymous": "Hoş geldin!",
+      "greetingFemale": "Sevgili {name}, hoş geldin!",
+      "greetingMale": "Sevgili {name}, hoş geldin!",
+      "greetingNeutral": "Hoş geldin, {name}!",
+      "internalNote": "Crea bu ilk yaratımı askıya aldı: {reason}. Lütfen kontrol et ve elle onayla, değiştir ya da reddet.",
+      "retireeLine": "ömür boyu emeğin için: başkalarının yanında olduğun onca yıl için",
+      "review": "Girişlerine bir insan da bakacak. Sana haber vereceğiz.",
+      "thanks": "Topluluk sana teşekkür ediyor — {lines}.",
+      "thanksOnlyCheck": "Topluluk sana teşekkür ediyor — {checkLine}.",
+      "thanksWithCheck": "Topluluk sana teşekkür ediyor — {lines}. Ve {checkLine}.",
+      "w1": "İlk 100 Gradido'n, çoktan yaptıkların için bir teşekkür."
+    }
+  },
   "general": {
     "decimalSeparator": ","
+  },
+  "redeemPreview": {
+    "description": "Yardım et. Hediye et. Teşekkür et.",
+    "greetingTitle": "{name} sana bir teşekkür mesajı gönderdi",
+    "linkTitle": "{name} sana bir teşekkür gönderdi"
   }
 }

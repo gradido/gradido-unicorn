@@ -1,12 +1,12 @@
 Un miembro ha cambiado su dirección de correo
 
-Miembro: {firstName|&<>"'ä} {lastName|&<>"'ä} ({alias|&<>"'ä})
+Miembro: {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ({alias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example})
 
-Dirección anterior: {oldEmail|&<>"'ä}
+Dirección anterior: {oldEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Nueva dirección: {newEmail|&<>"'ä}
+Nueva dirección: {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Para el servidor GDT sigue contando la primera dirección de esta cuenta: {gdtEmail|&<>"'ä}.
+Para el servidor GDT sigue contando la primera dirección de esta cuenta: {gdtEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
 La dirección anterior nunca fue confirmada (error de escritura al crear la cuenta): no hay nada que fusionar en el servidor GDT. Por favor, introduce solo la nueva dirección en Klick-Tipp.
 

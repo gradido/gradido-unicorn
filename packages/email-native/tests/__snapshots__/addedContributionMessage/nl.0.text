@@ -1,18 +1,18 @@
 Bericht over je bijdrage aan het algemeen welzijn
 
-Hallo {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hallo {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-je hebt een bericht ontvangen van {senderAlias|&<>"'ä} over je bijdrage aan het algemeen welzijn ‘{contributionMemo|&<>"'ä}’.
+je hebt een bericht ontvangen van {senderAlias|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example} over je bijdrage aan het algemeen welzijn ‘{contributionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}’.
 
 Bericht lezen en beantwoorden
 
-‘{message|&<>"'ä}’
+‘{message|&<>"'ä b https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}’
 
 Je kunt direct bij je bijdrage antwoorden.
 
-Beantwoorden [{contributionFrontendLink|&<>"'ä}]
+Beantwoorden [{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
-Naar het account [{communityURL|&<>"'ä}/transactions]
+Naar het account [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/transactions]
 
 Beantwoord deze e-mail alsjeblieft niet.
 

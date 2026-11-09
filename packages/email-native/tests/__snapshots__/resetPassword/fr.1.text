@@ -1,6 +1,6 @@
 Réinitialiser le mot de passe
 
-Bonjour {firstName|&<>"'ä} {lastName|&<>"'ä},
+Bonjour {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 toi, ou quelqu'un d'autre, as demandé une réinitialisation du mot de passe pour ce compte.
 
@@ -8,17 +8,17 @@ Réinitialiser le mot de passe
 
 Si c'était toi, clique ici.
 
-réinitialiser [{resetLink|&<>"'ä}]
+réinitialiser [{resetLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Ou copie le lien dans la fenêtre de ton navigateur.
 
-{resetLink|&<>"'ä}
+{resetLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Demander un nouveau lien valide
 
-Le lien est valable {hours|&<>"'ä} heures. Si la validité du lien a déjà expiré, tu peux te faire envoyer un nouveau lien ici.
+Le lien est valable {hours|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} heures. Si la validité du lien a déjà expiré, tu peux te faire envoyer un nouveau lien ici.
 
-Nouveau lien [{resendLink|&<>"'ä}]
+Nouveau lien [{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Cordialement,
 ton équipe Gradido

@@ -1,12 +1,12 @@
 Een lid heeft zijn e-mailadres gewijzigd
 
-Lid: {firstName|&<>"'ä} {lastName|&<>"'ä} ({alias|&<>"'ä})
+Lid: {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ({alias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example})
 
-Vorig adres: {oldEmail|&<>"'ä}
+Vorig adres: {oldEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Nieuw adres: {newEmail|&<>"'ä}
+Nieuw adres: {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Voor de GDT-server telt nog steeds het eerste adres van dit account: {gdtEmail|&<>"'ä}.
+Voor de GDT-server telt nog steeds het eerste adres van dit account: {gdtEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
 Het vorige adres is nooit bevestigd (een typefout bij het aanmaken) – op de GDT-server valt niets samen te voegen. Voer alleen het nieuwe adres in Klick-Tipp in.
 

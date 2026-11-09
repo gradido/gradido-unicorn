@@ -1,12 +1,12 @@
 Bir üye e-posta adresini değiştirdi
 
-Üye: {firstName|&<>"'ä} {lastName|&<>"'ä} ({alias|&<>"'ä})
+Üye: {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ({alias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example})
 
-Önceki adres: {oldEmail|&<>"'ä}
+Önceki adres: {oldEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Yeni adres: {newEmail|&<>"'ä}
+Yeni adres: {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-GDT sunucusu için bu hesabın ilk adresi geçerli olmaya devam eder: {gdtEmail|&<>"'ä}.
+GDT sunucusu için bu hesabın ilk adresi geçerli olmaya devam eder: {gdtEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
 Lütfen yeni adresi GDT sunucusunda bu hesaba bağla ve Klick-Tipp'i güncelle.
 

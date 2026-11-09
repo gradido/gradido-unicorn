@@ -1,18 +1,18 @@
 Je bijdrage aan het algemeen welzijn is bevestigd
 
-Hallo {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hallo {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-je bijdrage aan het algemeen welzijn ‘{contributionMemo|&<>"'ä}’ is zojuist bevestigd door {senderAlias|&<>"'ä}. Er is {contributionAmount|&<>"'ä} GDD op je Gradido-account bijgeschreven.
+je bijdrage aan het algemeen welzijn ‘{contributionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}’ is zojuist bevestigd door {senderAlias|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}. Er is {contributionAmount|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example} GDD op je Gradido-account bijgeschreven.
 
 Details van de bijdrage
 
 Je vindt je bijdragen aan het algemeen welzijn en de bijbehorende berichten in je Gradido-account.
 
-Naar de bijdrage [{contributionFrontendLink|&<>"'ä}]
+Naar de bijdrage [{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Of kopieer de link naar je browservenster.
 
-{contributionFrontendLink|&<>"'ä}
+{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Beantwoord deze e-mail alsjeblieft niet.
 

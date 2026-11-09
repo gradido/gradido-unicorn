@@ -1,6 +1,6 @@
 Yeni e-posta adresini onayla
 
-Merhaba {firstName|&<>"'ä} {lastName|&<>"'ä},
+Merhaba {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 Gradido hesabının e-posta adresini bu adresle değiştirmek istiyorsun.
 
@@ -8,13 +8,13 @@ Yeni e-posta adresini onayla
 
 Bu adresin sana ait olduğunu tek tıkla onayla.
 
-Yeni adresi onayla [{confirmLink|&<>"'ä}]
+Yeni adresi onayla [{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Veya bağlantıyı tarayıcı pencerene kopyala.
 
-{confirmLink|&<>"'ä}
+{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Bağlantı {validUntil|&<>"'ä} tarihine kadar geçerlidir. Sonrasında ayarlarından yeni bir e-posta gönderilmesini isteyebilirsin.
+Bağlantı {validUntil|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} tarihine kadar geçerlidir. Sonrasında ayarlarından yeni bir e-posta gönderilmesini isteyebilirsin.
 
 Bu değişikliği sen istemediysen bu e-postayı görmezden gelebilirsin – onayın olmadan hiçbir şey değişmez.
 

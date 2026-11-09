@@ -1,18 +1,18 @@
 Message concernant ta contribution au bien commun
 
-Bonjour {firstName|&<>"'ä} {lastName|&<>"'ä},
+Bonjour {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-tu as reçu un message de {senderAlias|&<>"'ä} concernant ta contribution au bien commun « {contributionMemo|&<>"'ä} ».
+tu as reçu un message de {senderAlias|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example} concernant ta contribution au bien commun « {contributionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example} ».
 
 Lire et répondre au message
 
-« {message|&<>"'ä} »
+« {message|&<>"'ä b https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example} »
 
 Tu peux répondre directement sur ta contribution.
 
-Répondre [{contributionFrontendLink|&<>"'ä}]
+Répondre [{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
-Vers le compte [{communityURL|&<>"'ä}/transactions]
+Vers le compte [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/transactions]
 
 Merci de ne pas répondre à cet e-mail.
 

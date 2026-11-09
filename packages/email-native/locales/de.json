@@ -11,9 +11,6 @@
       "contactSupport": "Support kontaktieren",
       "emailExists": "Es existiert jedoch zu Deiner E-Mail-Adresse schon ein Konto.",
       "emailReused": "Deine E-Mail-Adresse wurde soeben erneut benutzt, um bei Gradido ein Konto zu registrieren.",
-      "helperButton": "Ich helfe jemandem beim Einrichten",
-      "helperIntro": "Wenn neben Dir gerade ein Mensch sitzt, der Deine E-Mail-Adresse benutzt hat, um ein Gradido-Konto zu beginnen: Führe die Einrichtung hier fort. Ihr tragt seine eigene E-Mail-Adresse ein, und sein Passwort wählt er selbst.",
-      "helperTitle": "Du hilfst gerade jemandem im Gradido-Café?",
       "ifYouAreNotTheOne": "Wenn Du nicht versucht hast Dich erneut zu registrieren, wende Dich bitte an unseren Support:",
       "onForgottenPasswordClickLink": "Solltest Du Dein Passwort vergessen haben, klicke bitte hier.",
       "subject": "Erneuter Registrierungsversuch mit Deiner E-Mail",
@@ -21,21 +18,39 @@
     },
     "addedContributionMessage": {
       "commonGoodContributionMessage": "Du hast zu Deinem Gemeinwohl-Beitrag „{contributionMemo}“ eine Nachricht von {senderAlias} erhalten.",
+      "contributionClosed": "Dieser Beitrag ist abgeschlossen — Du kannst hier nicht mehr antworten.",
       "message": "„{message}“",
       "readMessage": "Nachricht lesen und beantworten",
+      "readMessageOnly": "Nachricht lesen",
       "subject": "Nachricht zu Deinem Gemeinwohl-Beitrag",
       "title": "Nachricht zu Deinem Gemeinwohl-Beitrag",
       "toSeeAndAnswerMessage": "Antworten kannst Du direkt bei Deinem Beitrag."
     },
     "assistedRegistrationConfirm": {
       "accountCreated": "Gemeinsam mit einem Gradido-Mitglied wurde soeben ein Konto für Dich eingerichtet — mit dieser E-Mail-Adresse.",
+      "accountCreatedByThanks": "Beim Annehmen eines Danks wurde soeben ein Konto für Dich eingerichtet — mit dieser E-Mail-Adresse.",
       "clickToConfirm": "Klicke bitte hier, um Deine E-Mail-Adresse zu bestätigen.",
       "confirmButton": "Adresse bestätigen",
       "confirmHeading": "E-Mail-Adresse bestätigen",
+      "linkValidity": "Der Link hat eine Gültigkeit von {hours} Stunden.\nSollte die Gültigkeit des Links bereits abgelaufen sein, melde Dich an und lasse Dir eine neue Mail senden.",
+      "linkValidityWithMinutes": "Der Link hat eine Gültigkeit von {hours} Stunden und {minutes} Minuten.\nSollte die Gültigkeit des Links bereits abgelaufen sein, melde Dich an und lasse Dir eine neue Mail senden.",
       "notYou": "Du weißt nichts von diesem Konto? Dann ignoriere diese E-Mail — ohne Bestätigung bleibt das Konto verschlossen.",
       "pleaseConfirm": "Bitte bestätige, dass diese Adresse Dir gehört — erst dann bleibt Dein Konto dauerhaft geöffnet.",
       "subject": "Bestätige Deine E-Mail-Adresse",
       "title": "Dein Gradido-Konto ist eingerichtet"
+    },
+    "chatGroupAdded": {
+      "inTheGroup": "In der Gruppe schreiben {memberCount} Mitglieder miteinander. Alle Mitglieder sehen Deinen Nutzernamen.",
+      "leaveAnyTime": "Du kannst die Gruppe in Deinem Gradido-Konto jederzeit stumm schalten oder verlassen.",
+      "openGroup": "Gruppe öffnen",
+      "subject": "Du bist jetzt in der Gruppe „{groupTitle}“",
+      "title": "{adderAlias} hat Dich in die Gruppe „{groupTitle}“ aufgenommen"
+    },
+    "chatGroupMessage": {
+      "announcement": "{senderAlias} hat eine Nachricht als Ankündigung an alle Mitglieder der Gruppe geschickt.",
+      "muteHint": "Keine Ankündigungen mehr per E-Mail? Tippe in Deinem Gradido-Konto in der Gruppe auf die Glocke.",
+      "subject": "Ankündigung in „{groupTitle}“ von {senderAlias}",
+      "title": "{senderAlias} schreibt in „{groupTitle}“"
     },
     "contribution": {
       "toSeeContributionsAndMessages": "Deine Gemeinwohl-Beiträge und die Nachrichten dazu findest Du in Deinem Gradido-Konto."
@@ -60,8 +75,23 @@
       "subject": "Dein Gemeinwohl-Beitrag wurde abgelehnt",
       "title": "Dein Gemeinwohl-Beitrag wurde abgelehnt"
     },
+    "creationRightRequestSupport": {
+      "declaredAt": "Von der Kontoinhaberin / dem Kontoinhaber als Projekt-Konto erklärt am: {declaredAt}",
+      "declaredByAdmin": "Das Schöpfen wurde von einem Administrator ausgeschaltet, nicht vom Konto selbst erklärt.",
+      "gradidoId": "Gradido-ID: {gradidoId}",
+      "member": "Mitglied: {firstName} {lastName} ({alias})",
+      "memberEmail": "E-Mail-Adresse: {memberEmail}",
+      "requestedAt": "Angefragt am: {requestedAt}",
+      "subject": "Schöpfungsrecht angefragt: {alias}",
+      "title": "Ein Projekt-Konto möchte wieder schöpfen",
+      "todo": "Bitte prüfe, ob dieses Konto einem Menschen gehört, der schöpfen darf. Wenn ja, schalte im Admin-Bereich (Reiter Nutzer-Rolle) „Kann schöpfen“ für dieses Mitglied ein. Das Mitglied weiß, dass ein Mensch die Anfrage prüft."
+    },
     "customEmail": {
+      "forwardWords": "{senderAlias} schreibt dazu:",
+      "forwarded": "↪ Weitergeleitet",
+      "forwardedFrom": "↪ Weitergeleitet von {forwardedFromAlias}",
       "haveReceivedMessageFrom": "Du hast soeben von {senderAlias} eine Nachricht erhalten",
+      "imageNote": "📷 Die Nachricht enthält ein Bild – Du siehst es im Gespräch.",
       "title": "{senderAlias} hat Dir eine Nachricht gesendet"
     },
     "emailChangeConfirm": {
@@ -129,6 +159,7 @@
       "sincerelyYours": "Liebe Grüße",
       "toAccount": "Zum Konto",
       "toContribution": "Zum Beitrag",
+      "toConversation": "Zum Gespräch",
       "transactionDetails": "Transaktionsdetails",
       "yourGradidoTeam": "Dein Gradido-Team"
     },
@@ -149,10 +180,18 @@
       "wasPaid": "Soeben wurden mit Deiner Dank-Karte {amountGDD} GDD weitergegeben."
     },
     "transactionLinkRedeemed": {
-      "hasRedeemedYourLink": "{senderAlias} ({senderCommunity}) hat soeben Deinen Link eingelöst.",
+      "hasAcceptedYourThanks": "{senderAlias} ({senderCommunity}) hat soeben Deinen Dank angenommen.",
+      "hasAcceptedYourThanksNewMember": "{senderAlias} ({senderCommunity}) hat soeben Deinen Dank angenommen — und ist neu bei Gradido. Schön, dass Du es gezeigt hast.",
       "memo": "Nachricht: {transactionMemo}",
-      "subject": "{senderAlias} hat Deinen Gradido-Link eingelöst",
-      "title": "{senderAlias} hat Deinen Gradido-Link eingelöst"
+      "subject": "{senderAlias} hat Deinen Dank angenommen",
+      "title": "{senderAlias} hat Deinen Dank angenommen"
+    },
+    "transactionReactionReceived": {
+      "hasEnjoyedYourThanks": "{recipientAlias} ({recipientCommunity}) hat sich über Deinen Dank gefreut:",
+      "memo": "Nachricht: {transactionMemo}",
+      "subject": "Dein Dank ist angekommen",
+      "title": "Dein Dank ist angekommen",
+      "yourThanksTo": "Dein Dank an {recipientAlias}"
     },
     "transactionReceived": {
       "haveReceivedAmountGDDFrom": "Du hast soeben {transactionAmount} GDD erhalten von {senderAlias}.",
@@ -160,7 +199,58 @@
       "title": "{senderAlias} hat Dir {transactionAmount} Gradido gesendet"
     }
   },
+  "firstCreation": {
+    "catalog": {
+      "accompaniedHardTime": "Ich habe jemanden in einer schweren Zeit begleitet, indem ich {text}",
+      "animalShelter": "Ich habe im Tierheim oder auf einem Gnadenhof mitgeholfen, indem ich {text}",
+      "animalsOrNature": "Ich habe etwas für Tiere oder die Natur getan, indem ich {text}",
+      "caredForChildren": "Ich habe meine Kinder versorgt und ins Leben begleitet, indem ich {text}",
+      "communityProject": "Ich habe ein Gemeinschafts-Projekt mitgetragen (Fest, Solidarische Landwirtschaft, Gemeinschaftsgarten …), indem ich {text}",
+      "fireBrigadeRescue": "Ich habe bei der Freiwilligen Feuerwehr oder im Rettungsdienst mitgewirkt, indem ich {text}",
+      "helpedAtHome": "Ich habe zu Hause mitgeholfen, indem ich {text}",
+      "helpedElderlyPerson": "Ich habe einem älteren Menschen geholfen, indem ich {text}",
+      "helpedFellowStudents": "Ich habe meinen Mitschülern oder Kommilitonen geholfen, indem ich {text}",
+      "helpedNeighbourhood": "Ich habe in der Nachbarschaft mitgeholfen, wo Hilfe gebraucht wurde, indem ich {text}",
+      "helpedOldPerson": "Ich habe einem alten Menschen geholfen, indem ich {text}",
+      "helpedParish": "Ich habe in meiner Gemeinde oder Kirchengemeinde mitgeholfen, indem ich {text}",
+      "helpedSickPerson": "Ich habe einem kranken Menschen geholfen, indem ich {text}",
+      "lookedAfterGrandchildren": "Ich habe meine Enkel betreut, indem ich {text}",
+      "lookedAfterOrTaught": "Ich habe auf jemanden aufgepasst oder jemandem etwas beigebracht, indem ich {text}",
+      "madeSomeoneHappy": "Ich habe jemandem eine Freude gemacht, indem ich {text}",
+      "musicChoirCulture": "Ich habe zu Musik, Chor oder Kultur in der Gemeinschaft beigetragen, indem ich {text}",
+      "natureEnvironment": "Ich habe etwas für Natur und Umwelt getan, indem ich {text}",
+      "nursedRelative": "Ich habe einen Angehörigen gepflegt, indem ich {text}",
+      "sharedKnowledge": "Ich habe mein Wissen weitergegeben (Nachhilfe, Kurs, Anleitung), indem ich {text}",
+      "supportedClub": "Ich habe meinen Verein unterstützt, indem ich {text}",
+      "supportedDisabledPerson": "Ich habe einen Menschen mit Behinderung unterstützt, indem ich {text}"
+    },
+    "checks": {
+      "child": "Ich bin ein Kind.",
+      "retiree": "Ich bin Rentnerin / Rentner."
+    },
+    "message": {
+      "checkConflictNote": "Die Erst-Schöpfung wurde angehalten: es sind Häkchen gesetzt, die sich ausschließen — {checks} Bitte prüfen und von Hand bestätigen, ändern oder ablehnen.",
+      "childLine": "dafür, dass Du da bist und die Welt mit Deinen Augen siehst",
+      "closing": "Schön, dass Du da bist.",
+      "greetingAnonymous": "Willkommen!",
+      "greetingFemale": "Liebe {name}, willkommen!",
+      "greetingMale": "Lieber {name}, willkommen!",
+      "greetingNeutral": "Willkommen, {name}!",
+      "internalNote": "Crea hat bei der Erst-Schöpfung angehalten: {reason}. Bitte prüfen und von Hand bestätigen, ändern oder ablehnen.",
+      "retireeLine": "für Dein Lebenswerk: all die Jahre, in denen Du für andere da warst",
+      "review": "Deine Einträge schaut sich noch ein Mensch an. Du hörst von uns.",
+      "thanks": "Die Gemeinschaft dankt Dir — {lines}.",
+      "thanksOnlyCheck": "Die Gemeinschaft dankt Dir — {checkLine}.",
+      "thanksWithCheck": "Die Gemeinschaft dankt Dir — {lines}. Und {checkLine}.",
+      "w1": "Deine ersten 100 Gradido sind Dank für das, was Du längst getan hast."
+    }
+  },
   "general": {
     "decimalSeparator": ","
+  },
+  "redeemPreview": {
+    "description": "Helfen. Schenken. Danken.",
+    "greetingTitle": "{name} hat Dir einen Dank-Gruß geschickt",
+    "linkTitle": "{name} hat Dir einen Dank geschickt"
   }
 }

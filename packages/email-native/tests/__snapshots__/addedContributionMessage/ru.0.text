@@ -1,18 +1,18 @@
 Сообщение о вашем вкладе в общее благо
 
-Здравствуйте, {firstName|&<>"'ä} {lastName|&<>"'ä},
+Здравствуйте, {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-вы получили сообщение от {senderAlias|&<>"'ä} по поводу вашего вклада в общее благо «{contributionMemo|&<>"'ä}».
+вы получили сообщение от {senderAlias|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example} по поводу вашего вклада в общее благо «{contributionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}».
 
 Прочитать и ответить на сообщение
 
-«{message|&<>"'ä}»
+«{message|&<>"'ä b https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}»
 
 Ответить можно прямо у вашего вклада.
 
-Ответить [{contributionFrontendLink|&<>"'ä}]
+Ответить [{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
-В аккаунт [{communityURL|&<>"'ä}/transactions]
+В аккаунт [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/transactions]
 
 Пожалуйста, не отвечайте на это письмо.
 

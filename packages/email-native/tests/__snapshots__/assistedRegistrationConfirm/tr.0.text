@@ -1,8 +1,8 @@
 Gradido hesabın hazır
 
-Merhaba {firstName|&<>"'ä} {lastName|&<>"'ä},
+Merhaba {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Bir Gradido üyesiyle birlikte az önce senin için bir hesap oluşturuldu — bu e-posta adresiyle.
+Bir teşekkür kabul edilirken az önce senin için bir hesap oluşturuldu — bu e-posta adresiyle.
 
 Lütfen bu adresin sana ait olduğunu onayla — hesabın ancak o zaman kalıcı olarak açık kalır.
 
@@ -10,13 +10,13 @@ E-posta adresini onayla
 
 E-posta adresini onaylamak için lütfen buraya tıkla.
 
-Adresi onayla [{confirmLink|&<>"'ä}]
+Adresi onayla [{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Veya bağlantıyı tarayıcı pencerene kopyala.
 
-{confirmLink|&<>"'ä}
+{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Bağlantı {hours|&<>"'ä} saat {minutes|&<>"'ä} dakika geçerlidir. Bağlantının geçerlilik süresi dolduysa, buradan yeni bir bağlantı gönderilmesini isteyebilirsin.
+Bağlantı {hours|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} saat {minutes|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} dakika geçerlidir. Bağlantının geçerlilik süresi dolduysa, giriş yap ve kendine yeni bir e-posta gönder.
 
 Bu hesaptan haberin yok mu? O zaman bu e-postayı dikkate alma — onay olmadan hesap kapalı kalır.
 

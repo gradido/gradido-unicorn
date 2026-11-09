@@ -1,9 +1,9 @@
 /*
  * What the addon does inside a host process. Three things, and nothing else:
  *
- *   1. the renderer produces what pug produces -- every template, locale and branch
- *      variant, all three parts, compared against the snapshots. That is the whole
- *      matrix, the same 810 documents `zig build check` holds the C binary to;
+ *   1. the renderer produces what the snapshots say -- every template, locale and
+ *      value set, all three parts: the same documents `zig build check` holds the C
+ *      binary to;
  *   2. sc_mailer runs inside the Node process -- its own threads, its own libcurl --
  *      and a mail actually arrives;
  *   3. loading it does not disturb Node's own TLS.
@@ -19,7 +19,7 @@ const path = require('node:path')
 const email = require('../index.cjs')
 
 test('introspection matches what the templates declare', () => {
-  assert.equal(email.templates.size, 17)
+  assert.equal(email.templates.size, 21)
   assert.equal(email.locales.length, 10)
   const a = email.templates.get('accountActivation')
   assert.deepEqual(a.slots.slice().sort(), [
@@ -31,17 +31,16 @@ test('introspection matches what the templates declare', () => {
     'minutes',
     'resendLink',
   ])
-  assert.equal(a.variants, 4)
   assert.deepEqual(email.templates.get('emailChangeSupport').flags, ['typoCorrection', 'takeBack'])
 })
 
 test('the buffer limits are the build-time constants', () => {
   // Written down rather than read from the header, so that a template change which
   // moves them says so here instead of quietly raising what every thread reserves.
-  // MJML's tables: 21962/2011/13 were pug's, before templates/*.mjml replaced it.
-  assert.equal(email.limits.maxStaticHtml, 25779)
-  assert.equal(email.limits.maxStaticText, 2016)
+  assert.equal(email.limits.maxStaticHtml, 25550)
+  assert.equal(email.limits.maxStaticText, 2083)
   assert.equal(email.limits.maxSlotRefs, 17)
+  assert.equal(email.limits.maxSlotCost, 127)
 })
 
 test('the inline images are in the binary', () => {
@@ -52,45 +51,47 @@ test('the inline images are in the binary', () => {
   assert.equal(header.data.subarray(1, 4).toString('latin1'), 'PNG')
 })
 
-/* The snapshots are the checked-in pug output; tests/snapshots.test.mjs is what
- * keeps them equal to what pug renders today. Comparing the addon against them is
- * therefore a comparison against pug, without this file having to run pug. */
+/* The snapshots are what tools/runtime.mjs renders, and tests/snapshots.test.mjs keeps
+ * them equal to the templates. Comparing the addon against them is therefore comparing
+ * the C against the reference, without this file running either. */
 const snapshots = path.join(__dirname, '__snapshots__')
+const IR = path.join(__dirname, '..', 'build', 'tools', 'mjml', 'ir.json')
 
-test('render() equals the snapshots, for every template, locale and variant', async () => {
-  /* render() has no variant argument -- a variant is selected by which values are
-   * set, exactly as the templates' `if`s do it. tools/variants.mjs turns the branch
-   * table into those values, so the numbering here is the one the C uses and the one
-   * the snapshot filenames carry. Getting that wrong does not pass quietly: the bytes
-   * would be another variant's. */
-  const { variantValues } = await import('../tools/variants.mjs')
+test('render() equals the snapshots, for every template, locale and value set', {
+  skip: fs.existsSync(IR) ? false : 'run: bun run extract:mjml',
+}, async () => {
+  /* render() has no set argument: a branch is chosen by which values are set, as the
+   * template's {{if}}s say. The sets come out of ir.json, the same list dump.c gets. */
+  const { valueObject } = await import('../tools/values.mjs')
+  const ir = JSON.parse(fs.readFileSync(IR, 'utf8'))
   let checked = 0
 
-  for (const [name, info] of email.templates) {
-    const perVariant = variantValues(name, info.slots)
-    assert.equal(
-      perVariant.length,
-      info.variants,
-      `${name}: ${perVariant.length} variants in the branch table, ${info.variants} in the binary`,
-    )
-
-    for (const locale of email.locales) {
-      perVariant.forEach((values, combo) => {
-        const got = email.render(name, locale, values)
-        const at = `${name}/${locale}.${combo}`
+  for (const t of ir.templates) {
+    assert.ok(email.templates.has(t.name), `${t.name} is not in the binary`)
+    t.valueSets.forEach((_, set) => {
+      const values = valueObject(t, set)
+      for (const locale of email.locales) {
+        const got = email.render(t.name, locale, values)
         for (const kind of ['html', 'subject', 'text']) {
           const want = fs.readFileSync(
-            path.join(snapshots, name, `${locale}.${combo}.${kind}`),
+            path.join(snapshots, t.name, `${locale}.${set}.${kind}`),
             'utf8',
           )
-          assert.ok(got[kind] === want, `${at}: ${kind} differs from the snapshot`)
+          assert.ok(
+            got[kind] === want,
+            `${t.name}/${locale}.${set}: ${kind} differs from the snapshot`,
+          )
           checked++
         }
-      })
-    }
+      }
+    })
   }
-  // The whole matrix: 17 templates x 10 locales x variants x {html, subject, text}.
-  assert.equal(checked, 810)
+  assert.equal(
+    checked,
+    fs
+      .readdirSync(snapshots)
+      .reduce((n, d) => n + fs.readdirSync(path.join(snapshots, d)).length, 0),
+  )
 })
 
 test('an unset value drops its if-branch', () => {

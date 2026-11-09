@@ -1,6 +1,6 @@
 Passwort zurücksetzen
 
-Hallo {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hallo {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 Du oder jemand anderes, hast für dieses Konto ein Zurücksetzen des Passworts angefordert.
 
@@ -8,17 +8,17 @@ Passwort zurücksetzen
 
 Wenn Du es warst, klicke bitte hier.
 
-zurücksetzen [{resetLink|&<>"'ä}]
+zurücksetzen [{resetLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Oder kopiere den Link in Dein Browserfenster.
 
-{resetLink|&<>"'ä}
+{resetLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Neuen gültigen Link anfordern
 
-Der Link hat eine Gültigkeit von {hours|&<>"'ä} Stunden und {minutes|&<>"'ä} Minuten. Sollte die Gültigkeit des Links bereits abgelaufen sein, kannst Du Dir hier einen neuen Link schicken lassen.
+Der Link hat eine Gültigkeit von {hours|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} Stunden und {minutes|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} Minuten. Sollte die Gültigkeit des Links bereits abgelaufen sein, kannst Du Dir hier einen neuen Link schicken lassen.
 
-Neuer Link [{resendLink|&<>"'ä}]
+Neuer Link [{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Liebe Grüße
 Dein Gradido-Team

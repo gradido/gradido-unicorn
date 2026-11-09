@@ -1,6 +1,6 @@
 Подтвердить новый адрес электронной почты
 
-Здравствуйте, {firstName|&<>"'ä} {lastName|&<>"'ä},
+Здравствуйте, {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 Вы хотите изменить адрес электронной почты своего аккаунта Gradido на этот адрес.
 
@@ -8,13 +8,13 @@
 
 Подтвердите одним нажатием, что этот адрес принадлежит вам.
 
-Подтвердить новый адрес [{confirmLink|&<>"'ä}]
+Подтвердить новый адрес [{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Или скопируйте ссылку в окно вашего браузера.
 
-{confirmLink|&<>"'ä}
+{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Ссылка действительна до {validUntil|&<>"'ä}. После этого вы можете запросить новое письмо в своих настройках.
+Ссылка действительна до {validUntil|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}. После этого вы можете запросить новое письмо в своих настройках.
 
 Если вы не запрашивали это изменение, просто проигнорируйте это письмо – без вашего подтверждения ничего не изменится.
 

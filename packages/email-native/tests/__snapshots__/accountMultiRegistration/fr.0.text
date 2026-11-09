@@ -1,6 +1,6 @@
 Nouvelle tentative d'inscription avec ton e-mail
 
-Bonjour {firstName|&<>"'ä} {lastName|&<>"'ä},
+Bonjour {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 ton adresse e-mail vient d'être utilisée à nouveau pour créer un compte chez Gradido.
 
@@ -10,27 +10,17 @@ Réinitialiser le mot de passe
 
 Si tu as oublié ton mot de passe, clique ici.
 
-réinitialiser [{resendLink|&<>"'ä}]
+réinitialiser [{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Ou copie le lien dans la fenêtre de ton navigateur.
 
-{resendLink|&<>"'ä}
-
-Tu aides quelqu'un dans un café Gradido en ce moment ?
-
-Si une personne à côté de toi vient d'utiliser ton adresse e-mail pour commencer un compte Gradido : poursuis la configuration ici. Ensemble, vous saisissez sa propre adresse e-mail, et elle choisit elle-même son mot de passe.
-
-J'aide quelqu'un à créer un compte [{helperLink|&<>"'ä}]
-
-Ou copie le lien dans la fenêtre de ton navigateur.
-
-{helperLink|&<>"'ä}
+{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Contacter le support
 
 Si tu n'as pas essayé de t'inscrire à nouveau, contacte notre support :
 
-{supportEmail|&<>"'ä}
+{supportEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Cordialement,
 ton équipe Gradido

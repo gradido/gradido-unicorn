@@ -1,21 +1,21 @@
-Teşekkür kartınla {transactionAmount|&<>"'ä} GDD aktarıldı
+Teşekkür kartınla {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD aktarıldı
 
-Merhaba {firstName|&<>"'ä} {lastName|&<>"'ä},
+Merhaba {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Teşekkür kartınla az önce {transactionAmount|&<>"'ä} GDD aktarıldı.
+Teşekkür kartınla az önce {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD aktarıldı.
 
 İşlem ayrıntıları
 
-Tutar: {transactionAmount|&<>"'ä} GDD
-Alıcı: {recipientName|&<>"'ä} ({recipientCommunity|&<>"'ä})
-Açıklama: {transactionMemo|&<>"'ä}
-Kart: {cardLabel|&<>"'ä}
+Tutar: {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD
+Alıcı: {recipientName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ({recipientCommunity|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example})
+Açıklama: {transactionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}
+Kart: {cardLabel|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Hesaba git [{communityURL|&<>"'ä}/transactions]
+Hesaba git [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/transactions]
 
 Bu sen değil miydin? Kartını hemen buradan blokla — kart çalışmaz olur, Gradido adresin kalır.
 
-Kartı blokla [{communityURL|&<>"'ä}/settings/thank-you-card?block={cardId|&<>"'ä}]
+Kartı blokla [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/settings/thank-you-card?block={cardId|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Lütfen bu e-postayı yanıtlama.
 

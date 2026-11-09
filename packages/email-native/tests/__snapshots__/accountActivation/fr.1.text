@@ -1,6 +1,6 @@
 Vérification de l'e-mail
 
-Bonjour {firstName|&<>"'ä} {lastName|&<>"'ä},
+Bonjour {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 ton adresse e-mail vient d'être enregistrée chez Gradido.
 
@@ -8,17 +8,17 @@ Terminer l'inscription
 
 Clique ici pour terminer l'inscription et activer ton compte Gradido.
 
-Activer le compte [{activationLink|&<>"'ä}]
+Activer le compte [{activationLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Ou copie le lien dans la fenêtre de ton navigateur.
 
-{activationLink|&<>"'ä}
+{activationLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Demander un nouveau lien valide
 
-Le lien est valable {hours|&<>"'ä} heures. Si la validité du lien a déjà expiré, tu peux te faire envoyer un nouveau lien ici.
+Le lien est valable {hours|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} heures et {minutes|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} minutes. Si la validité du lien a déjà expiré, tu peux te faire envoyer un nouveau lien ici.
 
-Nouveau lien [{resendLink|&<>"'ä}]
+Nouveau lien [{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Cordialement,
 ton équipe Gradido

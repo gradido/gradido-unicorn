@@ -1,6 +1,6 @@
 Verifica dell'e-mail
 
-Ciao {firstName|&<>"'ä} {lastName|&<>"'ä},
+Ciao {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 il tuo indirizzo e-mail è appena stato registrato su Gradido.
 
@@ -8,17 +8,17 @@ Completa la registrazione
 
 Clicca qui per completare la registrazione e attivare il tuo account Gradido.
 
-Attiva l'account [{activationLink|&<>"'ä}]
+Attiva l'account [{activationLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Oppure copia il link nella finestra del tuo browser.
 
-{activationLink|&<>"'ä}
+{activationLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Richiedi un nuovo link valido
 
-Il link è valido per {hours|&<>"'ä} ore. Se la validità del link è già scaduta, qui puoi farti inviare un nuovo link.
+Il link è valido per {hours|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ore e {minutes|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} minuti. Se la validità del link è già scaduta, qui puoi farti inviare un nuovo link.
 
-Nuovo link [{resendLink|&<>"'ä}]
+Nuovo link [{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Cordiali saluti,
 il tuo team Gradido

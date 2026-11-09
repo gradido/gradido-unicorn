@@ -1,21 +1,21 @@
-{transactionAmount|&<>"'ä} GDD ont été transmis avec ta carte de remerciement
+{transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD ont été transmis avec ta carte de remerciement
 
-Bonjour {firstName|&<>"'ä} {lastName|&<>"'ä},
+Bonjour {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-{transactionAmount|&<>"'ä} GDD viennent d’être transmis avec ta carte de remerciement.
+{transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD viennent d’être transmis avec ta carte de remerciement.
 
 Détails de la transaction
 
-Montant : {transactionAmount|&<>"'ä} GDD
-Destinataire : {recipientName|&<>"'ä} ({recipientCommunity|&<>"'ä})
-Motif : {transactionMemo|&<>"'ä}
-Carte : {cardLabel|&<>"'ä}
+Montant : {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD
+Destinataire : {recipientName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ({recipientCommunity|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example})
+Motif : {transactionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}
+Carte : {cardLabel|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Vers le compte [{communityURL|&<>"'ä}/transactions]
+Vers le compte [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/transactions]
 
 Ce n’était pas toi ? Bloque ta carte ici même : elle cesse de fonctionner, ton adresse Gradido reste.
 
-Bloquer la carte [{communityURL|&<>"'ä}/settings/thank-you-card?block={cardId|&<>"'ä}]
+Bloquer la carte [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/settings/thank-you-card?block={cardId|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Merci de ne pas répondre à cet e-mail.
 

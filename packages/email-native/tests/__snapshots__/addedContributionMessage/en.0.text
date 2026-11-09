@@ -1,18 +1,18 @@
 Message about your common good contribution
 
-Hello {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hello {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-You have received a message from {senderAlias|&<>"'ä} regarding your common good contribution “{contributionMemo|&<>"'ä}”.
+You have received a message from {senderAlias|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example} regarding your common good contribution “{contributionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}”.
 
 Read and reply to message
 
-„{message|&<>"'ä}“
+„{message|&<>"'ä b https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}“
 
 You can reply directly at your contribution.
 
-Reply [{contributionFrontendLink|&<>"'ä}]
+Reply [{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
-To account [{communityURL|&<>"'ä}/transactions]
+To account [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/transactions]
 
 Please do not reply to this email.
 

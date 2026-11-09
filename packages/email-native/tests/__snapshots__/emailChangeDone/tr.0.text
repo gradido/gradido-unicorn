@@ -1,12 +1,12 @@
 E-posta adresi değiştirildi
 
-Merhaba {firstName|&<>"'ä} {lastName|&<>"'ä},
+Merhaba {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Gradido hesabının e-posta adresi artık {newEmail|&<>"'ä}.
+Gradido hesabının e-posta adresi artık {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
-Şimdiye kadar {oldEmail|&<>"'ä} idi.
+Şimdiye kadar {oldEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} idi.
 
-Bu sen değil miydin? O zaman lütfen hemen {supportEmail|&<>"'ä} ile iletişime geç.
+Bu sen değil miydin? O zaman lütfen hemen {supportEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ile iletişime geç.
 
 Sevgiler,
 Gradido ekibin

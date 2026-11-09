@@ -1,6 +1,6 @@
 Проверка электронной почты
 
-Здравствуйте, {firstName|&<>"'ä} {lastName|&<>"'ä},
+Здравствуйте, {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 ваш адрес электронной почты только что был зарегистрирован в Gradido.
 
@@ -8,17 +8,17 @@
 
 Пожалуйста, нажмите здесь, чтобы завершить регистрацию и активировать ваш аккаунт Gradido.
 
-Активировать аккаунт [{activationLink|&<>"'ä}]
+Активировать аккаунт [{activationLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Или скопируйте ссылку в окно вашего браузера.
 
-{activationLink|&<>"'ä}
+{activationLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Запросить новую действующую ссылку
 
-Ссылка действительна {hours|&<>"'ä} часов. Если срок действия ссылки уже истёк, вы можете запросить здесь новую ссылку.
+Ссылка действительна {hours|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} часов и {minutes|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} минут. Если срок действия ссылки уже истёк, вы можете запросить здесь новую ссылку.
 
-Новая ссылка [{resendLink|&<>"'ä}]
+Новая ссылка [{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 С наилучшими пожеланиями,
 ваша команда Gradido

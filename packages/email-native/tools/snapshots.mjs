@@ -8,10 +8,9 @@
  * exactly the documents it reached and over nothing else. Read that diff -- it is
  * the review.
  *
- * It renders nothing. The IR already holds every document as [literal, slot, ...];
- * filling the slots with the fixture values is what ge_render_* does at runtime,
- * so what lands on disk is a finished mail and not an intermediate form. That is
- * also why this file is 60 lines rather than needing a renderer of its own.
+ * It renders through tools/runtime.mjs, the op machine src/render.c is held to, with
+ * the value sets of tools/values.mjs -- so what lands on disk is a finished mail and
+ * not an intermediate form.
  *
  * These are what `zig build check` holds the C binary to, and what
  * tests/snapshots.test.mjs holds the extractor to. Nothing compares an
@@ -22,7 +21,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { SNAPSHOT_DIR } from './manifest.mjs'
-import { fixture } from './variants.mjs'
+import { run } from './runtime.mjs'
+import { valueVector } from './values.mjs'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const arg = (name, fallback) => {
@@ -31,25 +31,6 @@ const arg = (name, fallback) => {
 }
 const IR = path.resolve(arg('ir', path.join(ROOT, 'build', 'tools', 'mjml', 'ir.json')))
 const OUT = path.resolve(arg('out', SNAPSHOT_DIR))
-
-const escape = (s) =>
-  String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
-
-/*
- * ge_render_*: literals as they are, slot values escaped by the op's mode.
- *
- * `locale` is the exception and not an oversight -- it is filled by the RENDERER
- * from the locale it was called with, never by a caller, so a fixture value there
- * would describe a document that cannot exist.
- */
-const fill = (ops, locale) =>
-  ops
-    .map((op) => {
-      if (op.t === 'lit') return op.s
-      const value = op.name === 'locale' ? locale : fixture(op.name)
-      return op.esc === 'html' ? escape(value) : value
-    })
-    .join('')
 
 const walk = (dir, prefix = '') =>
   fs.existsSync(dir)
@@ -69,24 +50,25 @@ const written = new Set()
 let changed = 0
 
 for (const t of ir.templates) {
-  for (const [kind, ext] of [['html', 'html'], ['subject', 'subject'], ['text', 'text']]) {
-    t.renders[kind].forEach((perVariant, li) => {
-      perVariant.forEach((ops, vi) => {
-        const rel = path.join(t.name, `${ir.locales[li]}.${vi}.${ext}`)
+  t.valueSets.forEach((_, set) => {
+    ir.locales.forEach((locale, li) => {
+      const values = valueVector(t, set, locale)
+      for (const kind of ['html', 'subject', 'text']) {
+        const rel = path.join(t.name, `${locale}.${set}.${kind}`)
         // No trailing newline: tools/dump.c writes the document and nothing else,
         // and tools/verify.mjs compares byte for byte.
-        const body = Buffer.from(fill(ops, ir.locales[li]), 'utf8')
+        const body = Buffer.from(run(t.renders[kind][li], values), 'utf8')
         written.add(rel)
         const file = path.join(OUT, rel)
         // An unchanged file is left alone, so `git status` after an update names
         // exactly the documents a change reached.
-        if (before.has(rel) && fs.readFileSync(file).equals(body)) return
+        if (before.has(rel) && fs.readFileSync(file).equals(body)) continue
         fs.mkdirSync(path.dirname(file), { recursive: true })
         fs.writeFileSync(file, body)
         changed++
-      })
+      }
     })
-  }
+  })
 }
 
 let removed = 0

@@ -1,12 +1,12 @@
 Участник изменил свой адрес электронной почты
 
-Участник: {firstName|&<>"'ä} {lastName|&<>"'ä} ({alias|&<>"'ä})
+Участник: {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ({alias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example})
 
-Прежний адрес: {oldEmail|&<>"'ä}
+Прежний адрес: {oldEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Новый адрес: {newEmail|&<>"'ä}
+Новый адрес: {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Для сервера GDT по-прежнему действует первый адрес этого аккаунта: {gdtEmail|&<>"'ä}.
+Для сервера GDT по-прежнему действует первый адрес этого аккаунта: {gdtEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
 Прежний адрес так и не был подтверждён (опечатка при создании) — на сервере GDT объединять нечего. Пожалуйста, просто внесите новый адрес в Klick-Tipp.
 

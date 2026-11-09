@@ -1,8 +1,8 @@
 Your e-mail address is about to change
 
-Hello {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hello {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-A change of the e-mail address of your Gradido account to {newEmail|&<>"'ä} has been requested.
+A change of the e-mail address of your Gradido account to {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} has been requested.
 
 Until the new address is confirmed, this one stays in force. If that was you, there is nothing more to do.
 
@@ -10,15 +10,15 @@ That was not you?
 
 That was not you? Then click here – the change is revoked and this address stays.
 
-Revoke change [{revokeLink|&<>"'ä}]
+Revoke change [{revokeLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Or copy the link into your browser window.
 
-{revokeLink|&<>"'ä}
+{revokeLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 If you revoke the change, please change your password afterwards as well.
 
-The link is valid until {validUntil|&<>"'ä} – after that the requested change expires by itself.
+The link is valid until {validUntil|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} – after that the requested change expires by itself.
 
 Kind regards,
 your Gradido team

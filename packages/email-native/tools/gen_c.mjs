@@ -1,4 +1,5 @@
 // <out>/ir.json  ->  <out>/service_core/email/templates.h + <out>/templates.c
+//                    (+ <out>/test_sets.c, for tools/dump.c only)
 //
 // The header sits under service_core/email/ so that the include spelling is the one
 // fast-servers uses -- the two files are copied into service-core/email/ after the
@@ -83,17 +84,16 @@ const lits = []
 let rawTotal = 0
 for (const t of ir.templates)
   for (const kind of ['html', 'subject', 'text'])
-    for (const byLocale of t.renders[kind])
-      for (const ops of byLocale)
-        for (const op of ops)
-          if (op.t === 'lit') {
-            const b = toBytes(op.s)
-            rawTotal += b.length
-            if (!litIds.has(b)) {
-              litIds.set(b, lits.length)
-              lits.push(b)
-            }
+    for (const ops of t.renders[kind])
+      for (const op of ops)
+        if (op[0] === 'lit') {
+          const b = toBytes(op[1])
+          rawTotal += b.length
+          if (!litIds.has(b)) {
+            litIds.set(b, lits.length)
+            lits.push(b)
           }
+        }
 
 // Largest literals first: that puts the shared body (CSS, header, footer) into
 // the pool in one piece, and everything after it merely references that.
@@ -103,24 +103,59 @@ for (const id of lits.map((_, i) => i).sort((a, b) => lits[b].length - lits[a].l
   litOps[id] = pool.encode(lits[id])
 
 // --------------------------------------------------------- build programs
-const OPS = [] // global op table
-const SLOT_HTML = 0xffffffff
-const SLOT_RAW = 0xfffffffe
+// The op encoding, as src/render.c reads it -- see include/service_core/email/render.h.
+const OP_SLOT = 0xffffff00
+const OP_JZ = 0xfffffe00
+const OP_JMP = 0xfffffd00
+const OP_BRK = 0xfffffc00
+const MODE = { html: 0, raw: 1, uri: 2, human: 3, humanBold: 4, humanText: 5, humanBoldText: 6 }
+/* Output bytes per input byte at most, per mode -- the bounds are derived in
+ * src/render.c, beside the code they bound. */
+const COST = { html: 6, raw: 1, uri: 3, human: 10, humanBold: 10, humanText: 3, humanBoldText: 3 }
 
-function emitProgram(ops, slotIndex) {
+const OPS = [] // global op table: [off, len]
+
+/** One IR program -> ops at the end of OPS. A jump target is an index into the program. */
+function emitProgram(ops) {
   const start = OPS.length
+  // A literal becomes one or more pool references, so IR indices move.
+  const at = []
+  let n = 0
+  for (const op of ops) {
+    at.push(n)
+    n += op[0] === 'lit' ? litOps[litIds.get(toBytes(op[1]))].length : op[0] === 'jz' ? op[1].length : 1
+  }
+  at.push(n)
   let staticBytes = 0
+  let cost = 0
   let slotRefs = 0
   for (const op of ops) {
-    if (op.t === 'lit') {
-      for (const r of litOps[litIds.get(toBytes(op.s))]) OPS.push([r.off, r.len])
-      staticBytes += toBytes(op.s).length
-    } else {
-      OPS.push([slotIndex.get(op.name), op.esc === 'raw' ? SLOT_RAW : SLOT_HTML])
-      slotRefs++
+    switch (op[0]) {
+      case 'lit':
+        for (const r of litOps[litIds.get(toBytes(op[1]))]) OPS.push([r.off, r.len])
+        staticBytes += toBytes(op[1]).length
+        break
+      case 'slot':
+        OPS.push([op[1], (OP_SLOT | MODE[op[2]]) >>> 0])
+        cost += COST[op[2]]
+        slotRefs++
+        break
+      case 'jz':
+        for (const v of op[1]) {
+          if (v > 0xff) throw new Error('more than 256 values in one template')
+          OPS.push([at[op[2]], (OP_JZ | v) >>> 0])
+        }
+        break
+      case 'jmp':
+        OPS.push([at[op[1]], OP_JMP])
+        break
+      case 'brk':
+        OPS.push([0, (OP_BRK | op[1]) >>> 0])
+        staticBytes += op[1]
+        break
     }
   }
-  return { prog: [start, OPS.length - start], staticBytes, slotRefs }
+  return { prog: [start, OPS.length - start], staticBytes, cost, slotRefs }
 }
 
 const camelToSnake = (s) =>
@@ -128,21 +163,21 @@ const camelToSnake = (s) =>
 const UP = (s) => camelToSnake(s).toUpperCase()
 
 const templates = ir.templates.map((t) => {
-  // Index 0 is reserved for 'locale' -- the renderer fills that one itself.
-  const slotOrder = ['locale', ...t.slots]
-  const slotIndex = new Map(slotOrder.map((n, i) => [n, i]))
   const progs = []
-  const max = { html: 0, subject: 0, text: 0, refs: 0 }
-  for (let li = 0; li < ir.locales.length; li++)
-    for (let ci = 0; ci < t.combos.length; ci++)
-      /* The order is the one ge_emit_* indexes with: html, subject, text. */
-      for (const kind of ['html', 'subject', 'text']) {
-        const r = emitProgram(t.renders[kind][li][ci], slotIndex)
-        progs.push(r.prog)
-        max[kind] = Math.max(max[kind], r.staticBytes)
-        max.refs = Math.max(max.refs, r.slotRefs)
-      }
-  return { ...t, slotOrder, progs, max, progBase: null }
+  const max = { html: 0, subject: 0, text: 0, refs: 0, cost: 0 }
+  for (let li = 0; li < ir.locales.length; li++) {
+    let cost = 0
+    /* The order is the one ge_emit_* indexes with: html, subject, text. */
+    for (const kind of ['html', 'subject', 'text']) {
+      const r = emitProgram(t.renders[kind][li])
+      progs.push(r.prog)
+      max[kind] = Math.max(max[kind], r.staticBytes)
+      max.refs = Math.max(max.refs, r.slotRefs)
+      cost += r.cost
+    }
+    max.cost = Math.max(max.cost, cost)
+  }
+  return { ...t, progs, max, progBase: null }
 })
 
 let progBase = 0
@@ -182,8 +217,12 @@ const assetBytes = ASSETS.map(([cid, file, mime]) => ({
 }))
 
 // ---- header
+const nValues = (t) => 1 + t.slots.length + t.flags.length
+const MAX_SV = Math.max(...templates.map(nValues))
+const maxOf = (k) => Math.max(...templates.map((t) => t.max[k]))
+
 let h = `/* GENERATED by packages/email-native/tools/gen_c.mjs -- do not edit.
- * Source: the pug templates in packages/email-native/templates.
+ * Source: the MJML templates in packages/email-native/templates.
  * Regenerate with \`turbo @gradido/email-native#build\`.
  */
 #ifndef SERVICE_CORE_EMAIL_TEMPLATES_H
@@ -219,7 +258,6 @@ h += `/* Introspection: enough to dispatch generically (a JSON API, say) without
 typedef struct {
     const char         *name;
     uint32_t            prog_base;
-    uint32_t            n_combos;
     uint32_t            n_slots;    /* including slot_names[0] == "locale" */
     const char *const  *slot_names;
     uint32_t            n_flags;
@@ -228,44 +266,39 @@ typedef struct {
     uint32_t            max_static_subject;
     uint32_t            max_static_text;
     uint32_t            max_slot_refs;
+    uint32_t            max_slot_cost;  /* html + subject + text, per byte of the longest value */
 } ge_template_info_t;
 
 extern const ge_template_info_t GE_TEMPLATES[${templates.length}];
 
-/* Largest static share across ALL templates, locales and variants. The slot
- * values are added at runtime: at most 6 output bytes per input byte
- * (" -> &quot;), counted per slot USE rather than per slot -- some values
- * appear twice in a document (a link as a button and as plain text). */
-#define GE_MAX_STATIC_HTML     ${Math.max(...templates.map((t) => t.max.html))}u
-#define GE_MAX_STATIC_SUBJECT  ${Math.max(...templates.map((t) => t.max.subject))}u
-#define GE_MAX_STATIC_TEXT     ${Math.max(...templates.map((t) => t.max.text))}u
-#define GE_MAX_SLOT_REFS       ${Math.max(...templates.map((t) => t.max.refs))}u
+/* The largest share of a document that does not depend on the values, across all
+ * templates and locales -- branches counted as if all were taken. */
+#define GE_MAX_STATIC_HTML     ${maxOf('html')}u
+#define GE_MAX_STATIC_SUBJECT  ${maxOf('subject')}u
+#define GE_MAX_STATIC_TEXT     ${maxOf('text')}u
+#define GE_MAX_SLOT_REFS       ${maxOf('refs')}u
+/* What the values may add to one mail, html + subject + text, per byte of the longest
+ * value: every slot use times what its mode makes of a byte at most (" -> &quot; is
+ * 6, a link in a person's text 10). */
+#define GE_MAX_SLOT_COST       ${maxOf('cost')}u
+/* The most values one template takes, "locale" and the flags included. */
+#define GE_MAX_VALUES          ${MAX_SV}u
 
-/* Upper bound for one document if no input value is longer than max_field. */
+/* Upper bound for one mail, all three parts, if no value is longer than max_field. */
 #define GE_BUF_SIZE(max_field) \\
-    (GE_MAX_STATIC_HTML + GE_MAX_STATIC_SUBJECT + 2u + 6u * 2u * GE_MAX_SLOT_REFS * (max_field))
+    (GE_MAX_STATIC_HTML + GE_MAX_STATIC_SUBJECT + GE_MAX_STATIC_TEXT + 3u + \\
+     GE_MAX_SLOT_COST * (size_t)(max_field))
 
-/* The generic counterpart to the typed wrappers: picks the variant from the
- * same values, addressed by slot index rather than by struct field. This is
- * what a dispatcher works with -- an HTTP handler, or a Node-API addon that
- * only ever sees a name and an object. */
-uint32_t ge_combo_for(ge_template_t t, const char *const *slots, const bool *flags);
-
+/* The generic counterpart to the typed wrappers, addressed by index rather than by
+ * struct field -- what a dispatcher works with, an HTTP handler or a Node-API addon
+ * that only ever sees a name and an object. slots[0] is ignored: the renderer fills
+ * the locale. flags may be NULL when the template has none. */
 int ge_render_values(ge_template_t t, ge_locale_t locale, const char *const *slots,
                      const bool *flags, ge_mail_t *out);
 int ge_render_values_into(ge_template_t t, ge_locale_t locale, const char *const *slots,
                           const bool *flags, ge_arena_t *a, ge_mail_t *out);
 int ge_render_values_into_fast(ge_template_t t, ge_locale_t locale, const char *const *slots,
                                const bool *flags, ge_arena_t *a, ge_mail_t *out);
-
-/* Renders without the generated if-logic: 'combo' picks the variant directly.
- * slots[0] is filled in by the renderer. */
-int ge_render_by_index(ge_template_t t, ge_locale_t locale, uint32_t combo,
-                       const char *const *slots, ge_mail_t *out);
-int ge_render_by_index_into(ge_template_t t, ge_locale_t locale, uint32_t combo,
-                            const char *const *slots, ge_arena_t *a, ge_mail_t *out);
-int ge_render_by_index_into_fast(ge_template_t t, ge_locale_t locale, uint32_t combo,
-                                 const char *const *slots, ge_arena_t *a, ge_mail_t *out);
 
 /* Lookup by name, for the server's HTTP dispatch */
 int          ge_template_by_name(const char *name);   /* -1 if unknown */
@@ -316,13 +349,13 @@ int ge_locale_by_code(const char *code) {
     return -1;
 }
 
-/* Internal, as the trailing underscore says -- the per-template wrappers below
- * are the API.
- * prog = GE_PROGS[base + (locale * n_combos + combo) * 3 + kind], kind 0=html 1=subject 2=text */
-int ge_emit_(uint32_t base, uint32_t n_combos, ge_locale_t locale, uint32_t combo,
-             const char *const *sv, ge_mail_t *out) {
+/* A flag is a value too, as far as a program is concerned: set or not. */
+static const char GE_FLAG_ON[] = "1";
+
+/* prog = GE_PROGS[base + locale * 3 + kind], kind 0=html 1=subject 2=text */
+static int ge_emit(uint32_t base, ge_locale_t locale, const char *const *sv, ge_mail_t *out) {
     if ((unsigned)locale >= GE_LOCALE_COUNT) return -1;
-    const ge_prog_t *p = &GE_PROGS[base + ((uint32_t)locale * n_combos + combo) * 3];
+    const ge_prog_t *p = &GE_PROGS[base + (uint32_t)locale * 3u];
     if (ge_run(GE_POOL, &GE_OPS[p[0].start], p[0].count, sv, &out->html) != 0) return -1;
     if (ge_run(GE_POOL, &GE_OPS[p[1].start], p[1].count, sv, &out->subject) != 0) {
         ge_str_free(&out->html);
@@ -336,32 +369,29 @@ int ge_emit_(uint32_t base, uint32_t n_combos, ge_locale_t locale, uint32_t comb
     return 0;
 }
 
-/* Same into an arena: no malloc, no free. Both documents sit back to back in
- * the same buffer. */
-int ge_emit_into_(uint32_t base, uint32_t n_combos, ge_locale_t locale, uint32_t combo,
-                  const char *const *sv, ge_arena_t *a, ge_mail_t *out) {
+/* Same into an arena: no malloc, no free. The three parts sit back to back. */
+static int ge_emit_into(uint32_t base, ge_locale_t locale, const char *const *sv, ge_arena_t *a,
+                        ge_mail_t *out) {
     if ((unsigned)locale >= GE_LOCALE_COUNT) return -1;
-    const ge_prog_t *p = &GE_PROGS[base + ((uint32_t)locale * n_combos + combo) * 3];
+    const ge_prog_t *p = &GE_PROGS[base + (uint32_t)locale * 3u];
     /* On -1, out->html.len carries the total requirement for ge_arena_ensure(). */
     if (ge_run_into(GE_POOL, &GE_OPS[p[0].start], p[0].count, sv, a, &out->html) != 0) return -1;
     if (ge_run_into(GE_POOL, &GE_OPS[p[1].start], p[1].count, sv, a, &out->subject) != 0) {
-        size_t need = a->used + out->subject.len;
         out->html.data = NULL;
-        out->html.len  = need;
+        out->html.len  = a->used + out->subject.len;
         return -1;
     }
     if (ge_run_into(GE_POOL, &GE_OPS[p[2].start], p[2].count, sv, a, &out->text) != 0) {
-        size_t need = a->used + out->text.len;
         out->html.data = NULL;
-        out->html.len  = need;
+        out->html.len  = a->used + out->text.len;
         return -1;
     }
     return 0;
 }
 
-int ge_emit_into_fast_(uint32_t base, uint32_t n_combos, ge_locale_t locale, uint32_t combo,
-                       const char *const *sv, ge_arena_t *a, ge_mail_t *out) {
-    const ge_prog_t *p = &GE_PROGS[base + ((uint32_t)locale * n_combos + combo) * 3];
+static int ge_emit_into_fast(uint32_t base, ge_locale_t locale, const char *const *sv,
+                             ge_arena_t *a, ge_mail_t *out) {
+    const ge_prog_t *p = &GE_PROGS[base + (uint32_t)locale * 3u];
     ge_run_into_fast(GE_POOL, &GE_OPS[p[0].start], p[0].count, sv, a, &out->html);
     ge_run_into_fast(GE_POOL, &GE_OPS[p[1].start], p[1].count, sv, a, &out->subject);
     ge_run_into_fast(GE_POOL, &GE_OPS[p[2].start], p[2].count, sv, a, &out->text);
@@ -373,118 +403,60 @@ int ge_emit_into_fast_(uint32_t base, uint32_t n_combos, ge_locale_t locale, uin
 for (const t of templates) {
   const fn = camelToSnake(t.name)
   const st = `ge_${fn}_t`
-  const n = t.slotOrder.length
-  // Fill the slots and pick the variant -- once, for all three entry points.
-  c += `static void ge_prep_${fn}(ge_locale_t locale, const ${st} *v, const char **sv, uint32_t *combo) {\n`
+  // The value vector a program reads: locale, the slots, then the flags as set/unset.
+  c += `static void ge_prep_${fn}(ge_locale_t locale, const ${st} *v, const char **sv) {\n`
   c += `    sv[0] = ge_locale_code(locale);\n`
   t.slots.forEach((s, i) => (c += `    sv[${i + 1}] = v->${camelToSnake(s)};\n`))
-  c += `    uint32_t k = 0;\n`
-  // combos were generated as the cartesian product in condition order
-  for (const cond of t.conditions) {
-    const nc = cond.cases.length
-    const expr = cond.cases.slice(0, nc - 1).map((e, i) => `(${e}) ? ${i}u : `).join('') + `${nc - 1}u`
-    c += `    k = k * ${nc}u + (${expr});   /* ${cond.id} */\n`
-  }
-  c += `    *combo = k;\n}\n\n`
-  const call = `    const char *sv[${n}]; uint32_t combo;\n    ge_prep_${fn}(locale, v, sv, &combo);\n`
-  const args = `${t.progBase}u, ${t.combos.length}u, locale, combo, sv`
+  t.flags.forEach((f, i) => (c += `    sv[${t.slots.length + 1 + i}] = v->${camelToSnake(f)} ? GE_FLAG_ON : NULL;\n`))
+  c += `}\n\n`
+  const call = `    const char *sv[${nValues(t)}];\n    ge_prep_${fn}(locale, v, sv);\n`
   c += `int ge_render_${fn}(ge_locale_t locale, const ${st} *v, ge_mail_t *out) {\n${call}` +
-    `    return ge_emit_(${args}, out);\n}\n\n`
+    `    return ge_emit(${t.progBase}u, locale, sv, out);\n}\n\n`
   c += `int ge_render_${fn}_into(ge_locale_t locale, const ${st} *v, ge_arena_t *a, ge_mail_t *out) {\n${call}` +
-    `    return ge_emit_into_(${args}, a, out);\n}\n\n`
+    `    return ge_emit_into(${t.progBase}u, locale, sv, a, out);\n}\n\n`
   c += `int ge_render_${fn}_into_fast(ge_locale_t locale, const ${st} *v, ge_arena_t *a, ge_mail_t *out) {\n${call}` +
-    `    return ge_emit_into_fast_(${args}, a, out);\n}\n\n`
+    `    return ge_emit_into_fast(${t.progBase}u, locale, sv, a, out);\n}\n\n`
 }
 
-const MAX_SV = Math.max(...templates.map((t) => t.slotOrder.length))
-
-// v->logo_url -> slots[5], v->typo_correction -> flags[0]. Longest field name
-// first, so one name cannot be rewritten inside another.
-const comboCases = templates
-  .filter((t) => t.conditions.length)
-  .map((t) => {
-    const subs = [
-      ...t.slots.map((s, i) => [`v->${camelToSnake(s)}`, `slots[${i + 1}]`]),
-      ...t.flags.map((f, i) => [`v->${camelToSnake(f)}`, `flags[${i}]`]),
-    ].sort((a, b) => b[0].length - a[0].length)
-    const rewrite = (e) => subs.reduce((acc, [from, to]) => acc.split(from).join(to), e)
-    let body = `    case GE_TPL_${UP(t.name)}: {\n        uint32_t k = 0;\n`
-    for (const cond of t.conditions) {
-      const nc = cond.cases.length
-      const expr =
-        cond.cases.slice(0, nc - 1).map((e, i) => `(${rewrite(e)}) ? ${i}u : `).join('') + `${nc - 1}u`
-      body += `        k = k * ${nc}u + (${expr});   /* ${cond.id} */\n`
-    }
-    return body + '        return k;\n    }\n'
-  })
-  .join('')
-
 c += `
-${templates.map((t) => `static const char *const GE_SLOTS_${UP(t.name)}[] = {${t.slotOrder.map((s) => `"${s}"`).join(',')}};`).join('\n')}
+${templates.map((t) => `static const char *const GE_SLOTS_${UP(t.name)}[] = {${['locale', ...t.slots].map((s) => `"${s}"`).join(',')}};`).join('\n')}
 ${templates.filter((t) => t.flags.length).map((t) => `static const char *const GE_FLAGS_${UP(t.name)}[] = {${t.flags.map((f) => `"${f}"`).join(',')}};`).join('\n')}
 
 const ge_template_info_t GE_TEMPLATES[${templates.length}] = {
-${templates.map((t) => `    { "${t.name}", ${t.progBase}u, ${t.combos.length}u, ${t.slotOrder.length}u, GE_SLOTS_${UP(t.name)}, ${t.flags.length}u, ${t.flags.length ? `GE_FLAGS_${UP(t.name)}` : 'NULL'}, ${t.max.html}u, ${t.max.subject}u, ${t.max.text}u, ${t.max.refs}u }`).join(',\n')}
+${templates.map((t) => `    { "${t.name}", ${t.progBase}u, ${t.slots.length + 1}u, GE_SLOTS_${UP(t.name)}, ${t.flags.length}u, ${t.flags.length ? `GE_FLAGS_${UP(t.name)}` : 'NULL'}, ${t.max.html}u, ${t.max.subject}u, ${t.max.text}u, ${t.max.refs}u, ${t.max.cost}u }`).join(',\n')}
 };
 
-int ge_render_by_index(ge_template_t t, ge_locale_t locale, uint32_t combo,
-                       const char *const *slots, ge_mail_t *out) {
+static int ge_values(ge_template_t t, ge_locale_t locale, const char *const *slots,
+                     const bool *flags, const char **sv) {
     if ((unsigned)t >= GE_TPL_COUNT) return -1;
     const ge_template_info_t *ti = &GE_TEMPLATES[t];
-    if (combo >= ti->n_combos) return -1;
-    const char *sv[${MAX_SV}];
     sv[0] = ge_locale_code(locale);
     for (uint32_t i = 1; i < ti->n_slots; i++) sv[i] = slots[i];
-    return ge_emit_(ti->prog_base, ti->n_combos, locale, combo, sv, out);
-}
-
-int ge_render_by_index_into(ge_template_t t, ge_locale_t locale, uint32_t combo,
-                            const char *const *slots, ge_arena_t *a, ge_mail_t *out) {
-    if ((unsigned)t >= GE_TPL_COUNT) return -1;
-    const ge_template_info_t *ti = &GE_TEMPLATES[t];
-    if (combo >= ti->n_combos) return -1;
-    const char *sv[${MAX_SV}];
-    sv[0] = ge_locale_code(locale);
-    for (uint32_t i = 1; i < ti->n_slots; i++) sv[i] = slots[i];
-    return ge_emit_into_(ti->prog_base, ti->n_combos, locale, combo, sv, a, out);
-}
-
-int ge_render_by_index_into_fast(ge_template_t t, ge_locale_t locale, uint32_t combo,
-                                 const char *const *slots, ge_arena_t *a, ge_mail_t *out) {
-    const ge_template_info_t *ti = &GE_TEMPLATES[t];
-    const char *sv[${MAX_SV}];
-    sv[0] = ge_locale_code(locale);
-    for (uint32_t i = 1; i < ti->n_slots; i++) sv[i] = slots[i];
-    return ge_emit_into_fast_(ti->prog_base, ti->n_combos, locale, combo, sv, a, out);
-}
-
-/* The same branch decisions as the typed wrappers, with 'v->field' rewritten to
- * the slot index that field is filled from -- generated from one manifest, so
- * the two cannot say different things. */
-uint32_t ge_combo_for(ge_template_t t, const char *const *slots, const bool *flags) {
-    (void)slots;
-    (void)flags;
-    switch (t) {
-${comboCases}    default: return 0;
-    }
+    for (uint32_t i = 0; i < ti->n_flags; i++) sv[ti->n_slots + i] = flags[i] ? GE_FLAG_ON : NULL;
+    return 0;
 }
 
 int ge_render_values(ge_template_t t, ge_locale_t locale, const char *const *slots,
                      const bool *flags, ge_mail_t *out) {
-    if ((unsigned)t >= GE_TPL_COUNT) return -1;
-    return ge_render_by_index(t, locale, ge_combo_for(t, slots, flags), slots, out);
+    const char *sv[${MAX_SV}];
+    if (ge_values(t, locale, slots, flags, sv) != 0) return -1;
+    return ge_emit(GE_TEMPLATES[t].prog_base, locale, sv, out);
 }
 
 int ge_render_values_into(ge_template_t t, ge_locale_t locale, const char *const *slots,
                           const bool *flags, ge_arena_t *a, ge_mail_t *out) {
-    if ((unsigned)t >= GE_TPL_COUNT) return -1;
-    return ge_render_by_index_into(t, locale, ge_combo_for(t, slots, flags), slots, a, out);
+    const char *sv[${MAX_SV}];
+    if (ge_values(t, locale, slots, flags, sv) != 0) return -1;
+    return ge_emit_into(GE_TEMPLATES[t].prog_base, locale, sv, a, out);
 }
 
 int ge_render_values_into_fast(ge_template_t t, ge_locale_t locale, const char *const *slots,
                                const bool *flags, ge_arena_t *a, ge_mail_t *out) {
-    return ge_render_by_index_into_fast(t, locale, ge_combo_for(t, slots, flags), slots, a, out);
+    const char *sv[${MAX_SV}];
+    ge_values(t, locale, slots, flags, sv);
+    return ge_emit_into_fast(GE_TEMPLATES[t].prog_base, locale, sv, a, out);
 }
+
 `
 
 for (const a of assetBytes)
@@ -502,12 +474,32 @@ fs.mkdirSync(path.join(OUT_DIR, 'service_core', 'email'), { recursive: true })
 fs.writeFileSync(path.join(OUT_DIR, 'service_core', 'email', 'templates.h'), h)
 fs.writeFileSync(path.join(OUT_DIR, 'templates.c'), c)
 
+/* The value sets the snapshots are rendered with (tools/values.mjs), for tools/dump.c and
+ * nothing else: per set the indices into the value vector that are left unset. Test data,
+ * so a file of its own that the addon and fast-servers never compile. */
+let ts = `/* GENERATED by packages/email-native/tools/gen_c.mjs -- do not edit. Test data. */
+#include "service_core/email/templates.h"
+
+`
+for (const t of templates) {
+  const values = ['locale', ...t.slots, ...t.flags]
+  const flat = t.valueSets.flatMap((set) => [set.length, ...set.map((n) => values.indexOf(n))])
+  ts += `static const unsigned short GE_TEST_${UP(t.name)}[] = {${flat.join(',')}};\n`
+}
+ts += `
+/* { number of sets, then per set: how many values are unset, and which } */
+const struct { unsigned n_sets; const unsigned short *cleared; } GE_TEST_SETS[${templates.length}] = {
+${templates.map((t) => `    { ${t.valueSets.length}u, GE_TEST_${UP(t.name)} }`).join(',\n')}
+};
+`
+fs.writeFileSync(path.join(OUT_DIR, 'test_sets.c'), ts)
+
 const kb = (n) => (n / 1024).toFixed(1) + ' KB'
 const assetTotal = assetBytes.reduce((s, a) => s + a.data.length, 0)
 console.error(`literals, raw       ${kb(rawTotal)}  (${lits.length} distinct)`)
 console.error(`byte pool           ${kb(poolBytes.length)}  -> factor ${(rawTotal / poolBytes.length).toFixed(1)}x`)
 console.error(`ops                 ${OPS.length} x 8 B = ${kb(OPS.length * 8)}`)
-console.error(`programs            ${PROGS.length} (${templates.length} templates x ${ir.locales.length} locales x variants x {html,subject,text})`)
-console.error(`max static share    html ${Math.max(...templates.map((t) => t.max.html))} B, subject ${Math.max(...templates.map((t) => t.max.subject))} B, text ${Math.max(...templates.map((t) => t.max.text))} B, up to ${Math.max(...templates.map((t) => t.max.refs))} slot uses`)
+console.error(`programs            ${PROGS.length} (${templates.length} templates x ${ir.locales.length} locales x {html,subject,text})`)
+console.error(`max static share    html ${maxOf('html')} B, subject ${maxOf('subject')} B, text ${maxOf('text')} B, up to ${maxOf('refs')} slot uses, cost ${maxOf('cost')} B per value byte`)
 console.error(`assets (PNG)        ${kb(assetTotal)}`)
 console.error(`expected data size  ~${kb(poolBytes.length + OPS.length * 8 + PROGS.length * 8 + assetTotal)}`)

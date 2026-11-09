@@ -1,10 +1,7 @@
-// What the extractor cannot read off the pug sources by itself: which variables
-// drive a branch, and how C decides that branch at runtime.
-//
-// Everything else -- the variable list, its order, the struct fields -- is
-// derived from the templates themselves, so the pug files stay the single
-// source of truth.
+// Where the tools find things, and the few build decisions that are not a property of
+// any one template: the locales, how the plain text part is made, the inline images.
 
+import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -34,85 +31,16 @@ export const IR_PATH = path.resolve(arg('ir', path.join(OUT_DIR, 'ir.json')))
 
 export const LOCALES = ['en', 'de', 'es', 'fr', 'nl', 'it', 'tr', 'ru', 'pt', 'el']
 
-// Marker for a local: replaced by a sentinel when extracting, by a test value
-// when verifying.
-export const S = (name) => ({ __slot: name })
-
-// GE_HAS(x) == (x != NULL && *x != 0). The argument is the pug variable name;
-// the C struct field is its snake_case spelling.
-const snake = (s) => s.replace(/([a-z0-9])([A-Z])/g, '$1_$2').toLowerCase()
-const has = (f) => `GE_HAS(v->${snake(f)})`
-
-// The `timeDurationObject.minutes == 0` branch from includes/requestNewLink.pug
-const durationCond = {
-  id: 'duration',
-  cases: [
-    { c: has('minutes'), locals: { timeDurationObject: { hours: S('hours'), minutes: S('minutes') } } },
-    { c: null, locals: { timeDurationObject: { hours: S('hours'), minutes: 0 } } },
-  ],
-}
-
-export const TEMPLATES = {
-  accountActivation: {
-    conditions: [
-      { id: 'logo', cases: [{ c: has('logoUrl') }, { c: null, locals: { logoUrl: null } }] },
-      durationCond,
-    ],
-  },
-  accountMultiRegistration: {
-    conditions: [
-      { id: 'helper', cases: [{ c: has('helperLink') }, { c: null, locals: { helperLink: null } }] },
-    ],
-  },
-  addedContributionMessage: {},
-  assistedRegistrationConfirm: { conditions: [durationCond] },
-  contributionChangedByModerator: {},
-  contributionConfirmed: {},
-  contributionDeleted: {},
-  contributionDenied: {},
-  customEmail: {
-    conditions: [
-      {
-        id: 'reply',
-        cases: [
-          { c: `${has('senderCommunityUuid')} && ${has('senderUuid')}` },
-          { c: null, locals: { senderCommunityUuid: null, senderUuid: null } },
-        ],
-      },
-    ],
-  },
-  emailChangeConfirm: {},
-  emailChangeDone: {},
-  emailChangeNotice: {},
-  emailChangeSupport: {
-    // Real switches, not strings -> bool fields in the struct
-    flags: ['typoCorrection', 'takeBack'],
-    conditions: [
-      {
-        id: 'todo',
-        cases: [
-          { c: `v->${snake('typoCorrection')}`, locals: { typoCorrection: true, takeBack: false } },
-          { c: `v->${snake('takeBack')}`, locals: { typoCorrection: false, takeBack: true } },
-          { c: null, locals: { typoCorrection: false, takeBack: false } },
-        ],
-      },
-    ],
-  },
-  resetPassword: { conditions: [durationCond] },
-  thankYouCardPaid: {},
-  transactionLinkRedeemed: {},
-  transactionReceived: {
-    conditions: [
-      {
-        id: 'reply',
-        cases: [
-          { c: `${has('senderCommunityUuid')} && ${has('senderUuid')}` },
-          { c: null, locals: { senderCommunityUuid: null, senderUuid: null } },
-        ],
-      },
-    ],
-  },
-}
+/*
+ * The templates are the .mjml files in TEMPLATE_ROOT, in name order -- which is the
+ * order of GE_TPL_* in the generated header. Everything a template needs to say about
+ * itself (its values, its flags, its branches) is in the file.
+ */
+export const TEMPLATES = fs
+  .readdirSync(TEMPLATE_ROOT)
+  .filter((f) => f.endsWith('.mjml'))
+  .map((f) => f.slice(0, -'.mjml'.length))
+  .sort()
 
 /*
  * How the HTML becomes the plain text alternative -- html-to-text, at build time, over the

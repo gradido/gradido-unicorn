@@ -36,18 +36,6 @@ msgstr "Es existiert jedoch zu Deiner E-Mail-Adresse schon ein Konto."
 msgid "Your email address has just been used again to register an account with Gradido."
 msgstr "Deine E-Mail-Adresse wurde soeben erneut benutzt, um bei Gradido ein Konto zu registrieren."
 
-#. emails.accountMultiRegistration.helperButton
-msgid "I am helping someone set up an account"
-msgstr "Ich helfe jemandem beim Einrichten"
-
-#. emails.accountMultiRegistration.helperIntro
-msgid "If someone is sitting next to you who just used your e-mail address to start a Gradido account: continue the setup here. Together you enter their own e-mail address, and they choose their password themselves."
-msgstr "Wenn neben Dir gerade ein Mensch sitzt, der Deine E-Mail-Adresse benutzt hat, um ein Gradido-Konto zu beginnen: Führe die Einrichtung hier fort. Ihr tragt seine eigene E-Mail-Adresse ein, und sein Passwort wählt er selbst."
-
-#. emails.accountMultiRegistration.helperTitle
-msgid "Helping someone at a Gradido café right now?"
-msgstr "Du hilfst gerade jemandem im Gradido-Café?"
-
 #. emails.accountMultiRegistration.ifYouAreNotTheOne
 msgid "If you did not try to register again, please contact our support:"
 msgstr "Wenn Du nicht versucht hast Dich erneut zu registrieren, wende Dich bitte an unseren Support:"
@@ -65,6 +53,10 @@ msgstr "Erneuter Registrierungsversuch mit Deiner E-Mail"
 msgid "You have received a message from %1 regarding your common good contribution “%2”."
 msgstr "Du hast zu Deinem Gemeinwohl-Beitrag „%2“ eine Nachricht von %1 erhalten."
 
+#. emails.addedContributionMessage.contributionClosed
+msgid "This contribution is complete — you cannot reply here any more."
+msgstr "Dieser Beitrag ist abgeschlossen — Du kannst hier nicht mehr antworten."
+
 #. emails.addedContributionMessage.message
 msgid "„%1“"
 msgstr "„%1“"
@@ -72,6 +64,10 @@ msgstr "„%1“"
 #. emails.addedContributionMessage.readMessage
 msgid "Read and reply to message"
 msgstr "Nachricht lesen und beantworten"
+
+#. emails.addedContributionMessage.readMessageOnly
+msgid "Read message"
+msgstr "Nachricht lesen"
 
 #. emails.addedContributionMessage.subject
 #. emails.addedContributionMessage.title
@@ -86,6 +82,10 @@ msgstr "Antworten kannst Du direkt bei Deinem Beitrag."
 msgid "Together with a Gradido member, an account has just been set up for you — with this e-mail address."
 msgstr "Gemeinsam mit einem Gradido-Mitglied wurde soeben ein Konto für Dich eingerichtet — mit dieser E-Mail-Adresse."
 
+#. emails.assistedRegistrationConfirm.accountCreatedByThanks
+msgid "On acceptance of a thank-you, an account has just been set up for you — with this e-mail address."
+msgstr "Beim Annehmen eines Danks wurde soeben ein Konto für Dich eingerichtet — mit dieser E-Mail-Adresse."
+
 #. emails.assistedRegistrationConfirm.clickToConfirm
 msgid "Please click here to confirm your e-mail address."
 msgstr "Klicke bitte hier, um Deine E-Mail-Adresse zu bestätigen."
@@ -97,6 +97,21 @@ msgstr "Adresse bestätigen"
 #. emails.assistedRegistrationConfirm.confirmHeading
 msgid "Confirm e-mail address"
 msgstr "E-Mail-Adresse bestätigen"
+
+#. emails.assistedRegistrationConfirm.linkValidity [1/2]
+#. emails.general.linkValidity [1/2]
+msgid "The link has a validity of %1 hours."
+msgstr "Der Link hat eine Gültigkeit von %1 Stunden."
+
+#. emails.assistedRegistrationConfirm.linkValidity [2/2]
+#. emails.assistedRegistrationConfirm.linkValidityWithMinutes [2/2]
+msgid "If the validity of the link has already expired, sign in and have a new mail sent to you."
+msgstr "Sollte die Gültigkeit des Links bereits abgelaufen sein, melde Dich an und lasse Dir eine neue Mail senden."
+
+#. emails.assistedRegistrationConfirm.linkValidityWithMinutes [1/2]
+#. emails.general.linkValidityWithMinutes [1/2]
+msgid "The link has a validity of %1 hours and %2 minutes."
+msgstr "Der Link hat eine Gültigkeit von %1 Stunden und %2 Minuten."
 
 #. emails.assistedRegistrationConfirm.notYou
 msgid "You know nothing about this account? Then ignore this e-mail — without confirmation the account stays locked."
@@ -113,6 +128,42 @@ msgstr "Bestätige Deine E-Mail-Adresse"
 #. emails.assistedRegistrationConfirm.title
 msgid "Your Gradido account is ready"
 msgstr "Dein Gradido-Konto ist eingerichtet"
+
+#. emails.chatGroupAdded.inTheGroup
+msgid "%1 members write to each other in the group. All members see your username."
+msgstr "In der Gruppe schreiben %1 Mitglieder miteinander. Alle Mitglieder sehen Deinen Nutzernamen."
+
+#. emails.chatGroupAdded.leaveAnyTime
+msgid "You can mute or leave the group in your Gradido account at any time."
+msgstr "Du kannst die Gruppe in Deinem Gradido-Konto jederzeit stumm schalten oder verlassen."
+
+#. emails.chatGroupAdded.openGroup
+msgid "Open group"
+msgstr "Gruppe öffnen"
+
+#. emails.chatGroupAdded.subject
+msgid "You are now in the group “%1”"
+msgstr "Du bist jetzt in der Gruppe „%1“"
+
+#. emails.chatGroupAdded.title
+msgid "%1 has added you to the group “%2”"
+msgstr "%1 hat Dich in die Gruppe „%2“ aufgenommen"
+
+#. emails.chatGroupMessage.announcement
+msgid "%1 has sent a message to all members of the group as an announcement."
+msgstr "%1 hat eine Nachricht als Ankündigung an alle Mitglieder der Gruppe geschickt."
+
+#. emails.chatGroupMessage.muteHint
+msgid "No more announcements by email? Tap the bell in the group in your Gradido account."
+msgstr "Keine Ankündigungen mehr per E-Mail? Tippe in Deinem Gradido-Konto in der Gruppe auf die Glocke."
+
+#. emails.chatGroupMessage.subject
+msgid "Announcement in “%1” from %2"
+msgstr "Ankündigung in „%1“ von %2"
+
+#. emails.chatGroupMessage.title
+msgid "%1 writes in “%2”"
+msgstr "%1 schreibt in „%2“"
 
 #. emails.contribution.toSeeContributionsAndMessages
 msgid "You will find your common good contributions and the messages about them in your Gradido account."
@@ -154,9 +205,62 @@ msgstr "Dein Gemeinwohl-Beitrag „%1“ wurde von %2 abgelehnt."
 msgid "Your common good contribution was rejected"
 msgstr "Dein Gemeinwohl-Beitrag wurde abgelehnt"
 
+#. emails.creationRightRequestSupport.declaredAt
+msgid "Declared a project account by its holder on: %1"
+msgstr "Von der Kontoinhaberin / dem Kontoinhaber als Projekt-Konto erklärt am: %1"
+
+#. emails.creationRightRequestSupport.declaredByAdmin
+msgid "Creation was switched off by an administrator, not declared by the holder."
+msgstr "Das Schöpfen wurde von einem Administrator ausgeschaltet, nicht vom Konto selbst erklärt."
+
+#. emails.creationRightRequestSupport.gradidoId
+msgid "Gradido ID: %1"
+msgstr "Gradido-ID: %1"
+
+#. emails.creationRightRequestSupport.member
+#. emails.emailChangeSupport.member
+msgid "Member: %1 %2 (%3)"
+msgstr "Mitglied: %1 %2 (%3)"
+
+#. emails.creationRightRequestSupport.memberEmail
+msgid "E-mail address: %1"
+msgstr "E-Mail-Adresse: %1"
+
+#. emails.creationRightRequestSupport.requestedAt
+msgid "Requested on: %1"
+msgstr "Angefragt am: %1"
+
+#. emails.creationRightRequestSupport.subject
+msgid "Creation right requested: %1"
+msgstr "Schöpfungsrecht angefragt: %1"
+
+#. emails.creationRightRequestSupport.title
+msgid "A project account asks for the creation right back"
+msgstr "Ein Projekt-Konto möchte wieder schöpfen"
+
+#. emails.creationRightRequestSupport.todo
+msgid "Please check whether this account belongs to a person who may create. If so, switch \"May create\" on for this member in the admin interface (user role tab). The member has been told that a person checks the request."
+msgstr "Bitte prüfe, ob dieses Konto einem Menschen gehört, der schöpfen darf. Wenn ja, schalte im Admin-Bereich (Reiter Nutzer-Rolle) „Kann schöpfen“ für dieses Mitglied ein. Das Mitglied weiß, dass ein Mensch die Anfrage prüft."
+
+#. emails.customEmail.forwardWords
+msgid "%1 adds:"
+msgstr "%1 schreibt dazu:"
+
+#. emails.customEmail.forwarded
+msgid "↪ Forwarded"
+msgstr "↪ Weitergeleitet"
+
+#. emails.customEmail.forwardedFrom
+msgid "↪ Forwarded from %1"
+msgstr "↪ Weitergeleitet von %1"
+
 #. emails.customEmail.haveReceivedMessageFrom
 msgid "you have just received a message from %1"
 msgstr "Du hast soeben von %1 eine Nachricht erhalten"
+
+#. emails.customEmail.imageNote
+msgid "📷 The message contains a picture – you can see it in the conversation."
+msgstr "📷 Die Nachricht enthält ein Bild – Du siehst es im Gespräch."
 
 #. emails.customEmail.title
 msgid "%1 has sent you a message"
@@ -249,10 +353,6 @@ msgstr "Der Link gilt bis %1 – danach verfällt die angestoßene Änderung von
 #. emails.emailChangeSupport.gdtHint
 msgid "For the GDT server the first address of this account still counts: %1."
 msgstr "Für den GDT-Server zählt weiterhin die erste Adresse dieses Kontos: %1."
-
-#. emails.emailChangeSupport.member
-msgid "Member: %1 %2 (%3)"
-msgstr "Mitglied: %1 %2 (%3)"
 
 #. emails.emailChangeSupport.newEmail
 msgid "New address: %1"
@@ -350,18 +450,10 @@ msgstr "Details zur Transaktion findest Du in Deinem Gradido-Konto."
 msgid "Hello %1 %2,"
 msgstr "Hallo %1 %2,"
 
-#. emails.general.linkValidity [1/2]
-msgid "The link has a validity of %1 hours."
-msgstr "Der Link hat eine Gültigkeit von %1 Stunden."
-
 #. emails.general.linkValidity [2/2]
 #. emails.general.linkValidityWithMinutes [2/2]
 msgid "If the validity of the link has already expired, you can have a new link sent to you here."
 msgstr "Sollte die Gültigkeit des Links bereits abgelaufen sein, kannst Du Dir hier einen neuen Link schicken lassen."
-
-#. emails.general.linkValidityWithMinutes [1/2]
-msgid "The link has a validity of %1 hours and %2 minutes."
-msgstr "Der Link hat eine Gültigkeit von %1 Stunden und %2 Minuten."
 
 #. emails.general.message
 msgid "Message"
@@ -398,6 +490,10 @@ msgstr "Zum Konto"
 #. emails.general.toContribution
 msgid "To contribution"
 msgstr "Zum Beitrag"
+
+#. emails.general.toConversation
+msgid "Conversation"
+msgstr "Zum Gespräch"
 
 #. emails.general.transactionDetails
 msgid "Transaction details"
@@ -452,18 +548,36 @@ msgstr "Mit Deiner Dank-Karte wurden %1 GDD weitergegeben"
 msgid "%1 GDD have just been passed on with your thank you card."
 msgstr "Soeben wurden mit Deiner Dank-Karte %1 GDD weitergegeben."
 
-#. emails.transactionLinkRedeemed.hasRedeemedYourLink
-msgid "%1 (%2) has just redeemed your link."
-msgstr "%1 (%2) hat soeben Deinen Link eingelöst."
+#. emails.transactionLinkRedeemed.hasAcceptedYourThanks
+msgid "%1 (%2) has just accepted your thank-you."
+msgstr "%1 (%2) hat soeben Deinen Dank angenommen."
+
+#. emails.transactionLinkRedeemed.hasAcceptedYourThanksNewMember
+msgid "%1 (%2) has just accepted your thank-you — and is new to Gradido. How lovely that you showed it."
+msgstr "%1 (%2) hat soeben Deinen Dank angenommen — und ist neu bei Gradido. Schön, dass Du es gezeigt hast."
 
 #. emails.transactionLinkRedeemed.memo
+#. emails.transactionReactionReceived.memo
 msgid "Message: %1"
 msgstr "Nachricht: %1"
 
 #. emails.transactionLinkRedeemed.subject
 #. emails.transactionLinkRedeemed.title
-msgid "%1 has redeemed your Gradido link"
-msgstr "%1 hat Deinen Gradido-Link eingelöst"
+msgid "%1 has accepted your thank-you"
+msgstr "%1 hat Deinen Dank angenommen"
+
+#. emails.transactionReactionReceived.hasEnjoyedYourThanks
+msgid "%1 (%2) was happy about your thank-you:"
+msgstr "%1 (%2) hat sich über Deinen Dank gefreut:"
+
+#. emails.transactionReactionReceived.subject
+#. emails.transactionReactionReceived.title
+msgid "Your thank-you has arrived"
+msgstr "Dein Dank ist angekommen"
+
+#. emails.transactionReactionReceived.yourThanksTo
+msgid "Your thank-you to %1"
+msgstr "Dein Dank an %1"
 
 #. emails.transactionReceived.haveReceivedAmountGDDFrom
 msgid "You have just received %1 GDD from %2."

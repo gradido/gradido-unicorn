@@ -45,6 +45,8 @@
   /* Text a person typed -- a memo, a moderator's question, the subject and body of
      a message. Html collapses the line breaks they pressed; this keeps them.
      Word-based clients (Outlook on Windows) support white-space poorly, so there
-     the breaks may still collapse -- unmeasured, same as in webflow.css. */
-  .human-text div { white-space: pre-line; }
+     the breaks may still collapse -- unmeasured, same as in webflow.css.
+     A word or an address too long for a line breaks at the card's edge rather than
+     running out of it; break-word is the same for clients without `anywhere`. */
+  .human-text div { white-space: pre-line; overflow-wrap: anywhere; word-break: break-word; }
 </mj-style>

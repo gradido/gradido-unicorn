@@ -1,8 +1,8 @@
 Dein Gradido-Konto ist eingerichtet
 
-Hallo {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hallo {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Gemeinsam mit einem Gradido-Mitglied wurde soeben ein Konto für Dich eingerichtet — mit dieser E-Mail-Adresse.
+Beim Annehmen eines Danks wurde soeben ein Konto für Dich eingerichtet — mit dieser E-Mail-Adresse.
 
 Bitte bestätige, dass diese Adresse Dir gehört — erst dann bleibt Dein Konto dauerhaft geöffnet.
 
@@ -10,13 +10,13 @@ E-Mail-Adresse bestätigen
 
 Klicke bitte hier, um Deine E-Mail-Adresse zu bestätigen.
 
-Adresse bestätigen [{confirmLink|&<>"'ä}]
+Adresse bestätigen [{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Oder kopiere den Link in Dein Browserfenster.
 
-{confirmLink|&<>"'ä}
+{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Der Link hat eine Gültigkeit von {hours|&<>"'ä} Stunden und {minutes|&<>"'ä} Minuten. Sollte die Gültigkeit des Links bereits abgelaufen sein, kannst Du Dir hier einen neuen Link schicken lassen.
+Der Link hat eine Gültigkeit von {hours|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} Stunden und {minutes|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} Minuten. Sollte die Gültigkeit des Links bereits abgelaufen sein, melde Dich an und lasse Dir eine neue Mail senden.
 
 Du weißt nichts von diesem Konto? Dann ignoriere diese E-Mail — ohne Bestätigung bleibt das Konto verschlossen.
 

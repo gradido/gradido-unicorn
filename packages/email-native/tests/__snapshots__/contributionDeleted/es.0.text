@@ -1,18 +1,18 @@
 Tu contribución al bien común ha sido eliminada
 
-Hola {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hola {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-tu contribución al bien común «{contributionMemo|&<>"'ä}» ha sido eliminada por {senderAlias|&<>"'ä}.
+tu contribución al bien común «{contributionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}» ha sido eliminada por {senderAlias|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}.
 
 Detalles de la contribución
 
 Encontrarás tus contribuciones al bien común y los mensajes relacionados en tu cuenta de Gradido.
 
-A la contribución [{contributionFrontendLink|&<>"'ä}]
+A la contribución [{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 O copia el enlace en la ventana de tu navegador.
 
-{contributionFrontendLink|&<>"'ä}
+{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Por favor, no respondas a este correo electrónico.
 

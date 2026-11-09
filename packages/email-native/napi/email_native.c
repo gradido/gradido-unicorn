@@ -51,7 +51,7 @@ static napi_value throw_msg(napi_env env, const char *msg)
 /* ------------------------------------------------------------------ strings */
 
 /* Reads a JS string into fresh memory. NULL for null/undefined, which is how a
- * caller says "this slot is not set" -- and what the if-branches read. */
+ * caller says "this slot is not set" -- and what the template's {{if}}s read. */
 static char *js_string(napi_env env, napi_value v)
 {
     napi_valuetype type;
@@ -728,8 +728,6 @@ static napi_value fn_templates(napi_env env, napi_callback_info info)
                                       string_array(env, ti->slot_names + 1, ti->n_slots - 1)));
         CHECK(napi_set_named_property(env, o, "flags",
                                       string_array(env, ti->flag_names, ti->n_flags)));
-        CHECK(napi_create_uint32(env, ti->n_combos, &v));
-        CHECK(napi_set_named_property(env, o, "variants", v));
         CHECK(napi_set_element(env, arr, (uint32_t)i, o));
     }
     return arr;
@@ -783,6 +781,7 @@ static napi_value fn_limits(napi_env env, napi_callback_info info)
     PUT("maxStaticSubject", GE_MAX_STATIC_SUBJECT);
     PUT("maxStaticText", GE_MAX_STATIC_TEXT);
     PUT("maxSlotRefs", GE_MAX_SLOT_REFS);
+    PUT("maxSlotCost", GE_MAX_SLOT_COST);
     PUT("arenaBytes", GE_BUF_SIZE(512));
 #undef PUT
     return out;

@@ -1,6 +1,6 @@
 E-posta doğrulama
 
-Merhaba {firstName|&<>"'ä} {lastName|&<>"'ä},
+Merhaba {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 e-posta adresin az önce Gradido'ya kaydedildi.
 
@@ -8,17 +8,17 @@ Kaydı tamamla
 
 Kaydı tamamlamak ve Gradido hesabını etkinleştirmek için lütfen buraya tıkla.
 
-Hesabı etkinleştir [{activationLink|&<>"'ä}]
+Hesabı etkinleştir [{activationLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Veya bağlantıyı tarayıcı pencerene kopyala.
 
-{activationLink|&<>"'ä}
+{activationLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Yeni geçerli bağlantı iste
 
-Bağlantı {hours|&<>"'ä} saat geçerlidir. Bağlantının geçerlilik süresi dolduysa, buradan yeni bir bağlantı gönderilmesini isteyebilirsin.
+Bağlantı {hours|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} saat {minutes|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} dakika geçerlidir. Bağlantının geçerlilik süresi dolduysa, buradan yeni bir bağlantı gönderilmesini isteyebilirsin.
 
-Yeni bağlantı [{resendLink|&<>"'ä}]
+Yeni bağlantı [{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Sevgiler,
 Gradido ekibin

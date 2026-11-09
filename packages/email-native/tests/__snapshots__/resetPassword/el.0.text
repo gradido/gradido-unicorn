@@ -1,6 +1,6 @@
 Επαναφορά κωδικού πρόσβασης
 
-Γεια σου {firstName|&<>"'ä} {lastName|&<>"'ä},
+Γεια σου {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 εσύ, ή κάποιος άλλος, ζήτησες επαναφορά κωδικού πρόσβασης για αυτόν τον λογαριασμό.
 
@@ -8,17 +8,17 @@
 
 Αν ήσουν εσύ, κάνε κλικ εδώ.
 
-επαναφορά [{resetLink|&<>"'ä}]
+επαναφορά [{resetLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Ή αντίγραψε τον σύνδεσμο στο παράθυρο του προγράμματος περιήγησής σου.
 
-{resetLink|&<>"'ä}
+{resetLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Ζήτησε νέο έγκυρο σύνδεσμο
 
-Ο σύνδεσμος ισχύει για {hours|&<>"'ä} ώρες και {minutes|&<>"'ä} λεπτά. Αν η ισχύς του συνδέσμου έχει ήδη λήξει, μπορείς να ζητήσεις εδώ την αποστολή νέου συνδέσμου.
+Ο σύνδεσμος ισχύει για {hours|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ώρες και {minutes|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} λεπτά. Αν η ισχύς του συνδέσμου έχει ήδη λήξει, μπορείς να ζητήσεις εδώ την αποστολή νέου συνδέσμου.
 
-Νέος σύνδεσμος [{resendLink|&<>"'ä}]
+Νέος σύνδεσμος [{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Με εκτίμηση,
 η ομάδα σου Gradido

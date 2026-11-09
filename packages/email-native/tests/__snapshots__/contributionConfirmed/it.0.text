@@ -1,18 +1,18 @@
 Il tuo contributo al bene comune è stato confermato
 
-Ciao {firstName|&<>"'ä} {lastName|&<>"'ä},
+Ciao {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-il tuo contributo al bene comune «{contributionMemo|&<>"'ä}» è appena stato confermato da {senderAlias|&<>"'ä}. Sul tuo account Gradido sono stati accreditati {contributionAmount|&<>"'ä} GDD.
+il tuo contributo al bene comune «{contributionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}» è appena stato confermato da {senderAlias|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}. Sul tuo account Gradido sono stati accreditati {contributionAmount|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example} GDD.
 
 Dettagli del contributo
 
 Trovi i tuoi contributi al bene comune e i relativi messaggi nel tuo account Gradido.
 
-Al contributo [{contributionFrontendLink|&<>"'ä}]
+Al contributo [{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Oppure copia il link nella finestra del tuo browser.
 
-{contributionFrontendLink|&<>"'ä}
+{contributionFrontendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Per favore, non rispondere a questa e-mail.
 

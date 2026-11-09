@@ -1,12 +1,12 @@
 Ένα μέλος άλλαξε τη διεύθυνση e-mail του
 
-Μέλος: {firstName|&<>"'ä} {lastName|&<>"'ä} ({alias|&<>"'ä})
+Μέλος: {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ({alias|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example})
 
-Προηγούμενη διεύθυνση: {oldEmail|&<>"'ä}
+Προηγούμενη διεύθυνση: {oldEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Νέα διεύθυνση: {newEmail|&<>"'ä}
+Νέα διεύθυνση: {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Για τον διακομιστή GDT εξακολουθεί να μετράει η πρώτη διεύθυνση αυτού του λογαριασμού: {gdtEmail|&<>"'ä}.
+Για τον διακομιστή GDT εξακολουθεί να μετράει η πρώτη διεύθυνση αυτού του λογαριασμού: {gdtEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
 Παρακαλώ σύνδεσε τη νέα διεύθυνση με αυτόν τον λογαριασμό στον διακομιστή GDT και ενημέρωσε το Klick-Tipp.
 

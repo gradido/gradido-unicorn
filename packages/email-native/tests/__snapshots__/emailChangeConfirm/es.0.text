@@ -1,6 +1,6 @@
 Confirmar la nueva dirección de correo
 
-Hola {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hola {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 Quieres cambiar la dirección de correo de tu cuenta Gradido a esta dirección.
 
@@ -8,13 +8,13 @@ Confirmar la nueva dirección de correo
 
 Confirma con un clic que esta dirección es tuya.
 
-Confirmar la nueva dirección [{confirmLink|&<>"'ä}]
+Confirmar la nueva dirección [{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 O copia el enlace en la ventana de tu navegador.
 
-{confirmLink|&<>"'ä}
+{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-El enlace es válido hasta el {validUntil|&<>"'ä}. Después podrás solicitar un nuevo correo desde tus ajustes.
+El enlace es válido hasta el {validUntil|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}. Después podrás solicitar un nuevo correo desde tus ajustes.
 
 Si no has solicitado este cambio, puedes ignorar este correo: sin tu confirmación no cambia nada.
 

@@ -1,0 +1,60 @@
+<!--
+  The receiver of a thank-you was glad of it, and showed it with an emoji.
+
+  How the markers, the includes and the preview settings work is written once, in
+  accountActivation.mjml.
+
+  The emoji stands in a paragraph of its own and large, so that the reaction is what
+  the eye lands on -- and nowhere else: never in the subject, which mail clients garble
+  with an emoji in it. Subject and heading are the same words for every such mail; the
+  sentence carries the name. The card names the thank-you as the giver's own: the
+  amount and, where there is one, the memo.
+-->
+<mjml lang="{{v:locale}}">
+  <mj-head>
+    <mj-include path="includes/head.mjml" />
+    <mj-title>{{t:Your thank-you has arrived}}</mj-title>
+  </mj-head>
+
+  <mj-body>
+    <mj-include path="includes/top.mjml" />
+
+    <mj-section padding="15px 25px 0 25px">
+      <mj-column>
+        <mj-text mj-class="h2">{{t:Your thank-you has arrived}}</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding="20px 25px 0 25px">
+      <mj-column>
+        <mj-include path="includes/salutation.mjml" />
+        <mj-text mj-class="muted">{{t:%1 (%2) was happy about your thank-you:|recipientAlias,recipientCommunity}}</mj-text>
+        <mj-text css-class="reaction-emoji" font-size="48px" line-height="56px" padding="8px 25px 0 25px">{{v:emoji}}</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-wrapper background-color="#f5f5f5" border="1px solid #808080" border-radius="24px" padding="20px 8% 40px 8%">
+      <mj-section background-color="#f5f5f5">
+        <mj-column>
+          <!-- The alias stays whole: where the heading does not fit, it moves to the next
+               line as one piece ("Dein Dank an" / "Sarah-B" on a phone). -->
+          <mj-text mj-class="h2" padding="20px 0 0 0">{{t:Your thank-you to %1|recipientAlias/whole}}</mj-text>
+          <mj-text mj-class="p-content" css-class="human-text" padding="15px 0 15px 0">{{t:Amount: %1 GDD|transactionAmount}}{{if transactionMemo}}<br />{{t:Message: %1|h:transactionMemo}}{{end}}</mj-text>
+
+          <!-- The way to the person who reacted: their conversation, green and inside the
+               card, above the gold way into the account. Each id is one URI component.
+               Without both there is no such way. -->
+          {{if recipientCommunityUuid && recipientUuid}}
+          <mj-button mj-class="btn-answer" css-class="btn-green" background-color="#53900c"
+                      href="{{v:communityURL}}/contacts?with={{u:recipientUuid}}&amp;community={{u:recipientCommunityUuid}}">{{t:Conversation}}</mj-button>
+          {{end}}
+          <mj-button mj-class="btn" css-class="btn-gold" background-color="#c58d38"
+                      href="{{v:communityURL}}/transactions">{{t:To account}}</mj-button>
+          <mj-include path="includes/do-not-reply.mjml" />
+        </mj-column>
+      </mj-section>
+    </mj-wrapper>
+
+    <mj-include path="includes/bottom.mjml" />
+  </mj-body>
+</mjml>

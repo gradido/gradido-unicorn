@@ -1,5 +1,5 @@
 /* Two questions:
- *   1. How big does a buffer have to be to hold the largest variant?
+ *   1. How big does a buffer have to be to hold the largest mail?
  *   2. What does a reused buffer buy over malloc/free per mail?
  */
 #define _POSIX_C_SOURCE 200809L
@@ -21,8 +21,9 @@ static double now(void)
 }
 
 /* ------------------------------------------------------------------- 1) size
- * Every slot gets 'field' bytes of '"' -- the most expensive case there is,
- * because " becomes &quot;, six output bytes per input byte. */
+ * Every slot gets 'field' bytes of '"' -- six output bytes per input byte in the
+ * HTML -- and every flag is set, so every branch is taken. GE_BUF_SIZE is the bound
+ * for any input; this is what the plain worst character actually costs. */
 static void probe(size_t field, ge_arena_t *a)
 {
     char *worst = (char *)malloc(field + 1);
@@ -30,26 +31,25 @@ static void probe(size_t field, ge_arena_t *a)
     worst[field] = '\0';
 
     size_t   max = 0;
-    unsigned max_t = 0, max_c = 0;
+    unsigned max_t = 0, max_l = 0;
     const char *sv[MAX_SLOTS];
-    for (int i = 0; i < MAX_SLOTS; i++) sv[i] = worst;
+    bool        flags[MAX_SLOTS];
+    for (int i = 0; i < MAX_SLOTS; i++) { sv[i] = worst; flags[i] = true; }
 
     for (int t = 0; t < GE_TPL_COUNT; t++) {
-        const ge_template_info_t *ti = &GE_TEMPLATES[t];
-        for (int l = 0; l < GE_LOCALE_COUNT; l++)
-            for (uint32_t c = 0; c < ti->n_combos; c++) {
-                ge_mail_t m;
-                ge_arena_reset(a);
-                if (ge_render_by_index_into((ge_template_t)t, (ge_locale_t)l, c, sv, a, &m) != 0) {
-                    fprintf(stderr, "probe arena too small\n");
-                    exit(1);
-                }
-                size_t total = m.html.len + m.subject.len + 2; /* two NULs */
-                if (total > max) { max = total; max_t = t; max_c = c; }
+        for (int l = 0; l < GE_LOCALE_COUNT; l++) {
+            ge_mail_t m;
+            ge_arena_reset(a);
+            if (ge_render_values_into((ge_template_t)t, (ge_locale_t)l, sv, flags, a, &m) != 0) {
+                fprintf(stderr, "probe arena too small\n");
+                exit(1);
             }
+            size_t total = m.html.len + m.subject.len + m.text.len + 3; /* three NULs */
+            if (total > max) { max = total; max_t = t; max_l = l; }
+        }
     }
-    printf("  %5zu B/field  ->  %7zu B  (%5.1f KB)   largest: %s, variant %u\n", field, max,
-           max / 1024.0, GE_TEMPLATES[max_t].name, max_c);
+    printf("  %5zu B/field  ->  %7zu B  (%5.1f KB)   largest: %s/%s\n", field, max,
+           max / 1024.0, GE_TEMPLATES[max_t].name, ge_locale_code((ge_locale_t)max_l));
     free(worst);
 }
 
@@ -85,8 +85,9 @@ int main(void)
            (GE_MAX_STATIC_HTML + GE_MAX_STATIC_SUBJECT + 2) / 1024.0);
     printf("  at most %u slot uses per document\n\n", GE_MAX_SLOT_REFS);
 
-    printf("Measured worst case over all 17 templates x 10 locales x variants,\n"
-           "every field filled with '\"' (worst escaping, 6 output bytes per input byte):\n");
+    printf("Measured worst case over all %d templates x %d locales, every branch taken,\n"
+           "every field filled with '\"' (6 output bytes per input byte):\n",
+           GE_TPL_COUNT, GE_LOCALE_COUNT);
     for (size_t f = 64; f <= 2048; f *= 2) probe(f, &arena);
     printf("\n");
 
@@ -130,14 +131,15 @@ int main(void)
     /* Mixed load: all templates and locales in turn, so this does not just
      * measure one hot cache path. */
     const char *sv[MAX_SLOTS];
-    for (int i = 0; i < MAX_SLOTS; i++) sv[i] = "Müller & Söhne <test@gradido.net>";
+    bool        flags[MAX_SLOTS];
+    for (int i = 0; i < MAX_SLOTS; i++) { sv[i] = "Müller & Söhne <test@gradido.net>"; flags[i] = true; }
     const int M = 500000;
     printf("\nMixed across all templates and locales:\n");
 
     TIMEIT("malloc/free per mail", M, {
         ge_mail_t m;
         int       t = i % GE_TPL_COUNT;
-        ge_render_by_index((ge_template_t)t, (ge_locale_t)(i % GE_LOCALE_COUNT), 0, sv, &m);
+        ge_render_values((ge_template_t)t, (ge_locale_t)(i % GE_LOCALE_COUNT), sv, flags, &m);
         sink += m.html.len + m.subject.len;
         ge_mail_free(&m);
     });
@@ -146,8 +148,8 @@ int main(void)
         ge_mail_t m;
         int       t = i % GE_TPL_COUNT;
         ge_arena_reset(&arena);
-        ge_render_by_index_into_fast((ge_template_t)t, (ge_locale_t)(i % GE_LOCALE_COUNT), 0, sv,
-                                     &arena, &m);
+        ge_render_values_into_fast((ge_template_t)t, (ge_locale_t)(i % GE_LOCALE_COUNT), sv, flags,
+                                   &arena, &m);
         sink += m.html.len + m.subject.len;
     });
 

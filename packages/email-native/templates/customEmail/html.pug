@@ -6,17 +6,47 @@ block content
     p
       = t('emails.customEmail.haveReceivedMessageFrom', { senderAlias })
 
-  .subject-block
-    div(class="p_content human-text")= subject
+  //- A message written in the chat has no subject (E-013): no block then, rather than an
+      empty box above the text.
+  if subject
+    .subject-block
+      div(class="p_content")
+        +humanText(subject)
 
+  //- Bold as in the thread, where the message is read too.
+      A picture in the message (P7) is not in the mail -- the mail is the nudge, the
+      conversation the content (MAIL-008) --; a line before the text says there is one. A
+      picture may come without a caption: no empty line for the text then.
   .memo-block
-    div(class="p_content human-text")= memo
+    //- A forwarded copy (E-059): a line over it says so, with the name of whoever wrote the
+        words first -- none where the sender forwards words of their own.
+    if forwarded
+      div(class="p_content")
+        if forwardedFromAlias
+          = t('emails.customEmail.forwardedFrom', { forwardedFromAlias })
+        else
+          = t('emails.customEmail.forwarded')
+    if hasImage
+      div(class="p_content")
+        = t('emails.customEmail.imageNote')
+    if memo
+      div(class="p_content")
+        +humanText(memo, { bold: true })
+    //- What the sender wrote to go with a forwarded message: in the conversation a message of
+        its own right after the copy, here under it -- one mail for both.
+    if forwardWords
+      div(class="p_content")
+        = t('emails.customEmail.forwardWords', { senderAlias })
+      div(class="p_content")
+        +humanText(forwardWords)
     //- Green sits inside the card because that is where it is seen; the gold button
         below only offers the way into the account. Before, the single gold button led
         to the send form while saying "to account" - the label lied about its target.
+        The answer is written in the thread with the sender (P4c): the contact page opens
+        the window with the member `with` names, of the community `community` names.
     if senderCommunityUuid && senderUuid
       .child-right
-        a.button-5(href=`${communityURL}/send/${senderCommunityUuid}/${senderUuid}?art=email`)
+        a.button-5(href=`${communityURL}/contacts?with=${senderUuid}&community=${senderCommunityUuid}`)
           include ../includes/chatbox-icon.pug
           span #{t('emails.general.answerNow')}
 

@@ -1,8 +1,8 @@
 Η διεύθυνση e-mail σου πρόκειται να αλλάξει
 
-Γεια σου {firstName|&<>"'ä} {lastName|&<>"'ä},
+Γεια σου {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Για τον λογαριασμό σου Gradido ζητήθηκε αλλαγή της διεύθυνσης e-mail σε {newEmail|&<>"'ä}.
+Για τον λογαριασμό σου Gradido ζητήθηκε αλλαγή της διεύθυνσης e-mail σε {newEmail|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}.
 
 Μέχρι να επιβεβαιωθεί η νέα διεύθυνση, ισχύει αυτή εδώ. Αν ήσουν εσύ, δεν χρειάζεται να κάνεις τίποτα άλλο.
 
@@ -10,15 +10,15 @@
 
 Δεν ήσουν εσύ; Τότε κάνε κλικ εδώ – η αλλαγή απορρίπτεται και αυτή η διεύθυνση παραμένει.
 
-Απόρριψη αλλαγής [{revokeLink|&<>"'ä}]
+Απόρριψη αλλαγής [{revokeLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Ή αντίγραψε τον σύνδεσμο στο παράθυρο του προγράμματος περιήγησής σου.
 
-{revokeLink|&<>"'ä}
+{revokeLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Αν απορρίψεις την αλλαγή, άλλαξε στη συνέχεια και τον κωδικό σου.
 
-Ο σύνδεσμος ισχύει έως τις {validUntil|&<>"'ä} – μετά η ζητούμενη αλλαγή λήγει από μόνη της.
+Ο σύνδεσμος ισχύει έως τις {validUntil|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} – μετά η ζητούμενη αλλαγή λήγει από μόνη της.
 
 Με εκτίμηση,
 η ομάδα σου Gradido

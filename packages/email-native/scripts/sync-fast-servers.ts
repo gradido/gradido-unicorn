@@ -1,13 +1,13 @@
 /**
  * Puts the renderer into fast-servers, as C it compiles rather than C it generates.
  *
- * Four files: the renderer this package owns and the two `build.zig` wrote out of the pug
+ * Four files: the renderer this package owns and the two `build.zig` wrote out of the MJML
  * templates. They land beside the rest of service-core's email code — the public headers
  * under `include/service_core/email/`, the translation units in `src/email/` — so the C
  * build picks them up by walking those directories and needs no entry of its own.
  *
  * Why copy at all, rather than let `fast-servers/build.zig` run the codegen the way this
- * package's build does: the codegen is `node tools/gen_c.mjs`, and pug is a JS library.
+ * package's build does: the codegen is `node tools/gen_c.mjs`, and MJML is a JS library.
  * `zig build` in fast-servers stays free of node, bun and node_modules, which is what
  * keeps that path buildable on its own.
  *

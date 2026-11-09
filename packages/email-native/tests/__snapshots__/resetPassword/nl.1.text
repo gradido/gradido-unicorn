@@ -1,6 +1,6 @@
 Wachtwoord resetten
 
-Hallo {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hallo {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 jij, of iemand anders, heeft voor dit account een wachtwoordreset aangevraagd.
 
@@ -8,17 +8,17 @@ Wachtwoord resetten
 
 Als jij het was, klik dan hier.
 
-resetten [{resetLink|&<>"'ä}]
+resetten [{resetLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Of kopieer de link naar je browservenster.
 
-{resetLink|&<>"'ä}
+{resetLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Nieuwe geldige link aanvragen
 
-De link is {hours|&<>"'ä} uur geldig. Als de geldigheid van de link al verlopen is, kun je hier een nieuwe link laten toesturen.
+De link is {hours|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} uur geldig. Als de geldigheid van de link al verlopen is, kun je hier een nieuwe link laten toesturen.
 
-Nieuwe link [{resendLink|&<>"'ä}]
+Nieuwe link [{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Hartelijke groet,
 je Gradido-team

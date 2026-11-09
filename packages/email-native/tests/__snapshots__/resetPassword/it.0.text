@@ -1,6 +1,6 @@
 Reimposta la password
 
-Ciao {firstName|&<>"'ä} {lastName|&<>"'ä},
+Ciao {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 tu, o qualcun altro, hai richiesto la reimpostazione della password per questo account.
 
@@ -8,17 +8,17 @@ Reimposta la password
 
 Se sei stato tu, clicca qui.
 
-reimposta [{resetLink|&<>"'ä}]
+reimposta [{resetLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Oppure copia il link nella finestra del tuo browser.
 
-{resetLink|&<>"'ä}
+{resetLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
 Richiedi un nuovo link valido
 
-Il link è valido per {hours|&<>"'ä} ore e {minutes|&<>"'ä} minuti. Se la validità del link è già scaduta, qui puoi farti inviare un nuovo link.
+Il link è valido per {hours|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ore e {minutes|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} minuti. Se la validità del link è già scaduta, qui puoi farti inviare un nuovo link.
 
-Nuovo link [{resendLink|&<>"'ä}]
+Nuovo link [{resendLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Cordiali saluti,
 il tuo team Gradido

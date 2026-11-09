@@ -1,6 +1,6 @@
 Ваш аккаунт Gradido готов
 
-Здравствуйте, {firstName|&<>"'ä} {lastName|&<>"'ä},
+Здравствуйте, {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
 Вместе с участником Gradido для вас только что был создан аккаунт — с этим адресом электронной почты.
 
@@ -10,13 +10,13 @@
 
 Нажмите здесь, чтобы подтвердить ваш адрес электронной почты.
 
-Подтвердить адрес [{confirmLink|&<>"'ä}]
+Подтвердить адрес [{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Или скопируйте ссылку в окно вашего браузера.
 
-{confirmLink|&<>"'ä}
+{confirmLink|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Ссылка действительна {hours|&<>"'ä} часов. Если срок действия ссылки уже истёк, вы можете запросить здесь новую ссылку.
+Ссылка действительна {hours|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} часов и {minutes|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} минут. Если срок действия ссылки уже истёк, войдите и запросите новое письмо.
 
 Вы ничего не знаете об этом аккаунте? Тогда проигнорируйте это письмо — без подтверждения аккаунт останется закрытым.
 

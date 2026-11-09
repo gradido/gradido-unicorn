@@ -1,21 +1,21 @@
-Er is {transactionAmount|&<>"'ä} GDD doorgegeven met je bedankkaart
+Er is {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD doorgegeven met je bedankkaart
 
-Hallo {firstName|&<>"'ä} {lastName|&<>"'ä},
+Hallo {firstName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} {lastName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example},
 
-Er is zojuist {transactionAmount|&<>"'ä} GDD doorgegeven met je bedankkaart.
+Er is zojuist {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD doorgegeven met je bedankkaart.
 
 Transactiedetails
 
-Bedrag: {transactionAmount|&<>"'ä} GDD
-Ontvanger: {recipientName|&<>"'ä} ({recipientCommunity|&<>"'ä})
-Omschrijving: {transactionMemo|&<>"'ä}
-Kaart: {cardLabel|&<>"'ä}
+Bedrag: {transactionAmount|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} GDD
+Ontvanger: {recipientName|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example} ({recipientCommunity|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example})
+Omschrijving: {transactionMemo|&<>"'ä **b** https://x.example/r [https://x.example/r#config.subject=%22T%22] ftp://y.example/a. m@x.example}
+Kaart: {cardLabel|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}
 
-Naar het account [{communityURL|&<>"'ä}/transactions]
+Naar het account [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/transactions]
 
 Was jij dat niet? Blokkeer je kaart hier meteen — hij werkt daarna niet meer, je Gradido-adres blijft.
 
-Kaart blokkeren [{communityURL|&<>"'ä}/settings/thank-you-card?block={cardId|&<>"'ä}]
+Kaart blokkeren [{communityURL|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}/settings/thank-you-card?block={cardId|&<>"'ä **b** https://x.example/r#config.subject=%22T%22 ftp://y.example/a. m@x.example}]
 
 Beantwoord deze e-mail alsjeblieft niet.
 
