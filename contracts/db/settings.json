@@ -4,7 +4,7 @@
   "name": "settings",
   "description": "Instance-wide settings an admin may change at runtime. The same kind of value as const.json holds, but changeable without a release. A generic table with a contracted key set: the shape is open, the keys are not.",
   "source": null,
-  "origin": "gradido2",
+  "origin": "gradido-unicorn",
   "columns": [
     {
       "name": "key",

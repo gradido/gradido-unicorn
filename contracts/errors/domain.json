@@ -38,7 +38,7 @@
       "messageTemplate": "validation failed for {field}: {reason}",
       "parameters": [{ "name": "field", "type": "string" }, { "name": "reason", "type": "string" }],
       "httpStatus": 400,
-      "note": "New in gradido2. Legacy surfaced validation through MutationErrorType.VALIDATION_ERROR and through thrown strings; this replaces both."
+      "note": "New in gradido-unicorn. Legacy surfaced validation through MutationErrorType.VALIDATION_ERROR and through thrown strings; this replaces both."
     }
   ]
 }

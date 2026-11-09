@@ -4,7 +4,7 @@
   "name": "roles",
   "description": "The roles an admin creates on top of the default ones. The default roles are not in here and never will be: they are defined in code, their rights are in ../rights.json, and this table cannot overwrite either.",
   "source": null,
-  "origin": "gradido2",
+  "origin": "gradido-unicorn",
   "columns": [
     {
       "name": "id",

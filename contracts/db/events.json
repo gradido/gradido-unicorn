@@ -11,7 +11,7 @@
       "type": "varchar(100)",
       "nullable": false,
       "description": "The event name, e.g. CONTRIBUTION_CONFIRM. An open set in legacy — one constant per file under backend/src/event/.",
-      "open": "Not an enum here. Legacy has around 60 of these as string constants, and the set grows with every feature. Whether gradido2 contracts them as a closed enum or keeps them open decides whether an unknown value on read is an error or a fact."
+      "open": "Not an enum here. Legacy has around 60 of these as string constants, and the set grows with every feature. Whether gradido-unicorn contracts them as a closed enum or keeps them open decides whether an unknown value on read is an error or a fact."
     },
     {
       "name": "affected_user_id",
@@ -88,7 +88,7 @@
     "Append-only, like transactions: the row is the event. Nothing updates or deletes here, and both implementations must treat an UPDATE or DELETE on this table as a bug.",
     "Six nullable involved_* columns, of which an event fills at most two. It is a wide sparse row rather than a polymorphic reference, and a reader must not assume that exactly one is set.",
     "This is not the log. logging.json describes what both implementations emit to stdout; this table is business history that survives the process. A change that writes one and not the other is incomplete.",
-    "Legacy declares no index at all here, and the admin views read it by affected_user_id and by created_at. Whatever gradido2 reads it by needs an index written into this file — see contracts/AGENTS.md, indexes are part of the contract.",
+    "Legacy declares no index at all here, and the admin views read it by affected_user_id and by created_at. Whatever gradido-unicorn reads it by needs an index written into this file — see contracts/AGENTS.md, indexes are part of the contract.",
     "Timestamps are UTC milliseconds; see types/Timestamp.json. Migration 0061 raised created_at to datetime(3), so rows written before it have second precision."
   ]
 }

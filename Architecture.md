@@ -1,8 +1,8 @@
-# Gradido2 Architecture
+# Gradido Unicorn Architecture
 
 ## Scope
 
-Gradido2 is a **rebuild of gradido legacy on a new stack**. No legacy code is carried over,
+Gradido Unicorn is a **rebuild of gradido legacy on a new stack**. No legacy code is carried over,
 but the complete feature set of gradido legacy is the target — this is a replacement, not a
 subset and not a second product.
 
@@ -12,7 +12,7 @@ the answer is then written down in `contracts/test-vectors` so it is decided onl
 
 ## Core principle
 
-Gradido2 uses a **reconstructible, session-local working context**.
+Gradido Unicorn uses a **reconstructible, session-local working context**.
 
 The database remains the source of truth. The session is a materialized, ephemeral view of the data the current user has already needed.
 
@@ -25,7 +25,7 @@ The primary optimization is therefore not making database access slightly faster
 
 ## Why two implementations
 
-Gradido2 exists twice:
+Gradido Unicorn exists twice:
 
 - **TypeScript** (bun, ElysiaJS, valibot), as workspaces in `packages/` — the reference implementation. It defines the business behavior.
 - **C** (with C++ in leaf modules), in `fast-servers/` — a fast implementation that lazily mirrors the TypeScript side. It is allowed to lag behind.
@@ -601,7 +601,7 @@ fast-servers/      C — fast implementation, mirrors the domain structure
 contracts/         language-independent JSON contracts, see below
 
 docker-compose.yml PostgreSQL, Adminer and a maildev mail sink for
-                   development. No gradido2 service runs in a container — see
+                   development. No gradido-unicorn service runs in a container — see
                    *Development containers* in README.md for why that is
                    deliberate and what it costs to measure through one
 ```
@@ -1068,9 +1068,9 @@ so a second checkout costs nothing.
 Each implementation ships as one executable, and both of them serve the same pages:
 
 ```text
-bun bundle             build/gradido2 — the backend, the frontends, both native
+bun bundle             build/gradido-unicorn — the backend, the frontends, both native
                        addons, and the bun runtime
-BUNDLE_C=1 bun bundle  build/gradido2-fast beside it — the roles, the frontends,
+BUNDLE_C=1 bun bundle  build/gradido-unicorn-fast beside it — the roles, the frontends,
                        and nothing dynamically linked but libc and libm
 ```
 
